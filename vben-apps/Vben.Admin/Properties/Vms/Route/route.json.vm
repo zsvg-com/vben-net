@@ -1,0 +1,32 @@
+﻿{
+  path: '/${replaceDto.UrlName}',
+  name: '${genTable.bunam}',
+  component: () => import('/@/pages/${replaceDto.UrlName}/index.vue'),
+  meta:{
+    title: '${genTable.remark}清单',
+    isLink: '',
+    isHide: false,
+    isKeepAlive: true,
+    isAffix: false,
+    isIframe: false,
+    roles: ['admin'],
+    icon: 'ele-Tickets',
+  },
+},
+$if(genTable.edtyp=="tab")
+{
+  path: '/${replaceDto.UrlName}/edit',
+  name: '${genTable.bunam}Edit',
+  component: () => import('/@/pages/${replaceDto.UrlName}/edit.vue'),
+  meta: {
+    title: '${genTable.remark}编辑',
+    isLink: '',
+    isHide: true,
+    isKeepAlive: true,
+    isAffix: false,
+    isIframe: false,
+    roles: ['admin'],
+    icon: 'ele-Tickets',
+  },
+},
+$end

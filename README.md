@@ -1,63 +1,210 @@
-<div align="center"><h1 align="center">vboot-net</h1></div>
-<div align="center"><h3 align="center">一个开箱即用的快速开发平台.NET版</h3></div>
+### 🍿 项目简介
 
-# 🍿 相关地址
+[![码云Gitee](https://gitee.com/vben/vben-net/badge/star.svg?theme=blue)](https://gitee.com/vben/vben-net)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)]()
 
-* 体验地址1：[http://zsvg.gitee.io/vue](http://zsvg.gitee.io/vue) （基于Element-Plus）
-* 体验地址2：[http://zsvg.gitee.io/vben](http://zsvg.gitee.io/vben) （基于Ant-Design-Vue）
-* 文档地址 ：[http://zsvg.gitee.io/vnds](http://zsvg.gitee.io/vnds)
-* QQ交流群：[795417789](https://jq.qq.com/?_wv=1027&k=yoKKIlIG) （欢迎大家一起交流）
+vben-net 是一款基于.NET8（.NET10）+Vue3的前后端分离快速开发框架。
 
-# 🍟 概述
+后端主要参考了 [Admin.Net](https://gitee.com/zuohuaijun/Admin.NET) 与 [ZRAdmin](https://gitee.com/izory/ZrAdminNetCore)，集成业界一流技术栈，针对企业痛点，具有组件化、模块化、轻耦合、高扩展等特色。
+设计上兼容了Furion框架与原生ASP.NET Core框架，可自由切换。
 
-* 基于.NET6实现的快速开发平台。模块化插件式开发，前后端分离，开箱即用。
-* 后端基于Furion框架，数据库访问使用Sqlsugar，codeFirst方式。
-* 前端基于vue-next-admin/vben框架，引入了bpmn.js工作流、VForm可视化表单。
-* 默认前端（Element-Plus）项目地址：[https://gitee.com/zsvg/vboot-vue](https://gitee.com/zsvg/vboot-vue)
-* Vben前端（Ant-Design-Vue）项目地址：[https://gitee.com/zsvg/vboot-vben](https://gitee.com/zsvg/vboot-vben)
-* JAVA实现的同功能项目地址：[https://gitee.com/zsvg/vboot-java](https://gitee.com/zsvg/vboot-java) 两个项目会同步开发
+前端基于 [Vben Admin](https://github.com/vbenjs/vue-vben-admin) 改造，使用最新前端技术栈，提供丰富的组件和模板以及N种偏好设置组合方案，
+应用层可自由选择UI框架（Element Plus，Ant Design Vue，Native UI）
 
-# 🏀 分层说明
-```
-├─Vboot.Application             ->业务应用层，在此写您具体业务代码
-├─Vboot.Core                    ->框架核心层
-├─Vboot.Web.Core                ->Web核心层，主要是服务注册及鉴权
-├─Vboot.Web.Entry               ->Web入口层/启动层，可任意更换
-注：建议将自己的业务代码写在【Vboot.Application】层里面，可随框架升级减少冲突。
-```
+移动端基于 [cool-unix](https://gitee.com/cool-team-official/cool-unix) 改造，参照了unibest的方式，通过pnpm集成，
+除了可继续使用HBuilderX，还可以使用VS Code，Webstorm 开发运行uni-app x 应用（WEB与小程序）。注：安卓、苹果、鸿蒙端的运行还是需要借助HBuilderX。
 
-# 🍖 详细功能
+### 🍟 相关地址
 
-1. 主控面板：控制台页面，可进行工作台，分析页，统计等功能的展示。
-2. 部门管理：部门维护，支持多层级结构的树形结构。
-3. 用户管理：用户维护，可设置用户部门，岗位，群组，职务，角色，数据权限等。
-4. 岗位管理：岗位维护，岗位可作为用户的一个标签，岗位也可与权限等其他功能挂钩。
-5. 群组管理：群组维护，群组可设置部门，用户，岗位，用于更广泛的权限设置。
-6. 菜单管理：菜单目录，菜单，和按钮的维护是权限控制的基本单位。
-7. 角色管理：角色绑定菜单后，可限制相关角色的人员登录系统的功能范围。
-8. 字典管理：系统内各种枚举类型的维护。
-9. 访问日志：用户的登录和退出日志的查看和管理。
-10. 操作日志：用户的操作业务的日志的查看和管理。
-11. 定时任务：定时任务的维护，通过cron表达式控制任务的执行频率。
-12. 流程引擎：流程图展示，支持驳回、转办、废弃，跳转等功能
-13. 消息机制：待办待阅功能，联通钉钉与企业微信接口
+* 前端WEB 体验地址 ：[http://8.153.168.178/](http://8.153.168.178/)
 
-# ⚡ 近期计划
+* 移动端APP 体验地址 ：[http://8.153.168.178/app/](http://8.153.168.178/app/)
 
-- [ ] 完善文档
-- [ ] 完善工作流
-- [ ] 代码生成器
+* 文档地址 ：[http://8.153.168.178/net-doc](http://8.153.168.178/net-doc)
 
-# 💐 特别鸣谢
-- 👉 Furion：  [https://dotnetchina.gitee.io/furion](https://dotnetchina.gitee.io/furion)
-- 👉 SqlSugar：[https://gitee.com/dotnetchina/SqlSugar](https://gitee.com/dotnetchina/SqlSugar)
-- 👉 Admin.NET：[https://gitee.com/zuohuaijun/Admin.NET](https://gitee.com/zuohuaijun/Admin.NET)
-- 👉 Magic.NET：[https://gitee.com/zhengguojing/admin-net-sqlsugar](https://gitee.com/zhengguojing/admin-net-sqlsugar)
-- 👉 Vben-Admin：[https://vvbin.cn/doc-next](https://vvbin.cn/doc-next)
-- 👉 vue-next-admin：[https://gitee.com/lyt-top/vue-next-admin](https://gitee.com/lyt-top/vue-next-admin)
-- 👉 vxe-table：[https://gitee.com/xuliangzhan_admin/vxe-table](https://gitee.com/xuliangzhan_admin/vxe-table)
-- 👉 VForm：[https://www.vform666.com](https://www.vform666.com/)
+* 后端API 项目地址 https://gitee.com/vben/vben-net
 
-```
-如果对您有帮助，点击右上角⭐Star⭐关注 ，感谢支持开源！
-```
+* 前端WEB 项目地址 https://gitee.com/vben/vben-web
+
+* 移动端APP 项目地址 https://gitee.com/vben/vben-app
+
+* 同功能java后端 项目地址 https://gitee.com/vben/vben-java
+
+* 联系方式（加微信后可找小狐狸拉进交流群）：
+
+![输入图片说明](https://gitee.com/vben/vben-app/raw/master/docs/wx.jpg "微信联系方式")
+
+### ⚡ 快速启动
+
+后端
+
+* 准备工作：1. 准备.NET8（.NET10）环境，修改根目录下的Directory.Build.props文件中对应的全局TargetFramework 2. 根据Vben.Admin应用下/Properties/Configs/web.Development.json配置文件准备一个空的数据库，默认为vben-net的mysql数据库，账号root,密码123456 3. 开启redis 默认密码为空
+
+* 启动后台API：启动VbenAdmin，系统会根据SqlSugar CodeFirst自动生成数据库表结构，另外会根据Init相关服务生成数据库初始化数据。也可启动VbenDemo查看相应DEMO示例
+
+前端
+
+* 准备工作：准备Node.js 20.15.0以上环境，全局安装pnpm：npm install -g pnpm
+
+* 启动前台WEB：1. 使用pnpm install安装依赖 2. 使用pnpm dev:ele运行项目 3.访问 http://localhost:5666/ 预览
+
+### 🍄 主要特色
+
+- 后端项目中抽离并拆分了公共功能，以插件化与扩展包的方式组织，结构解耦且易于扩展。
+- 后端项目业务模块以多基础模块与多应用方式组织，可实现多个应用共用相同基础模块，方便实现基础模块共享
+- 后端项目设计上兼容了Furion框架与原生ASP.NET core框架，可自由切换。
+- 工作流模块不依赖其他工作流引擎，全部自行实现，易于扩展，实现复杂工作流
+- 统一的命名风格，数据库表主键统一用ID命名，表字段采用SAP风格（后端手册里有详细介绍）
+
+
+### 🍖 内置功能
+
+以下表格列出了Furion版本（master分支）与Native版本(native分支)的差异。
+
+<table>
+    <thead>
+    <tr>
+        <th width="150" align="center">业务模块</th>
+        <th width="*">功能说明</th>
+        <th width="150" align="center">Furion版本</th>
+        <th width="150" align="center">Native版本</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td align="center">用户管理</td>
+        <td>用户的管理配置 如:新增用户、分配用户所属部门、角色、岗位等</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">部门管理</td>
+        <td>配置系统组织机构（公司、部门、小组） 树结构展现支持数据权限</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">岗位管理</td>
+        <td>配置系统用户所属担任职务</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">菜单管理</td>
+        <td>配置系统菜单、操作权限、按钮权限标识等</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">角色管理</td>
+        <td>角色根据部门、用户、岗位、群组分配权限</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">字典管理</td>
+        <td>对系统中经常使用的一些较为固定的数据进行维护</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">参数管理</td>
+        <td>对系统动态配置常用参数</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">通知公告</td>
+        <td>系统通知公告信息发布维护</td>
+        <td align="center">√</td>
+        <td align="center">× 待支持</td>
+    </tr>
+    <tr>
+        <td align="center">客户端管理</td>
+        <td>系统内对接的所有客户端管理 如: pc端、小程序端等，支持动态授权登录方式 如: 短信登录、密码登录等 支持动态控制token时效</td>
+        <td align="center">× 待支持</td>
+        <td align="center">× 待支持</td>
+    </tr>
+    <tr>
+        <td align="center">操作日志</td>
+        <td>系统正常操作日志记录和查询 系统异常信息日志记录和查询</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">登录日志</td>
+        <td>系统登录日志记录查询包含登录异常</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">文件管理</td>
+        <td>同时支持本地文件存储于分布式对象存储。系统文件展示、上传、下载、删除等管理</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">在线用户管理</td>
+        <td>已登录系统的在线用户信息监控与强制踢出操作</td>
+        <td align="center">√</td>
+        <td align="center">× 待支持</td>
+    </tr>
+    <tr>
+        <td align="center">定时任务</td>
+        <td>运行报表、任务管理(添加、修改、删除)、日志管理、执行器管理等</td>
+        <td align="center">√</td>
+        <td align="center">×</td>
+    </tr>
+    <tr>
+        <td align="center">代码生成</td>
+        <td>前后端代码的生成（c#、vue、sql）支持CRUD下载</td>
+        <td align="center">√</td>
+        <td align="center">×</td>
+    </tr>
+    <tr>
+        <td align="center">系统接口</td>
+        <td>根据业务代码自动生成相关的api接口文档</td>
+        <td align="center">√ 全面</td>
+        <td align="center">√ 基本</td>
+    </tr>
+    <tr>
+        <td align="center">服务监控</td>
+        <td>监视系统CPU、内存、磁盘、堆栈、在线日志等</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">缓存监控</td>
+        <td>对系统的缓存信息查询，命令统计等</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">在线构建器</td>
+        <td>拖动表单元素生成相应的HTML代码</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">使用案例</td>
+        <td>系统的一些功能案例</td>
+        <td align="center">√</td>
+        <td align="center">√</td>
+    </tr>
+    <tr>
+        <td align="center">工作流</td>
+        <td>前端流程图采用BPMN.js，表单采用FromCreate（FormDesigner），后端自行实现流程引擎</td>
+        <td align="center">× 待java版本稳定</td>
+        <td align="center">× 待java版本稳定</td>
+    </tr>
+    </tbody>
+</table>
+
+### 💐 特别鸣谢
+- 👉 原框架作者：[zsvg](https://gitee.com/zsvg)
+- 👉 Vben-Admin：[https://github.com/vbenjs/vue-vben-admin](https://github.com/vbenjs/vue-vben-admin)
+- 👉 Furion：[https://furion.net/](https://furion.net/)
+- 👉 SqlSugar：[https://www.donet5.com/Home/Doc](https://www.donet5.com/Home/Doc)
+- 👉 Admin.Net：[https://gitee.com/zuohuaijun/Admin.NET](https://gitee.com/zuohuaijun/Admin.NET)
+- 👉 ZrAdmin：[https://gitee.com/izory/ZrAdminNetCore](https://gitee.com/izory/ZrAdminNetCore)
+

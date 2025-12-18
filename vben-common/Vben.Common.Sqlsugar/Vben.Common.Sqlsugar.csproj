@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SqlSugarCore" Version="5.1.4.207" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Vben.Common.Core\Vben.Common.Core.csproj" />
+    </ItemGroup>
+
+</Project>

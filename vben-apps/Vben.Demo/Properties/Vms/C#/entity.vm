@@ -1,0 +1,16 @@
+﻿namespace ${options.Namespace};
+
+[SugarTable("${genTable.name}", TableDescription = "${genTable.remark}")]
+public class ${genTable.bunam} : ${genTable.baent}
+{
+    $foreach(item in genTable.fields)
+    
+    /// <summary>
+    /// ${item.remark} 
+    /// </summary>
+    [SugarColumn(ColumnDescription = "${item.remark}", IsNullable = true $if(item.type=="string"&&item.length), Length = ${item.length} $end)]
+    public $if(item.type=="date")DateTime?$else${item.type}$end ${item.name} { get; set; }
+    
+    $end
+  
+}

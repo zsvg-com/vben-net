@@ -1,1 +1,0 @@
-import{C as t,F as p,E as e,D as o}from"./common.1652784183534.js";import"./index.1652784183534.js";import"./vue.1652784183534.js";import"./store.1652784183534.js";const r=[t,e,o];var s={"bpmn:StartEvent":[t,p,e,o],"bpmn:EndEvent":r,"bpmn:IntermediateThrowEvent":r,"bpmn:IntermediateCatchEvent":r};export{s as default};

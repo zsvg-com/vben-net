@@ -1,0 +1,68 @@
+﻿namespace ${options.Namespace};
+
+/// <summary>
+/// ${genTable.remark}
+/// </summary>
+[Route("${replaceDto.UrlName}")]
+[ApiDescriptionSettings(Tag = "${genTable.remark}")]
+public class DemoEasyMainConroller(${genTable.bunam}Service service) : ControllerBase
+{
+    /// <summary>
+    /// ${genTable.remark}分页查询
+    /// </summary>
+    [HttpGet]
+    public async Task<dynamic> Get(string name)
+    {
+        var pp = XreqUtil.GetPp();
+        var items = await service.Repo.Context.Queryable<${genTable.bunam}>()
+            .LeftJoin<SysOrg>((t, c) => c.id == t.cruid)
+            .LeftJoin<SysOrg>((t, c, u) => u.id == t.upuid)
+            .WhereIF(!string.IsNullOrWhiteSpace(name), t => t.name.Contains(name.Trim()))
+            .Select((t, c, u) => new
+            {
+                t.id, t.name, t.crtim, t.uptim, t.notes,
+                cruna = c.name, upuna = u.name
+            })
+            .ToPageListAsync(pp.page, pp.pageSize, pp.total);
+        return RestPageResult.Build(pp.total.Value, items);
+    }
+
+    /// <summary>
+    /// ${genTable.remark}详情查询
+    /// </summary>
+    [HttpGet("info/{id}")]
+    public async Task<${genTable.bunam}> GetInfo(long id)
+    {
+        return await service.Select(id);
+    }
+
+    /// <summary>
+    /// ${genTable.remark}新增
+    /// </summary>
+    [HttpPost]
+    [Oplog(title="${genTable.remark}",type = 1)]
+    public async Task<long> Post([FromBody] ${genTable.bunam} main)
+    {
+        return await service.Insert(main);
+    }
+
+    /// <summary>
+    /// ${genTable.remark}修改
+    /// </summary>
+    [HttpPut]
+    [Oplog(title="${genTable.remark}",type = 2)]
+    public async Task<long> Put([FromBody] ${genTable.bunam} main)
+    {
+        return await service.Update(main);
+    }
+
+    /// <summary>
+    /// ${genTable.remark}删除
+    /// </summary>
+    [HttpDelete("{ids}")]
+    [Oplog(title="${genTable.remark}",type = 3)]
+    public async Task<int> Delete(string ids)
+    {
+        return await service.Delete(ids);
+    }
+}

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <RootNamespace>Vben.Admin</RootNamespace>
+        <DocumentationFile>Properties\Vben.Demo.xml</DocumentationFile>
+        <EnvironmentName>Development</EnvironmentName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="Properties\**">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\vben-modules\Vben.Bpm\Vben.Bpm.csproj" />
+    </ItemGroup>
+
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties properties_4launchsettings_1json__JsonSchema="" />
+        </VisualStudio>
+    </ProjectExtensions>
+
+</Project>

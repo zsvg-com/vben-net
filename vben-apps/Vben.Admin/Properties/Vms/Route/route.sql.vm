@@ -1,0 +1,7 @@
+﻿    insert into sys_perm_menu (id,ornum,pid,porid,type,code,icon,path,comp,extag,catag,shtag,iftag,name,crman,avtag) 
+    values ('${genTable.bunam}',999991,null,'sys','M','${genTable.bunam}','ele-Tickets','/${replaceDto.UrlName}','/${replaceDto.UrlName}/index',0,1,1,0,'${genTable.remark}清单','sa',1); 
+
+    $if(genTable.edtyp=="tab")
+insert into sys_perm_menu (id,ornum,pid,porid,type,code,icon,path,comp,extag,catag,shtag,iftag,name,crman,avtag) 
+    values ('${genTable.bunam}Edit',999992,null,'sys','M','${genTable.bunam}Edit','ele-Tickets','/${replaceDto.UrlName}/edit','/${replaceDto.UrlName}/edit',0,1,0,0,'${genTable.remark}编辑','sa',1); 
+    $end

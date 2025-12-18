@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Vben.Demo</name>
+    </assembly>
+    <members>
+        <member name="T:Vben.Admin.Demo.Link.Cate.DemoLinkCate">
+            <summary>
+            关联分类表
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller">
+            <summary>
+            关联分类表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.#ctor(Vben.Admin.Demo.Link.Cate.DemoLinkCateService)">
+            <summary>
+            关联分类表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.GetList(System.String)">
+            <summary>
+            关联分类表-列表查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.GetTree(System.Int64)">
+            <summary>
+            关联分类表-树状查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.GetInfo(System.Int64)">
+            <summary>
+            关联分类表-详情查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.Post(Vben.Admin.Demo.Link.Cate.DemoLinkCate)">
+            <summary>
+            关联分类表-新增
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.Put(Vben.Admin.Demo.Link.Cate.DemoLinkCate)">
+            <summary>
+            关联分类表-修改
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.Delete(System.String)">
+            <summary>
+            关联分类表-删除
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateConroller.PostMove(Vben.Common.Sqlsugar.Mvc.Pojo.Lmove)">
+            <summary>
+            关联分类表-移动
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Link.Cate.DemoLinkCateService">
+            <summary>
+            单一主表服务
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Cate.DemoLinkCateService.#ctor(Vben.Common.Sqlsugar.Config.SqlSugarRepository{Vben.Admin.Demo.Link.Cate.DemoLinkCate})">
+            <summary>
+            单一主表服务
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Item.DemoLinkItem.id">
+            <summary>
+            Id主键
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Item.DemoLinkItem.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Item.DemoLinkItem.maiid">
+            <summary>
+            主表ID
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Item.DemoLinkItem.ornum">
+            <summary>
+            排序号
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Item.DemoLinkItem.notes">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Link.Main.DemoLinkMain">
+            <summary>
+            关联主表
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Main.DemoLinkMain.catid">
+            <summary>
+            分类ID
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Main.DemoLinkMain.items">
+            <summary>
+            行项目列表
+            </summary>
+        </member>
+        <member name="P:Vben.Admin.Demo.Link.Main.DemoLinkMain.orgs">
+            <summary>
+            关联用户中间表
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Link.Main.DemoLinkMainConroller">
+            <summary>
+            关联主表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Main.DemoLinkMainConroller.#ctor(Vben.Admin.Demo.Link.Main.DemoLinkMainService)">
+            <summary>
+            关联主表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Main.DemoLinkMainConroller.Get(System.String,System.Int64)">
+            <summary>
+            关联主表-分页查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Main.DemoLinkMainConroller.GetInfo(System.Int64)">
+            <summary>
+            关联主表-详情查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Main.DemoLinkMainConroller.Post(Vben.Admin.Demo.Link.Main.DemoLinkMain)">
+            <summary>
+            关联主表-新增
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Main.DemoLinkMainConroller.Put(Vben.Admin.Demo.Link.Main.DemoLinkMain)">
+            <summary>
+            关联主表-修改
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Main.DemoLinkMainConroller.Delete(System.String)">
+            <summary>
+            关联主表-删除
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Link.Main.DemoLinkMainService">
+            <summary>
+            关联主表服务
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Link.Main.DemoLinkMainService.#ctor(Vben.Common.Sqlsugar.Config.SqlSugarRepository{Vben.Admin.Demo.Link.Main.DemoLinkMain})">
+            <summary>
+            单一主表服务
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Single.Cate.DemoSingleCate">
+            <summary>
+            单一树表
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller">
+            <summary>
+            单一树表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller.#ctor(Vben.Admin.Demo.Single.Cate.DemoSingleCateService)">
+            <summary>
+            单一树表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller.GetList(System.String)">
+            <summary>
+            单一树表-列表查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller.GetTree(System.Int64,System.String)">
+            <summary>
+            单一树表-树状查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller.GetInfo(System.Int64)">
+            <summary>
+            单一树表-详情查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller.Post(Vben.Admin.Demo.Single.Cate.DemoSingleCate)">
+            <summary>
+            单一树表-新增
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller.Put(Vben.Admin.Demo.Single.Cate.DemoSingleCate)">
+            <summary>
+            单一树表-修改
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateConroller.Delete(System.String)">
+            <summary>
+            单一树表-删除
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Single.Cate.DemoSingleCateService">
+            <summary>
+            单一主表服务
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Cate.DemoSingleCateService.#ctor(Vben.Common.Sqlsugar.Config.SqlSugarRepository{Vben.Admin.Demo.Single.Cate.DemoSingleCate})">
+            <summary>
+            单一主表服务
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Single.Main.DemoSingleMain">
+            <summary>
+            单一主表
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Single.Main.DemoEasyMainConroller">
+            <summary>
+            单一主表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Main.DemoEasyMainConroller.#ctor(Vben.Admin.Demo.Single.Main.DemoSingleMainService)">
+            <summary>
+            单一主表案例
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Main.DemoEasyMainConroller.Get(System.String)">
+            <summary>
+            单一主表-分页查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Main.DemoEasyMainConroller.GetInfo(System.Int64)">
+            <summary>
+            单一主表-详情查询
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Main.DemoEasyMainConroller.Post(Vben.Admin.Demo.Single.Main.DemoSingleMain)">
+            <summary>
+            单一主表-新增
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Main.DemoEasyMainConroller.Put(Vben.Admin.Demo.Single.Main.DemoSingleMain)">
+            <summary>
+            单一主表-修改
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Main.DemoEasyMainConroller.Delete(System.String)">
+            <summary>
+            单一主表-删除
+            </summary>
+        </member>
+        <member name="T:Vben.Admin.Demo.Single.Main.DemoSingleMainService">
+            <summary>
+            单一主表服务
+            </summary>
+        </member>
+        <member name="M:Vben.Admin.Demo.Single.Main.DemoSingleMainService.#ctor(Vben.Common.Sqlsugar.Config.SqlSugarRepository{Vben.Admin.Demo.Single.Main.DemoSingleMain})">
+            <summary>
+            单一主表服务
+            </summary>
+        </member>
+    </members>
+</doc>

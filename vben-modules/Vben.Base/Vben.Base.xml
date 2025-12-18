@@ -1,0 +1,2329 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Vben.Base</name>
+    </assembly>
+    <members>
+        <member name="M:Vben.Base.Auth.Root.AuthzHandler.PipelineAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,Microsoft.AspNetCore.Http.DefaultHttpContext)">
+            <summary>
+            授权判断逻辑，授权通过返回 true，否则返回 false
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Auth.Root.AuthzHandler.checkPerm(System.String,System.String,System.String)">
+            <summary>
+            权限校验核心逻辑
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Auth.Root.RestResultProvider">
+            <summary>
+            规范化RESTful风格返回值
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Auth.Root.RestResult`1">
+            <summary>
+            RESTful风格---XIAONUO返回格式
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Vben.Base.Auth.Root.RestResult`1.Success">
+            <summary>
+            执行成功
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Auth.Root.RestResult`1.code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Auth.Root.RestResult`1.msg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Auth.Root.RestResult`1.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Auth.Root.RestResult`1.Extras">
+            <summary>
+            附加数据
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Auth.Root.RestResult`1.Timestamp">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Auth.User.AuthUserApi.BuildPerms(Vben.Base.Auth.User.UserInfoVo)">
+            构建登录用户
+        </member>
+        <member name="P:Vben.Base.Auth.User.MetaVo.icon">
+            设置该路由的图标，对应路径src/assets/icons/svg
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Vben.Base.Auth.User.MetaVo.noCache" -->
+        <member name="P:Vben.Base.Auth.User.MetaVo.link">
+            内链地址（http(s)://开头）
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.path">
+            路由地址
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.hidden">
+            是否隐藏路由，当设置 true 的时候该路由不会再侧边栏出现
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.redirect">
+            重定向地址，当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.component">
+            组件地址
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.query">
+            路由参数：如 {"id": 1, "name": "ry"}
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.alwaysShow">
+            当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.meta">
+            其他元素
+        </member>
+        <member name="P:Vben.Base.Auth.User.RouterVo.children">
+            子路由
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.userId">
+            用户ID
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.tenantId">
+            租户ID
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.deptId">
+            部门ID
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.userName">
+            用户账号
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.nickName">
+            用户昵称
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.userType">
+            用户类型（sys_user系统用户）
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.email">
+            用户邮箱
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.phonenumber">
+            手机号码
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.sex">
+            用户性别（0男 1女 2未知）
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.avatar">
+            头像地址
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.password">
+            密码
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.status">
+            帐号状态（0正常 1停用）
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.loginIp">
+            最后登录IP
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.loginDate">
+            最后登录时间
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.remark">
+            备注
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.createTime">
+            创建时间
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.deptName">
+            部门名
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.roleIds">
+            角色对象
+            角色组
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.postIds">
+            岗位组
+        </member>
+        <member name="P:Vben.Base.Auth.User.SysUserVo.roleId">
+            数据权限 当前角色ID
+        </member>
+        <member name="P:Vben.Base.Auth.User.UserInfoVo.user">
+            用户基本信息
+        </member>
+        <member name="P:Vben.Base.Auth.User.UserInfoVo.permissions">
+            菜单权限
+        </member>
+        <member name="P:Vben.Base.Auth.User.UserInfoVo.roles">
+            角色权限
+        </member>
+        <member name="T:Vben.Base.Mon.Job.Main.MonJobMain">
+            <summary>
+            定时任务
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Job.Main.MonJobMain.code">
+            <summary>
+            任务code
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Job.Main.MonJobMain.reurl">
+            <summary>
+            请求url
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Job.Main.MonJobMain.retyp">
+            <summary>
+            请求类型
+            </summary>
+            <example>2</example>
+        </member>
+        <member name="P:Vben.Base.Mon.Job.Main.MonJobMain.rehea">
+            <summary>
+            Headers(可以包含如：Authorization授权认证)
+            格式：{"Authorization":"userpassword.."}
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Job.Main.MonJobMain.repar">
+            <summary>
+            请求参数（Post，Put请求用）
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Job.Main.MonJobMain.cron">
+            <summary>
+            Cron表达式
+            </summary>
+            <example></example>
+        </member>
+        <member name="M:Vben.Base.Mon.Job.Main.MonJobMainApi.GetInfo(System.String)">
+            <summary>
+            查看任务
+            </summary>
+            
+        </member>
+        <member name="M:Vben.Base.Mon.Job.Main.MonJobMainApi.PostInit">
+            <summary>
+            任务初始化
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Job.Main.MonJobMainApi.PostStart(System.String)">
+            <summary>
+            启动任务
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Job.Main.MonJobMainApi.PostStop(System.String)">
+            <summary>
+            停止任务
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Job.Main.MonJobMainApi.PostOnce(System.String)">
+            <summary>
+            立即执行一次
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Mon.Log.Login.MonLoginLog">
+            <summary>
+            登录日志表
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.usnam">
+            <summary>
+            用户账号
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.loip">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.loloc">
+            <summary>
+            登录地点
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.clkey">
+            <summary>
+            客户端
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.detyp">
+            <summary>
+            设备类型
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.sutag">
+            <summary>
+            登录状态
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.agdet">
+            <summary>
+            客户端详情
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.lotim">
+            <summary>
+            登录时间
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Mon.Log.Audit.MonLogAudit">
+            <summary>
+            系统操作/审计日志表
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.TableName">
+            <summary>
+            表名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.ColumnName">
+            <summary>
+            列名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.NewValue">
+            <summary>
+            新值
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.OldValue">
+            <summary>
+            旧值
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.CreatedTime">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.UserId">
+            <summary>
+            操作人Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.UserName">
+            <summary>
+            操作人名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Audit.MonLogAudit.Operate">
+            <summary>
+            操作方式：新增、更新、删除
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Mon.Log.Error.MonLogError">
+            <summary>
+            错误日志
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.name">
+            <summary>
+            操作名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.useid">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.usena">
+            <summary>
+            用户姓名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.usnam">
+            <summary>
+            用户账号
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.clazz">
+            <summary>
+            类名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.method">
+            <summary>
+            方法名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.ExceptionName">
+            <summary>
+            异常名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.ExceptionMsg">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.ExceptionSource">
+            <summary>
+            异常源
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.error">
+            <summary>
+            堆栈信息
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.param">
+            <summary>
+            参数对象
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.crtim">
+            <summary>
+            异常时间
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Mon.Log.Root.LogExceptionHandler">
+            <summary>
+            全局异常处理
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Mon.Log.Root.RequestActionFilter">
+            <summary>
+            请求日志拦截
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Mon.online.user.MonOnlineUser">
+            <summary>
+            在线用户
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.id">
+            <summary>
+            雪花Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.tenid">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.conid">
+            <summary>
+            连接Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.useid">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.usena">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.nicna">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.cotim">
+            <summary>
+            连接时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.ip">
+            <summary>
+            连接IP
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Mon.Online.User.MonOnlineUserApi">
+            <summary>
+            系统在线用户服务 🧩
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.GetList">
+            <summary>
+            获取在线用户分页列表 🔖
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.ForceOffline(Vben.Base.Mon.online.user.MonOnlineUser)">
+            <summary>
+            强制下线 🔖
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.PublicNotice(Vben.Base.Sys.Notice.SysNotice,System.Collections.Generic.List{System.String})">
+            <summary>
+            发布站内消息
+            </summary>
+            <param name="notice"></param>
+            <param name="userIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.SingleLogin(System.String)">
+            <summary>
+            单用户登录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.ForceOffline(System.String)">
+            <summary>
+            通过用户ID踢掉在线用户
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Vben.Base.Mon.Oper.Log.MonOperLog">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.opmod">
+            <summary>
+            操作名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.butyp">
+            <summary>
+            业务类型（0其它 1新增 2修改 3删除）
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.opuid">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.opuna">
+            <summary>
+            用户姓名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.usnam">
+            <summary>
+            用户账号
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.clazz">
+            <summary>
+            类名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.remet">
+            <summary>
+            方法名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.repar">
+            <summary>
+            参数对象
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.optim">
+            <summary>
+            异常时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.cotim">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.opip">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.ageos">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.agbro">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.agdet">
+            <summary>
+            客户端详情
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.sutag">
+            <summary>
+            成功标记
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.ComputerHelper.GetComputerInfo">
+            <summary>
+            内存使用情况
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.ComputerHelper.GetDiskInfos">
+            <summary>
+            获取内存大小
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.ComputerHelper.GetRunTime">
+            <summary>
+            获取系统运行时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Vben.Base.Mon.Server.MemoryMetrics">
+            <summary>
+            内存信息
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Server.MemoryMetrics.CPURate">
+            <summary>
+            CPU使用率%
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Server.MemoryMetrics.TotalRAM">
+            <summary>
+            总内存 GB
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Server.MemoryMetrics.RAMRate">
+            <summary>
+            内存使用率 %
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Server.MemoryMetrics.FreeRam">
+            <summary>
+            空闲内存
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Server.DiskInfo.DiskName">
+            <summary>
+            磁盘名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Server.DiskInfo.Used">
+            <summary>
+            已使用
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Mon.Server.DiskInfo.AvailableFreeSpace">
+            <summary>
+            可使用
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.MemoryMetricsClient.GetWindowsMetrics">
+            <summary>
+            windows系统获取内存信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.MemoryMetricsClient.GetUnixMetrics">
+            <summary>
+            Unix系统获取
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.DateTimeHelper.ToLocalTimeDateBySeconds(System.Int64)">
+            <summary>
+             时间戳转本地时间-时间戳精确到秒
+            </summary> 
+        </member>
+        <member name="M:Vben.Base.Mon.Server.DateTimeHelper.ToUnixTimestampBySeconds(System.DateTime)">
+            <summary>
+             时间转时间戳Unix-时间戳精确到秒
+            </summary> 
+        </member>
+        <member name="M:Vben.Base.Mon.Server.DateTimeHelper.ToLocalTimeDateByMilliseconds(System.Int64)">
+            <summary>
+             时间戳转本地时间-时间戳精确到毫秒
+            </summary> 
+        </member>
+        <member name="M:Vben.Base.Mon.Server.DateTimeHelper.ToUnixTimestampByMilliseconds(System.DateTime)">
+            <summary>
+             时间转时间戳Unix-时间戳精确到毫秒
+            </summary> 
+        </member>
+        <member name="M:Vben.Base.Mon.Server.DateTimeHelper.FormatTime(System.Int64)">
+            <summary>
+            毫秒转天时分秒
+            </summary>
+            <param name="ms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.DateTimeHelper.GetUnixTimeStamp(System.DateTime)">
+            <summary>
+            获取unix时间戳
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.Extensions.ParseToLong(System.Object)">
+            <summary>
+            将object转换为long，若转换失败，则返回0。不抛出异常。  
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.Extensions.ParseToDouble(System.Object)">
+            <summary>
+            将object转换为double，若转换失败，则返回0。不抛出异常。  
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.Extensions.ParseToDateTime(System.String)">
+            <summary>
+            将string转换为DateTime，若转换失败，则返回日期最小值。不抛出异常。  
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.ShellHelper.Bash(System.String)">
+            <summary>
+            linux 系统命令
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Mon.Server.ShellHelper.Cmd(System.String,System.String)">
+            <summary>
+            windows系统命令
+            </summary>
+            <param name="fileName"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.Dept.SysOrgDept.type">
+            部门在整个组织架构sys_org表中类别为1，这个字段是进行部门细分的，比如分为集团、企业、机构、部门等
+        </member>
+        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.GetTree(System.String)">
+            <summary>
+            获取分类treeTable数据
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.GetInfo(System.String)">
+            <summary>
+            获取单个分类详细信息
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.Post(Vben.Base.Sys.Org.Group.SysOrgGroupCate)">
+            <summary>
+            新增分类
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.Put(Vben.Base.Sys.Org.Group.SysOrgGroupCate)">
+            <summary>
+            更新分类
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.Delete(System.String)">
+            <summary>
+            删除分类
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.PostMove(Vben.Common.Sqlsugar.Mvc.Pojo.TreeMovePo)">
+            <summary>
+            移动分类
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.Group.SysOrgGroupCate.children">
+            <summary>
+            子分类集合
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Org.User.AesHelper.Decrypt(System.String,System.String,System.String)">
+            <summary>
+            AES解密
+            </summary>
+            <param name="encryptedData">加密后的Base64字符串</param>
+            <param name="key">密钥</param>
+            <param name="iv">初始化向量</param>
+            <returns>解密后的明文</returns>
+        </member>
+        <member name="M:Vben.Base.Sys.Org.User.AesHelper.Encrypt(System.String,System.String,System.String)">
+            <summary>
+            AES加密（用于测试验证）
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.id">
+            <summary>
+            主键Id
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.conds">
+            <summary>
+            组织架构集
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.perms">
+            <summary>
+            后台所有权限集
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.menus">
+            <summary>
+            前台菜单缓存
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.btns">
+            <summary>
+            前台按钮缓存
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.portals">
+            <summary>
+            前台门户缓存
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.avtag">
+            <summary>
+            是否可用，1可用，0不可用
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.crtim">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.uptim">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.crman">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.cruid">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.upman">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.upuid">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.isMenuFrame">
+            是否为菜单内部跳转
+        </member>
+        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.getRouteName">
+            获取路由名称
+        </member>
+        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.isInnerLink">
+            是否为内链组件
+        </member>
+        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.innerLinkReplaceEach(System.String)">
+            内链域名特殊字符替换
+        </member>
+        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenuApi.GetTree(System.Int64)">
+            <summary>
+            获取分类treeTable数据
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Sys.Perm.Role.SysPermRole">
+            <summary>
+            权限角色
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.notes">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.avtag">
+            <summary>
+            可用标记
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.ornum">
+            <summary>
+            排序号
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.type">
+            <summary>
+            角色类型
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.scope">
+            <summary>
+            数据权限
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.crtim">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.uptim">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.crman">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.cruid">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.upman">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.upuid">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Perm.Role.SysPermRoleApi.GetPerms">
+            <summary>
+            获取分类treeTable数据
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.userId">
+            用户ID
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.tenantId">
+            租户ID
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.deptId">
+            部门ID
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.userName">
+            用户账号
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.nickName">
+            用户昵称
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.userType">
+            用户类型（sys_user系统用户）
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.email">
+            用户邮箱
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.phonenumber">
+            手机号码
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.sex">
+            用户性别（0男 1女 2未知）
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.avatar">
+            头像地址
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.loginIp">
+            最后登录IP
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.loginDate">
+            最后登录时间
+        </member>
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.deptName">
+            部门名
+        </member>
+        <member name="P:Vben.Base.Sys.Security.Pojo.LoginVo.username">
+            <example>sa</example>
+        </member>
+        <member name="P:Vben.Base.Sys.Security.Pojo.LoginVo.password">
+            <example>1</example>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.BaseNamespace">
+            <summary>
+            项目命名空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.SubNamespace">
+            <summary>
+            下级命名空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.ModelsNamespace">
+            <summary>
+            数据实体命名空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.DtosNamespace">
+            <summary>
+            输入输出数据实体名称空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.IRepositoriesNamespace">
+            <summary>
+            仓储接口命名空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.RepositoriesNamespace">
+            <summary>
+            仓储实现名称空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.IServicsNamespace">
+            <summary>
+            服务接口命名空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.ServicesNamespace">
+            <summary>
+            服务接口实现命名空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.ApiControllerNamespace">
+            <summary>
+            Api控制器命名空间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.ReplaceTableNameStr">
+            <summary>
+            去掉的表头字符
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Tool.Code.Root.CodeGenerateTemplate">
+            <summary>
+            代码生成模板
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Tool.Code.Root.CodeGeneratorTool">
+            <summary>
+            代码生成器
+            </summary>
+        </member>
+        <member name="F:Vben.Base.Tool.Code.Root.CodeGeneratorTool._option">
+            <summary>
+            代码生成器配置
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.Generate(Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            代码生成器入口方法
+            </summary>
+            <param name="dto"></param>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GenerateModels(Vben.Base.Tool.Code.Root.ReplaceDto,Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            生成实体类Model
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GenerateService(Vben.Base.Tool.Code.Root.ReplaceDto,Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            生成Service文件
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GenerateControllers(Vben.Base.Tool.Code.Root.ReplaceDto,Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            生成控制器ApiControllers文件
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GenerateIndexVue(Vben.Base.Tool.Code.Root.ReplaceDto,Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            生成前段index.vue文件
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GenerateEditVue(Vben.Base.Tool.Code.Root.ReplaceDto,Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            生成前端edit.vue文件
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GenerateRouteJson(Vben.Base.Tool.Code.Root.ReplaceDto,Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            生成前端路由json文件
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GenerateRouteSql(Vben.Base.Tool.Code.Root.ReplaceDto,Vben.Base.Tool.Code.Root.GenerateDto)">
+            <summary>
+            生成后端路由sql文件
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GetLabelName(System.String,System.String)">
+            <summary>
+            获取前端标签名
+            </summary>
+            <param name="columnDescription"></param>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.FirstLowerCase(System.String)">
+            <summary>
+            首字母转小写,模板使用(勿删)
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.GetCSharpDatatype(System.String)">
+            <summary>
+            获取C# 类型
+            </summary>
+            <param name="sDatatype"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.CodeGeneratorTool.InitJntTemplate(Vben.Base.Tool.Code.Root.GenerateDto,Vben.Base.Tool.Code.Root.ReplaceDto)">
+            <summary>
+            初始化Jnt模板
+            </summary>
+            <param name="dto"></param>
+            <param name="replaceDto"></param>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.FileHelper.CreateDirectory(System.String)">
+            <summary>
+            创建文件夹
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.FileHelper.WriteAndSave(System.String,System.String)">
+            <summary>
+            写文件
+            </summary>
+            <param name="path">完整路径带扩展名的</param>
+            <param name="content"></param>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.FileHelper.ReadJtTemplate(System.String,System.String)">
+            <summary>
+            从代码模板中读取内容
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.FileHelper.ZipGenCode(System.String,System.String,System.String)">
+            <summary>
+            压缩代码
+            </summary>
+            <param name="zipPath"></param>
+            <param name="genCodePath"></param>
+            <param name="zipFileName">压缩后的文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Tool.Code.Root.FileHelper.DeleteDirectory(System.String)">
+            <summary>
+            删除指定目录下的所有文件及文件夹(保留目录)
+            </summary>
+            <param name="file">文件目录</param>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.VueVersion">
+            <summary>
+            vue版本
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.IsPreview">
+            <summary>
+            是否预览代码
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.DbType">
+            <summary>
+            生成代码的数据库类型 0、mysql 1、sqlserver
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.CheckedBtn">
+            <summary>
+            生成的按钮功能
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.GenCodes">
+            <summary>
+            代码模板预览存储路径存放
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.GenCodePath">
+            <summary>
+            代码生成路径
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.ZipPath">
+            <summary>
+            代码生成压缩包路径
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.ZipFileName">
+            <summary>
+            代码生成压缩包名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.GenType">
+            <summary>
+            生成代码方式（0zip压缩包 1自定义路径）
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.GenerateDto.VueParentPath">
+            <summary>
+            vue代码路径
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.PKName">
+            <summary>
+            主键字段
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.FistLowerPk">
+            <summary>
+            首字母小写主键
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.PKType">
+            <summary>
+            主键类型
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.PermissionPrefix">
+            <summary>
+            控制器权限
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.ModelTypeName">
+            <summary>
+            C#类名
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.VueViewListHtml">
+            <summary>
+            前端列表查询html
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.VueViewFormHtml">
+            <summary>
+            前端添加、编辑表格html
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.VueQueryFormHtml">
+            <summary>
+            前端搜索表单html
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.QueryCondition">
+            <summary>
+            查询条件
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Root.ReplaceDto.UploadFile">
+            <summary>
+            上传URL data
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Table.ToolCodeTable.addbt">
+            <summary>
+            新增按钮
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Table.ToolCodeTable.delbt">
+            <summary>
+            删除按钮
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Table.ToolCodeTable.impbt">
+            <summary>
+            导入按钮
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Code.Table.ToolCodeTable.expbt">
+            <summary>
+            导出按钮
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Dict.Data.ToolDictData.dalab">
+            <summary>
+            数据标签
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Dict.Data.ToolDictData.daval">
+            <summary>
+            数据键值
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Dict.Data.ToolDictData.shsty">
+            <summary>
+            显示样式
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Dict.Data.ToolDictDataVo.label">
+            <summary>
+            数据标签
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Dict.Data.ToolDictDataVo.value">
+             <summary>
+            数据键值
+             </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Dict.Data.ToolDictDataVo.shsty">
+            <summary>
+            显示样式
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssMain.name">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssMain.type">
+            <summary>
+            类型（后缀）
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssMain.filid">
+            <summary>
+            文件ID
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssMain.busid">
+            <summary>
+            业务ID
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssMain.crtim">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssMain.crmid">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssMain.crman">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Tool.Oss.Main.ToolOssMainService.UploadFile(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传文件
+            </summary>
+            <param name="file">文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vben.Base.Tool.Oss.Root.AliyunOssUtil.PutObjectFromFile(System.IO.Stream,System.String,System.String)">
+            <summary>
+            上传到阿里云
+            </summary>
+            <param name="filestreams"></param>
+            <param name="dirPath">存储路径 eg： upload/2020/01/01/xxx.png</param>
+            <param name="bucketName">存储桶 如果为空默认取配置文件</param>
+        </member>
+        <member name="M:Vben.Base.Tool.Oss.Root.AliyunOssUtil.DeleteFile(System.String,System.String)">
+            <summary>
+            删除资源
+            </summary>
+            <param name="dirPath"></param>
+            <param name="bucketName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.ReceiveUserId">
+            <summary>
+            接收者用户Id
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.ReceiveUserName">
+            <summary>
+            接收者名称
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.UserIds">
+            <summary>
+            用户ID列表
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.Title">
+            <summary>
+            消息标题
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.MessageType">
+            <summary>
+            消息类型
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.Message">
+            <summary>
+            消息内容
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.SendUserId">
+            <summary>
+            发送者Id
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.SendUserName">
+            <summary>
+            发送者名称
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.MessageInput.SendTime">
+            <summary>
+            发送时间
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.MessageTypeEnum">
+            <summary>
+            消息类型枚举
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.MessageTypeEnum.Info">
+            <summary>
+            普通信息
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.MessageTypeEnum.Success">
+            <summary>
+            成功提示
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.MessageTypeEnum.Warning">
+            <summary>
+            警告提示
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.MessageTypeEnum.Error">
+            <summary>
+            错误提示
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.SmsVerifyCodeInput.Phone">
+            <summary>
+            手机号码
+            </summary>
+            <example>admin</example>
+        </member>
+        <member name="P:Admin.NET.Core.SmsVerifyCodeInput.Code">
+            <summary>
+            验证码
+            </summary>
+            <example>123456</example>
+        </member>
+        <member name="T:Admin.NET.Core.ThemeAttribute">
+            <summary>
+            枚举拓展主题样式
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.Service.SysMessageService">
+            <summary>
+            系统消息发送服务 🧩
+            </summary>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysMessageService.SendAllUser(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送消息给所有人 🔖
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysMessageService.SendOtherUser(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送消息给除了发送人的其他人 🔖
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysMessageService.SendUser(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送消息给某个人 🔖
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysMessageService.SendUsers(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送消息给某些人 🔖
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.NET.Core.Service.SysCacheService">
+            <summary>
+            系统缓存服务 🧩
+            </summary>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.BeginCacheLock(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            申请分布式锁 🔖
+            </summary>
+            <param name="key">要锁定的key</param>
+            <param name="msTimeout">申请锁等待的时间，单位毫秒</param>
+            <param name="msExpire">锁过期时间，超过该时间没有主动是放则自动是放，必须整数秒，单位毫秒</param>
+            <param name="throwOnFailure">失败时是否抛出异常,如不抛出异常，可通过判断返回null得知申请锁失败</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.GetKeyList">
+            <summary>
+            获取缓存键名集合 🔖
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.Set(System.String,System.Object)">
+            <summary>
+            增加缓存
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.Set(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            增加缓存并设置过期时间
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expire"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.GetExpire(System.String)">
+            <summary>
+            获取缓存的剩余生存时间
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.Get``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.Remove(System.String)">
+            <summary>
+            删除缓存 🔖
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.Clear">
+            <summary>
+            清空所有缓存 🔖
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.ExistKey(System.String)">
+            <summary>
+            检查缓存是否存在
+            </summary>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.RemoveByPrefixKey(System.String)">
+            <summary>
+            根据键名前缀删除缓存 🔖
+            </summary>
+            <param name="prefixKey">键名前缀</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.GetKeysByPrefixKey(System.String)">
+            <summary>
+            根据键名前缀获取键名集合 🔖
+            </summary>
+            <param name="prefixKey">键名前缀</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.GetValue(System.String)">
+            <summary>
+            获取缓存值 🔖
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.GetOrAdd``1(System.String,System.Func{System.String,``0},System.Int32)">
+            <summary>
+            获取或添加缓存（在数据不存在时执行委托请求数据）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="callback"></param>
+            <param name="expire">过期时间，单位秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.GetHashMap``1(System.String)">
+            <summary>
+            Hash匹配
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.HashSet``1(System.String,System.Collections.Generic.Dictionary{System.String,``0})">
+            <summary>
+            批量添加HASH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="dic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.HashAdd``1(System.String,System.String,``0)">
+            <summary>
+            添加一条HASH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="hashKey"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.HashAddOrUpdate``1(System.String,System.String,``0)">
+            <summary>
+            添加或更新一条HASH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="hashKey"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.HashGet``1(System.String,System.String[])">
+            <summary>
+            获取多条HASH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.HashGetOne``1(System.String,System.String)">
+            <summary>
+            获取一条HASH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.HashGetAll``1(System.String)">
+            <summary>
+            根据KEY获取所有HASH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.Service.SysCacheService.HashDel``1(System.String,System.String[])">
+            <summary>
+            删除HASH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="fields"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.NET.Core.BasePageInput">
+            <summary>
+            全局分页查询输入参数
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.BasePageInput.pageNum">
+            <summary>
+            当前页码
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.BasePageInput.pageSize">
+            <summary>
+            页码容量
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.BasePageTimeInput">
+            <summary>
+            全局分页查询输入参数(带时间)
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.BasePageTimeInput.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.BasePageTimeInput.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.CacheConst">
+            <summary>
+            缓存相关常量
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyUserButton">
+            <summary>
+            用户权限缓存（按钮集合）
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyUserOrg">
+            <summary>
+            用户机构缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyRoleMaxDataScope">
+            <summary>
+            角色最大数据范围缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyUserOnline">
+            <summary>
+            在线用户缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyVerCode">
+            <summary>
+            图形验证码缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyPhoneVerCode">
+            <summary>
+            手机验证码缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyPasswordErrorTimes">
+            <summary>
+            密码错误次数缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyTenant">
+            <summary>
+            租户缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyConst">
+            <summary>
+            常量下拉框
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyAll">
+            <summary>
+            所有缓存关键字集合
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.SqlSugar">
+            <summary>
+            SqlSugar二级缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyOpenAccess">
+            <summary>
+            开放接口身份缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyOpenAccessNonce">
+            <summary>
+            开放接口身份随机数缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyBlacklist">
+            <summary>
+            登录黑名单
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyConfig">
+            <summary>
+            系统配置缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyTenantConfig">
+            <summary>
+            系统租户配置缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyUserConfig">
+            <summary>
+            系统用户配置缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyDict">
+            <summary>
+            系统字典缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyTenantDict">
+            <summary>
+            系统租户字典缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyIdempotent">
+            <summary>
+            重复请求(幂等)字典缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeyExcelTemp">
+            <summary>
+            Excel临时文件缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeySysUpdateLog">
+            <summary>
+            系统更新命令日志缓存
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.CacheConst.KeySysUpdateInterval">
+            <summary>
+            系统更新间隔标记缓存
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.ConfigConst">
+            <summary>
+            配置常量
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysDemoEnv">
+            <summary>
+            演示环境
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysPassword">
+            <summary>
+            默认密码
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysPasswordMaxErrorTimes">
+            <summary>
+            密码最大错误次数
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysLogRetentionDays">
+            <summary>
+            日志保留天数
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysOpLog">
+            <summary>
+            记录操作日志
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysSingleLogin">
+            <summary>
+            单设备登录
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysLoginOutReminder">
+            <summary>
+            登入登出提醒
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysHideTenantLogin">
+            <summary>
+            登陆时隐藏租户
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysSecondVer">
+            <summary>
+            登录二次验证
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysCaptcha">
+            <summary>
+            图形验证码
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysTokenExpire">
+            <summary>
+            Token过期时间
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysRefreshTokenExpire">
+            <summary>
+            RefreshToken过期时间
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysErrorMail">
+            <summary>
+            发送异常日志邮件
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysDomainLogin">
+            <summary>
+            域登录验证
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysValidationLog">
+            <summary>
+            数据校验日志
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysRegionSyncLevel">
+            <summary>
+            行政区域同步层级 1-省级,2-市级,3-区县级,4-街道级,5-村级
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.SysDefaultGroup">
+            <summary>
+            Default 分组
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ConfigConst.AlipayAuthPageUrl">
+            <summary>
+            支付宝授权页面地址
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.DataMaskAttribute">
+            <summary>
+            数据脱敏特性（支持自定义脱敏位置和脱敏字符）
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.DataMaskAttribute.StartIndex">
+            <summary>
+            脱敏起始位置（从0开始）
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.DataMaskAttribute.Length">
+            <summary>
+            脱敏长度
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.DataMaskAttribute.MaskChar">
+            <summary>
+            脱敏字符（默认*）
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.DataMaskAttribute.KeepLength">
+            <summary>
+            是否保留原始长度（默认true）
+            </summary>
+        </member>
+        <member name="M:Admin.NET.Core.DataMaskAttribute.Mask(System.String)">
+            <summary>
+            执行脱敏处理
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.ObjectExtension">
+            <summary>
+            对象拓展
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ObjectExtension.PropertyCache">
+            <summary>
+            类型属性列表映射表
+            </summary>
+        </member>
+        <member name="F:Admin.NET.Core.ObjectExtension.AttributeCache">
+            <summary>
+            脱敏特性缓存映射表
+            </summary>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.HasImplementedRawGeneric(System.Type,System.Type)">
+            <summary>
+            判断类型是否实现某个泛型
+            </summary>
+            <param name="type">类型</param>
+            <param name="generic">泛型类型</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ToQueryString(System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)">
+            <summary>
+            将字典转化为QueryString格式
+            </summary>
+            <param name="dict"></param>
+            <param name="urlEncode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.UrlEncode(System.String)">
+            <summary>
+            将字符串URL编码
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ToJson(System.Object)">
+            <summary>
+            对象序列化成Json字符串
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ToObject``1(System.String)">
+            <summary>
+            Json字符串反序列化成对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseToLong(System.Object)">
+            <summary>
+            将object转换为long，若失败则返回0
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseToLong(System.String,System.Int64)">
+            <summary>
+            将object转换为long，若失败则返回指定值
+            </summary>
+            <param name="str"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseToDouble(System.Object)">
+            <summary>
+            将object转换为double，若失败则返回0
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseToDouble(System.Object,System.Double)">
+            <summary>
+            将object转换为double，若失败则返回指定值
+            </summary>
+            <param name="str"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseToDateTime(System.String)">
+            <summary>
+            将string转换为DateTime，若失败则返回日期最小值
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseToDateTime(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            将string转换为DateTime，若失败则返回默认值
+            </summary>
+            <param name="str"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseToDateTimeForRep(System.String)">
+            <summary>
+            将 string 时间日期格式转换成字符串 如 {yyyy} => 2024
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.IsNullOrEmpty(System.Object)">
+            <summary>
+            是否有值
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.Mask(System.String,System.Char)">
+            <summary>
+            字符串掩码
+            </summary>
+            <param name="str">字符串</param>
+            <param name="mask">掩码符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.MaskIdCard(System.String,System.Char)">
+            <summary>
+            身份证号掩码
+            </summary>
+            <param name="idCard">身份证号</param>
+            <param name="mask">掩码符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.MaskEmail(System.String,System.Char)">
+            <summary>
+            邮箱掩码
+            </summary>
+            <param name="email">邮箱</param>
+            <param name="mask">掩码符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseTo``1(System.String)">
+            <summary>
+            将字符串转为值类型，若没有得到或者错误返回为空
+            </summary>
+            <typeparam name="T">指定值类型</typeparam>
+            <param name="str">传入字符串</param>
+            <returns>可空值</returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.ParseTo(System.String,System.Type)">
+            <summary>
+            将字符串转为值类型，若没有得到或者错误返回为空
+            </summary>
+            <param name="str">传入字符串</param>
+            <param name="type">目标类型</param>
+            <returns>可空值</returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.CopyTo(System.Object,System.Object,System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+            <summary>
+            将一个对象属性值赋给另一个指定对象属性, 只复制相同属性的
+            </summary>
+            <param name="src">原数据对象</param>
+            <param name="target">目标数据对象</param>
+            <param name="changeProperties">属性集，键为原属性，值为目标属性</param>
+            <param name="unChangeProperties">属性集，目标不修改的属性</param>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.DeepCopy``1(``0)">
+            <summary>
+            深复制
+            </summary>
+            <typeparam name="T">深复制源对象</typeparam>
+            <param name="obj">对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.ObjectExtension.MaskSensitiveData``1(``0)">
+            <summary>
+            对带有<see cref="T:Admin.NET.Core.DataMaskAttribute"/>特性字段进行脱敏处理
+            </summary>
+        </member>
+        <member name="M:Admin.NET.Core.SignalRSetup.AddSignalR(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Newtonsoft.Json.JsonSerializerSettings})">
+            <summary>
+            即时消息SignalR注册
+            </summary>
+            <param name="services"></param>
+            <param name="SetNewtonsoftJsonSetting"></param>
+        </member>
+        <member name="T:Admin.NET.Core.SqlSugarPagedList`1">
+            <summary>
+            分页泛型集合
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="P:Admin.NET.Core.SqlSugarPagedList`1.Page">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.SqlSugarPagedList`1.PageSize">
+            <summary>
+            页容量
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.SqlSugarPagedList`1.Total">
+            <summary>
+            总条数
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.SqlSugarPagedList`1.TotalPages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.SqlSugarPagedList`1.Items">
+            <summary>
+            当前页集合
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.SqlSugarPagedList`1.HasPrevPage">
+            <summary>
+            是否有上一页
+            </summary>
+        </member>
+        <member name="P:Admin.NET.Core.SqlSugarPagedList`1.HasNextPage">
+            <summary>
+            是否有下一页
+            </summary>
+        </member>
+        <member name="T:Admin.NET.Core.SqlSugarPagedExtensions">
+            <summary>
+            分页拓展类
+            </summary>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.ToPagedList``2(SqlSugar.ISugarQueryable{``0},System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            分页拓展
+            </summary>
+            <param name="query"><see cref="T:SqlSugar.ISugarQueryable`1"/>对象</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <param name="expression">查询结果 Select 表达式</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.ToPagedList``1(SqlSugar.ISugarQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            分页拓展
+            </summary>
+            <param name="query"><see cref="T:SqlSugar.ISugarQueryable`1"/>对象</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.ToPagedListAsync``2(SqlSugar.ISugarQueryable{``0},System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            分页拓展
+            </summary>
+            <param name="query"><see cref="T:SqlSugar.ISugarQueryable`1"/>对象</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <param name="expression">查询结果 Select 表达式</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.ToPagedListAsync``1(SqlSugar.ISugarQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            分页拓展
+            </summary>
+            <param name="query"><see cref="T:SqlSugar.ISugarQueryable`1"/>对象</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.ToPagedListDataMaskAsync``1(SqlSugar.ISugarQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            脱敏分页拓展
+            </summary>
+            <param name="query"><see cref="T:SqlSugar.ISugarQueryable`1"/>对象</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.ToPagedListDataMask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+            脱敏分页拓展
+            </summary>
+            <param name="list">集合对象</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.ToPagedList``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+            分页拓展
+            </summary>
+            <param name="list">集合对象</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.SqlSugarPagedExtensions.CreateSqlSugarPagedList``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建 <see cref="T:Admin.NET.Core.SqlSugarPagedList`1"/> 对象
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="items">分页内容的对象集合</param>
+            <param name="total">总条数</param>
+            <param name="pageIndex">当前页码，从1开始</param>
+            <param name="pageSize">页码容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.IOnlineUserHub.OnlineUserList(Admin.NET.Core.OnlineUserList)">
+            <summary>
+            在线用户列表
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.IOnlineUserHub.ForceOffline(System.Object)">
+            <summary>
+            强制下线
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.IOnlineUserHub.PublicNotice(Vben.Base.Sys.Notice.SysNotice)">
+            <summary>
+            发布站内消息
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.IOnlineUserHub.ReceiveMessage(System.Object)">
+            <summary>
+            接收消息
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.NET.Core.OnlineUserHub">
+            <summary>
+            在线用户集线器
+            </summary>
+        </member>
+        <member name="M:Admin.NET.Core.OnlineUserHub.OnConnectedAsync">
+            <summary>
+            连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.OnlineUserHub.OnDisconnectedAsync(System.Exception)">
+            <summary>
+            断开
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.OnlineUserHub.ForceOffline(Admin.NET.Core.OnlineUserHubInput)">
+            <summary>
+            强制下线
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.OnlineUserHub.ClientsSendMessage(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送信息给某个人
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.OnlineUserHub.ClientsSendMessageToAll(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送信息给所有人
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.OnlineUserHub.ClientsSendMessageToOther(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送消息给某些人（除了本人）
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.NET.Core.OnlineUserHub.ClientsSendMessageToUsers(Admin.NET.Core.MessageInput)">
+            <summary>
+            发送消息给某些人
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

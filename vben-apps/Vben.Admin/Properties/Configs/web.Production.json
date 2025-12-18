@@ -1,0 +1,53 @@
+{
+  "ServiceScanModules": [
+    "Vben.Common.Core",
+    "Vben.Base",
+    "Vben.Admin"
+  ],
+  "DbFirstScanModules": [
+    "Vben.Base",
+    "Vben.Admin"
+  ],
+  "DbConfig": {
+    "ShowSql": true,
+    "ConnectionConfigs": [
+      {
+        "ConfigId": "primary",
+        "DbType": "MySql",
+        "ConnectionString": "Data Source=localhost;Database=vben-net;User ID=root;Password=123456;pooling=true;port=3306;sslmode=none;CharSet=utf8;AllowLoadLocalInfile=true;OldGuids=true;AllowPublicKeyRetrieval=true;",
+        //        "DbType": "Oracle",
+        //        "ConnectionString": "Data Source=localhost/orcl;User ID=scott;Password=123456;",
+        "IsAutoCloseConnection": true
+      }
+    ]
+  },
+  "Upload": {
+    "Service": "local", //修改成aliyun时，需要维护Oss配置
+    "Path": "C:/vben-net/upload",  //本地上传的路径
+    "MaxSize": 1048576,
+    "ContentType": [
+      "image/jpg",
+      "image/png",
+      "image/jpeg",
+      "image/gif",
+      "image/bmp",
+      "text/plain",
+      "application/pdf",
+      "application/msword",
+      "application/vnd.ms-excel",
+      "application/vnd.ms-powerpoint",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ]
+  },
+  "CodeGenConfig": {
+    "Path": "../../zsvg/vms"
+  },
+  "Oss": {
+    "AccessKeyId": "",
+    "AccessKeySecret": "",
+    "Endpoint": "",
+    "Bucket": ""
+  }
+}
+

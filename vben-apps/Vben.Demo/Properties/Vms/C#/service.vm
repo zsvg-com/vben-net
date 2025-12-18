@@ -1,0 +1,10 @@
+﻿namespace ${options.Namespace};
+
+[Service]
+public class ${genTable.bunam}Service : ${genTable.baser}<${genTable.bunam}>
+{
+    public ${genTable.bunam}Service(SqlSugarRepository<${genTable.bunam}> repo)
+    {
+        Repo = repo;
+    }
+}

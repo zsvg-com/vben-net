@@ -1,0 +1,33 @@
+﻿<Project>
+    <PropertyGroup>
+        <!-- 统一目标框架 -->
+        <TargetFramework>net8.0</TargetFramework>
+        <!-- 或者支持多目标框架  -->
+        <!--<TargetFrameworks>net8.0;net9.0;</TargetFrameworks>-->
+        
+        <!-- 全局环境定义 -->
+        <!--<EnvironmentName>Development</EnvironmentName>-->
+       
+        <Nullable>enable</Nullable>
+        <LangVersion>12</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <!-- 统一输出类型（如需要） -->
+        <!--<OutputType>Library</OutputType>-->
+        <!-- 基础版本信息 -->
+        <VersionMajor>1</VersionMajor>
+        <VersionMinor>0</VersionMinor>
+        <VersionPatch>0</VersionPatch>
+        <VersionSuffix></VersionSuffix>
+
+        <!-- 组合完整版本 -->
+        <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionPatch)</AssemblyVersion>
+        <FileVersion>$(VersionMajor).$(VersionMinor).$(VersionPatch)</FileVersion>
+        <Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)</Version>
+        <PackageVersion>$(VersionMajor).$(VersionMinor).$(VersionPatch)</PackageVersion>
+
+        <!-- 其他程序集信息 -->
+        <Company>你的公司名</Company>
+        <Product>你的产品名</Product>
+        <Copyright>Copyright © $([System.DateTime]::Now.Year) $(Company)</Copyright>
+    </PropertyGroup>
+</Project>

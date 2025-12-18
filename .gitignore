@@ -1,0 +1,8 @@
+.idea
+.vs
+/**/bin/
+/**/obj/
+/**/logs/
+zsvg
+vben-net.sln.DotSettings.user
+
