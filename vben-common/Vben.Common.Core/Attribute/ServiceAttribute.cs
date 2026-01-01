@@ -28,3 +28,10 @@ public class ServiceAttribute : System.Attribute
     /// </summary>
     public bool InterfaceServiceType { get; set; }
 }
+
+public enum LifeTime
+{
+    Transient,
+    Scoped,
+    Singleton
+}

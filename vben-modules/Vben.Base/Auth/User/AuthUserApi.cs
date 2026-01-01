@@ -1,14 +1,17 @@
-﻿using Vben.Base.Sys.Org.User;
-using Vben.Base.Sys.Perm.Menu;
+﻿using Admin.NET.Core.Service;
+using Vben.Base.Sys.Menu;
+using Vben.Base.Sys.User;
+using Vben.Common.Core.Token;
+using Vben.Common.Core.Wrapper;
 
 namespace Vben.Base.Auth.User;
 
 [Route("")]
 [ApiDescriptionSettings("Auth", Tag = "用户信息")]
 public class AuthUserApi(
-    SqlSugarRepository<SysPermMenu> menuRepo,
-    SqlSugarRepository<SysOrgUser> userRepo,
-    IUserManager userManager)
+    SqlSugarRepository<SysMenu> menuRepo,
+    SysCacheService cacheService,
+    SysUserService userService)
     : ControllerBase
 {
 
@@ -17,19 +20,22 @@ public class AuthUserApi(
     // [AllowAnonymous]
     public async Task<UserInfoVo> info()
     {
-        if (userManager.UserId == null)
-        {
-            return null;
-        }
+        
+        string userId = HttpContext.GetUId();
+        // if (userManager.UserId == null)
+        // {
+        //     return null;
+        // }
 
         UserInfoVo userInfoVo = new UserInfoVo();
         SysUserVo userVo = new SysUserVo();
-        userVo.userId = userManager.UserId;
-        userVo.userName = userManager.Account;
-        userVo.nickName = userManager.Name;
-        userVo.deptName = "XX科技";
-        userVo.deptId = userManager.DeptId;
-        userVo.avatar = "http://8.153.168.178:8080/tool/oss/main/show?id=1978437156538343424";
+        var dbUser = await userService.SingleAsync(userId);
+        userVo.userId = dbUser.id;
+        userVo.userName = dbUser.username;
+        userVo.nickName = dbUser.name;
+        userVo.deptName = dbUser.depna;
+        userVo.deptId = dbUser.depid;
+        userVo.avatar = dbUser.avatar;
         userInfoVo.user = userVo;
         BuildPerms(userInfoVo);
         return userInfoVo;
@@ -46,13 +52,13 @@ public class AuthUserApi(
             userInfoVo.roles.Add("superadmin");
         }else{
             userInfoVo.permissions = new HashSet<string>();
-            string oids= FindConds(userManager.UserId);
-            string sql="select distinct perm id from sys_perm_api a inner join sys_perm_role_api ra on ra.aid=a.id inner join sys_perm_role_org ro on ro.rid=ra.rid  where a.avtag="+Db.True+" and ro.oid in ("+oids+")";
-            List<string> permArr= userRepo.Context.Ado.SqlQuery<string>(sql);
+            string oids= FindConds(LoginHelper.UserId);
+            string sql="select distinct perm id from sys_api a inner join sys_role_api ra on ra.aid=a.id inner join sys_role_org ro on ro.rid=ra.rid  where a.avtag="+Db.True+" and ro.oid in ("+oids+")";
+            List<string> permArr= menuRepo.Context.Ado.SqlQuery<string>(sql);
             userInfoVo.permissions = new HashSet<string>(permArr);
             userInfoVo.roles = new HashSet<string>();
-            userInfoVo.roles.Add("superadmin");
         }
+        cacheService.Set("perms:"+userInfoVo.user.userId, userInfoVo.permissions);
     }
 
     // [HttpGet("/system/user/getInfo")]
@@ -66,7 +72,7 @@ public class AuthUserApi(
     //      userVo.nickName = "管理员";
     //      userVo.deptName = "XX科技";
     //      userVo.deptId = 1;
-    //      userVo.avatar = "http://8.153.168.178:8080/tool/oss/main/show?id=1978437156538343424";
+    //      userVo.avatar = "/api/tool/oss/main/show?id=1978437156538343424";
     //      userInfoVo.user = userVo;
     //      userInfoVo.permissions = new HashSet<string>();
     //      userInfoVo.permissions.Add("*:*:*");
@@ -78,36 +84,38 @@ public class AuthUserApi(
     [HttpGet("/system/menu/getRouters")]
     public async Task<List<RouterVo>> routers()
     {
-        if (userManager.UserId == null)
+        string UserId = LoginHelper.UserId;
+        
+        if (UserId == null)
         {
-            throw Oops.Oh("登录过期").StatusCode(401);
+            throw new Exception("用户名或密码不正确");
         }
 
-        var menuList = new List<SysPermMenu>();
-        if (userManager.UserId == "u1")
+        var menuList = new List<SysMenu>();
+        if (UserId == "u1")
         {
-            menuList = await menuRepo.Context.SqlQueryable<SysPermMenu>
-                    ("select m.shtag,m.type,m.name,m.path,m.icon,m.comp,m.ornum,m.id,m.pid,m.outag,m.catag from sys_perm_menu m where m.avtag="+Db.True+" order by m.pid,m.ornum")
+            menuList = await menuRepo.Context.SqlQueryable<SysMenu>
+                    ("select m.shtag,m.type,m.name,m.path,m.icon,m.comp,m.ornum,m.id,m.pid,m.outag,m.catag from sys_menu m where m.avtag="+Db.True+" order by m.pid,m.ornum")
                 .ToTreeAsync(it => it.children, it => it.pid, 0);
         }
         else
         {
-            string oids = FindConds(userManager.UserId);
+            string oids = FindConds(UserId);
             string sql =
-                "select distinct m.shtag,m.type,m.name,m.path,m.icon,m.comp,m.ornum,m.id,m.pid,m.outag,m.catag from sys_perm_menu m inner join sys_perm_role_menu rm on rm.mid=m.id inner join sys_perm_role_org ro on ro.rid=rm.rid  where m.avtag="+Db.True+" and ro.oid in (" +
+                "select distinct m.shtag,m.type,m.name,m.path,m.icon,m.comp,m.ornum,m.id,m.pid,m.outag,m.catag from sys_menu m inner join sys_role_menu rm on rm.mid=m.id inner join sys_role_org ro on ro.rid=rm.rid  where m.avtag="+Db.True+" and ro.oid in (" +
                 oids + ") order by m.pid,m.ornum";
-            menuList = await menuRepo.Context.SqlQueryable<SysPermMenu>(sql)
+            menuList = await menuRepo.Context.SqlQueryable<SysMenu>(sql)
                 .ToTreeAsync(it => it.children, it => it.pid, 0);
         }
 
-        // List<SysPermMenu> list= await _menuRepo.Context.Queryable<SysPermMenu>().ToListAsync();
+        // List<SysMenu> list= await _menuRepo.Context.Queryable<SysMenu>().ToListAsync();
 
         // List<RouterVo> routerVoList = new List<RouterVo>();
         List<RouterVo> routerVoList = buildMenus(menuList);
         return routerVoList;
     }
 
-    private List<RouterVo> buildMenus(List<SysPermMenu> menus)
+    private List<RouterVo> buildMenus(List<SysMenu> menus)
     {
         List<RouterVo> routers = new List<RouterVo>();
         foreach (var menu in menus)
@@ -126,12 +134,20 @@ public class AuthUserApi(
                 noCache = !menu.catag,
                 link = menu.path,
             };
-            List<SysPermMenu> cMenus = menu.children;
+            List<SysMenu> cMenus = menu.children;
             if ("1" == menu.type)
             {
                 router.alwaysShow = true;
                 router.redirect = "noRedirect";
                 router.children = buildMenus(cMenus);
+                if (menu.pid == 0L)
+                {
+                    router.component = "Layout";
+                }
+                else
+                {
+                    router.component = "ParentView";
+                }
             }
             else if (menu.isMenuFrame())
             {
@@ -163,7 +179,7 @@ public class AuthUserApi(
                 router.path = "/";
                 List<RouterVo> childrenList = new List<RouterVo>();
                 RouterVo children = new RouterVo();
-                string routerPath = SysPermMenu.innerLinkReplaceEach(menu.path);
+                string routerPath = SysMenu.innerLinkReplaceEach(menu.path);
                 string innerLinkName = StrUtils.UpperFirst(routerPath) + menu.id;
                 children.path = routerPath;
                 children.component = "InnerLink";
@@ -187,8 +203,8 @@ public class AuthUserApi(
     //获取组织架构可用集
     private string FindConds(string id)
     {
-        string tierSql = "select tier from sys_org_user where id = @id";
-        var tier = userRepo.Context.Ado.SqlQuerySingle<string>(tierSql, new { id });
+        string tierSql = "select tier from sys_user where id = @id";
+        var tier = menuRepo.Context.Ado.SqlQuerySingle<string>(tierSql, new { id });
 
         StringBuilder conds = new StringBuilder();
         //1. conds拼接父级id
@@ -229,14 +245,14 @@ public class AuthUserApi(
     //获取组织架构岗位id集合
     private List<string> FindPostList(string oid)
     {
-        string sql = "select pid as id from sys_org_post_org where oid=@oid";
-        return userRepo.Context.Ado.SqlQuery<string>(sql, new { oid });
+        string sql = "select pid as id from sys_post_org where oid=@oid";
+        return menuRepo.Context.Ado.SqlQuery<string>(sql, new { oid });
     }
 
     //获取组织架构群组id集合
     private List<string> FindGroupList(string conds)
     {
-        string sql = "select DISTINCT gid as id from sys_org_group_org where oid in (" + conds + ")";
-        return userRepo.Context.Ado.SqlQuery<string>(sql);
+        string sql = "select DISTINCT gid as id from sys_group_org where oid in (" + conds + ")";
+        return menuRepo.Context.Ado.SqlQuery<string>(sql);
     }
 }

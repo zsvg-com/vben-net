@@ -1,3 +1,5 @@
+using Furion.EventBus;
+using Furion.JsonSerialization;
 using Vben.Base.Mon.Oper.Log;
 using Vben.Common.Core.Const;
 using Vben.Common.Core.Filter;
@@ -65,7 +67,7 @@ public class RequestActionFilter : IAsyncActionFilter
                         //     actionContext.Result?.GetType() == typeof(JsonResult) ? JSON.Serialize(actionContext.Result) : "",
                         cotim = sw.ElapsedMilliseconds,
                         optim = DateTime.Now,
-                        usnam = httpContext.User?.FindFirstValue(ClaimConst.CLAINM_ACCOUNT),
+                        username = httpContext.User?.FindFirstValue(ClaimConst.CLAINM_ACCOUNT),
                         opuid = httpContext.User?.FindFirstValue(ClaimConst.CLAINM_USERID),
                         opuna = httpContext.User?.FindFirstValue(ClaimConst.CLAINM_NAME)
                     }));

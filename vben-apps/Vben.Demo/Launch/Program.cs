@@ -1,4 +1,6 @@
 using Vben.Common.Core;
+using Vben.Common.Core.Config;
+using Vben.Common.Core.Token;
 using Vben.Common.Sqlsugar;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,12 +18,15 @@ else if (builder.Environment.IsProduction())
 
 builder.Configuration.AddJsonFile("Properties/Configs/Cache.json");
 
+builder.Services.Configure<AppSettings>(builder.Configuration);
+
 builder.Inject();
 builder.Host.UseSerilogDefault();
 builder.Services.AddDb();
 
 var app = builder.Build();
 
+JwtSettings.Initialize(app.Configuration);
 
 MyApp.ServiceProvider = app.Services;
 MyApp.WebHostEnvironment = app.Environment;

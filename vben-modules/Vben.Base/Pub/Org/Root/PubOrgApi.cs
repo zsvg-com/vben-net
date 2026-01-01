@@ -19,7 +19,7 @@ public class PubOrgApi(SqlSugarRepository<SysOrg> repo) : ControllerBase
         if ((type & 1) != 0)
         {
             //部门
-            Sqler deptSqler = new Sqler("sys_org_dept");
+            Sqler deptSqler = new Sqler("sys_dept");
             if (!string.IsNullOrEmpty(name))
             {
                 deptSqler.addLike("t.name", name);
@@ -38,7 +38,7 @@ public class PubOrgApi(SqlSugarRepository<SysOrg> repo) : ControllerBase
         if ((type & 2) != 0)
         {
             //用户
-            Sqler userSqler = new Sqler("sys_org_user");
+            Sqler userSqler = new Sqler("sys_user");
             if (!string.IsNullOrEmpty(name))
             {
                 userSqler.addLike("t.name", name);
@@ -57,7 +57,7 @@ public class PubOrgApi(SqlSugarRepository<SysOrg> repo) : ControllerBase
         if ((type & 4) != 0)
         {
             //岗位
-            Sqler postSqler = new Sqler("sys_org_post");
+            Sqler postSqler = new Sqler("sys_post");
             if (!string.IsNullOrEmpty(name))
             {
                 postSqler.addLike("t.name", name);
@@ -109,7 +109,7 @@ public class PubOrgApi(SqlSugarRepository<SysOrg> repo) : ControllerBase
     }
 
     // List<ZidName> deptList = await 
-    //     repo.Context.SqlQueryable<ZidName>("select id,name from sys_org_dept")
+    //     repo.Context.SqlQueryable<ZidName>("select id,name from sys_dept")
     //         .Where("name like @name",new{name="%"+name+"%"})
     //         .ToListAsync();
 }

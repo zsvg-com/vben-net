@@ -1,59 +1,77 @@
-﻿using Furion.DataEncryption;
+﻿using Admin.NET.Core.Service;
+using Furion;
+using Furion.EventBus;
 using Vben.Base.Mon.Log.Login;
 using Vben.Base.Mon.Online.User;
-using Vben.Base.Sys.Org.User;
 using Vben.Base.Sys.Security.Pojo;
+using Vben.Base.Sys.User;
+using Vben.Common.Core.Token;
 
 namespace Vben.Base.Auth.Login;
 
 [Route("")]
 [ApiDescriptionSettings("Auth", Tag = "登录管理")]
 public class AuthLoginApi(
-    SqlSugarRepository<SysOrgUser> userRepo,
+    SqlSugarRepository<SysUser> userRepo,
     IHttpContextAccessor httpContextAccessor,
     IEventPublisher eventPublisher,
-    MonOnlineUserApi monOnlineUserApi
+    SysCacheService cacheService,
+    MonOnlineUserService monOnlineUserService
     )
     : ControllerBase
 {
-    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     [HttpPost("/auth/login")]
     [AllowAnonymous]
     public async Task<LoginVo> LoginAsync([FromBody] PasswordLoginBo bo)
     {
-        string sql = @"select t.id,t.name,t.usnam,t.monum,t.pacod,t.tier,t.type,t.depid,d.name depna
-         from sys_org_user t left join sys_org_dept d on d.id=t.depid 
-         where t.usnam=@username and t.avtag="+Db.True;
+        string sql = @"select t.id,t.name,t.username,t.monum,t.password,t.tier,t.type,t.depid,d.name depna
+         from sys_user t left join sys_dept d on d.id=t.depid 
+         where t.username=@username and t.avtag="+Db.True;
         UserDo dbUser = await userRepo.Context.Ado.SqlQuerySingleAsync<UserDo>(sql, new { bo.username });
-        if (dbUser==null || !BCrypt.Net.BCrypt.Verify(bo.password, dbUser.pacod))
+        if (dbUser==null || !BCrypt.Net.BCrypt.Verify(bo.password, dbUser.password))
         {
             throw new Exception("用户名或密码不正确");
         }
 
-        var accessToken = JWTEncryption.Encrypt(new Dictionary<string, object>
-        {
-            { "tenantId", "1" },
-            { "userId", dbUser.id },
-            { "Account", dbUser.usnam },
-            { "name", dbUser.name },
-            { "deptId", dbUser.depid },
-            { "deptName", dbUser.depna },
-            { "deptCategory", "1" },
-        }, 600);
-        //_httpContextAccessor.HttpContext.SigninToSwagger(accessToken);
+        // var accessToken = JWTEncryption.Encrypt(new Dictionary<string, object>
+        // {
+        //     { "tenantId", "1" },
+        //     { "userId", dbUser.id },
+        //     { "Account", dbUser.username },
+        //     { "name", dbUser.name },
+        //     { "deptId", dbUser.depid },
+        //     { "deptName", dbUser.depna },
+        //     { "deptCategory", "1" },
+        // }, 600);
+        // //_httpContextAccessor.HttpContext.SigninToSwagger(accessToken);
+        // LoginVo vo = new LoginVo();
+        // vo.access_token = accessToken;
+        // vo.expire_in = 604800;
+        
+        TokenModel model = new TokenModel();
+        model.UserId = dbUser.id;
+        model.UserName = dbUser.username;
+        model.NickName = dbUser.name;
+        model.DeptId = dbUser.depid;
+        model.Permissions = new List<string>();
+        model.RoleKeys = new List<string>();
+
+        var accessToken= JwtUtil.GenerateJwtToken(JwtUtil.AddClaims(model));
         LoginVo vo = new LoginVo();
         vo.access_token = accessToken;
         vo.expire_in = 604800;
         
+        // MyApp.HttpContext.SigninToSwagger(accessToken);
+        
         // 单用户登录
-        await monOnlineUserApi.SingleLogin(dbUser.id);
+        await monOnlineUserService.SingleLogin(dbUser.id);
         
         
         //记录用户最后一次登录的ip与地点
         var httpContext = App.HttpContext;
         await eventPublisher.PublishAsync(new ChannelEventSource("Update:UserLoginInfo",
-            new SysOrgUser {id = dbUser.id, loip = httpContext.GetLocalIpAddressToIPv4(), lotim = DateTime.Now}));
+            new SysUser {id = dbUser.id, loip = httpContext.GetLocalIpAddressToIPv4(), lotim = DateTime.Now}));
 
         // 异步方式记录登录日志
         var loip = httpContext.GetRemoteIpAddressToIPv4();
@@ -64,7 +82,7 @@ public class AuthLoginApi(
             new MonLoginLog
             {
                 id = YitIdHelper.NextId() + "", name = dbUser.name, loip = loip,sutag = true,
-                browser = browser, os = os, lotim = DateTime.Now, usnam = dbUser.usnam
+                browser = browser, os = os, lotim = DateTime.Now, username = dbUser.username
             }));
 
         return vo;
@@ -73,14 +91,12 @@ public class AuthLoginApi(
     [HttpPost("/auth/logout")]
     public async Task Logout()
     {
-        var httpContext = _httpContextAccessor.HttpContext;
+        // var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        var httpContext = httpContextAccessor.HttpContext;
         if (httpContext == null) throw new Exception("退出异常");
-
-        var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-        //todo 清理
-        
-        // 清除 Swagger 登录信息
         // httpContext.SignoutToSwagger();
+        // await httpContext.SignOutAsync();
+        cacheService.Remove("perms:"+LoginHelper.UserId);
     }
 
     // [HttpPost("/auth/login")]

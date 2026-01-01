@@ -13,6 +13,7 @@ public class DemoSingleCateConroller(DemoSingleCateService service) : Controller
     /// 单一树表-列表查询
     /// </summary>
     [HttpGet("list")]
+    [SaCheckPermission("single:cate:query")]
     public async Task<dynamic> GetList(string name)
     {
         var list = await service.Repo.Context
@@ -34,6 +35,7 @@ public class DemoSingleCateConroller(DemoSingleCateService service) : Controller
     /// 单一树表-树状查询
     /// </summary>
     [HttpGet("tree")]
+    [SaCheckPermission("single:cate:query")]
     public async Task<List<Ltree>> GetTree(long id, string name)
     {
         Sqler sqler = new Sqler(TABLE);
@@ -45,6 +47,7 @@ public class DemoSingleCateConroller(DemoSingleCateService service) : Controller
     /// 单一树表-详情查询
     /// </summary>
     [HttpGet("info/{id}")]
+    [SaCheckPermission("single:cate:query")]
     public async Task<DemoSingleCate> GetInfo(long id)
     {
         return await service.Select(id);
@@ -54,6 +57,7 @@ public class DemoSingleCateConroller(DemoSingleCateService service) : Controller
     /// 单一树表-新增
     /// </summary>
     [HttpPost]
+    [SaCheckPermission("single:cate:edit")]
     public async Task<long> Post([FromBody] DemoSingleCate cate)
     {
         return await service.Insert(cate);
@@ -63,6 +67,7 @@ public class DemoSingleCateConroller(DemoSingleCateService service) : Controller
     /// 单一树表-修改
     /// </summary>
     [HttpPut]
+    [SaCheckPermission("single:cate:edit")]
     public async Task<long> Put([FromBody] DemoSingleCate cate)
     {
         return await service.Update(cate, TABLE);
@@ -72,6 +77,7 @@ public class DemoSingleCateConroller(DemoSingleCateService service) : Controller
     /// 单一树表-删除
     /// </summary>
     [HttpDelete("{ids}")]
+    [SaCheckPermission("single:cate:delete")]
     public async Task<int> Delete(string ids)
     {
         return await service.Delete(ids);

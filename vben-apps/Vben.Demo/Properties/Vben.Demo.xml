@@ -259,5 +259,10 @@
             单一主表服务
             </summary>
         </member>
+        <member name="M:Vben.Admin.Demo.Trans.DemoTransController.Post">
+            <summary>
+            事务测试
+            </summary>
+        </member>
     </members>
 </doc>

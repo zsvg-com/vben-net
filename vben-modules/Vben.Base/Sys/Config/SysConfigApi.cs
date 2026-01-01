@@ -8,12 +8,14 @@ public class SysConfigApi(SqlSugarRepository<SysConfig> repo) : ControllerBase
 {
     
     [HttpGet("list")]
+    [SaCheckPermission("sys:config:query")]
     public async Task<dynamic> GetList()
     {
         return await repo.GetListAsync();
     }
 
     [HttpGet]
+    [SaCheckPermission("sys:config:query")]
     public async Task<dynamic> Get(string name)
     {
         var pp = XreqUtil.GetPp();
@@ -24,8 +26,8 @@ public class SysConfigApi(SqlSugarRepository<SysConfig> repo) : ControllerBase
         return RestPageResult.Build(pp.total.Value, items);
     }
 
-    // [SaCheckPermission("sys:config:query")]
     [HttpGet("info/{id}")]
+    [SaCheckPermission("sys:config:query")]
     public async Task<SysConfig> GetInfo(long id)
     {
         ICache cache = MyApp.GetRequiredService<ICacheProvider>().Cache;
@@ -41,6 +43,7 @@ public class SysConfigApi(SqlSugarRepository<SysConfig> repo) : ControllerBase
     }
 
     [HttpPost]
+    [SaCheckPermission("sys:config:edit")]
     public async Task<long> Post([FromBody] SysConfig main)
     {
         main.id = YitIdHelper.NextId();
@@ -49,6 +52,7 @@ public class SysConfigApi(SqlSugarRepository<SysConfig> repo) : ControllerBase
     }
 
     [HttpPut]
+    [SaCheckPermission("sys:config:edit")]
     public async Task<long> Put([FromBody] SysConfig main)
     {
         main.uptim = DateTime.Now;
@@ -57,6 +61,7 @@ public class SysConfigApi(SqlSugarRepository<SysConfig> repo) : ControllerBase
     }
 
     [HttpDelete("{ids}")]
+    [SaCheckPermission("sys:config:delete")]
     public async Task Delete(string ids)
     {
         var idArr = ids.Split(",");

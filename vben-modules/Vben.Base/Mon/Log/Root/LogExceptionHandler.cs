@@ -1,4 +1,8 @@
-﻿using Vben.Base.Mon.Log.Error;
+﻿using Furion;
+using Furion.DependencyInjection;
+using Furion.EventBus;
+using Furion.FriendlyException;
+using Vben.Base.Mon.Log.Error;
 using Vben.Common.Core.Const;
 
 namespace Vben.Base.Mon.Log.Root;
@@ -24,8 +28,8 @@ public class LogExceptionHandler : IGlobalExceptionHandler, ISingleton
             {
                 id = YitIdHelper.NextId() + "",
                 useid = userContext?.FindFirstValue(ClaimConst.CLAINM_USERID),
-                usnam = userContext?.FindFirstValue(ClaimConst.CLAINM_ACCOUNT),
                 usena = userContext?.FindFirstValue(ClaimConst.CLAINM_NAME),
+                username = userContext?.FindFirstValue(ClaimConst.CLAINM_ACCOUNT),
                 name = "未定义的操作",
                 clazz = context.Exception.TargetSite.DeclaringType?.FullName,
                 method = context.Exception.TargetSite.Name,

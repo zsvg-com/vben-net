@@ -1,4 +1,4 @@
-namespace Vben.Base.Mon.online.user;
+namespace Vben.Base.Mon.Online.User;
 
 /// <summary>
 /// 在线用户

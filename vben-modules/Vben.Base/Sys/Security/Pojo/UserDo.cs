@@ -7,13 +7,13 @@ public class UserDo
 
     public string name { get; set; }
 
-    public string pacod { get; set; }
+    public string password { get; set; }
 
     public bool catag { get; set; }
 
     public string tier { get; set; }
 
-    public string usnam { get; set; }
+    public string username { get; set; }
 
     public string monum { get; set; }//手机号
 

@@ -69,10 +69,11 @@ public static partial class HttpContextExtension
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    public static long GetUId(this HttpContext context)
+    public static string GetUId(this HttpContext context)
     {
         var uid = context.User.FindFirstValue(ClaimTypes.PrimarySid);
-        return !string.IsNullOrEmpty(uid) ? long.Parse(uid) : 0;
+        // return !string.IsNullOrEmpty(uid) ? long.Parse(uid) : 0;
+        return uid;
     }
 
     /// <summary>

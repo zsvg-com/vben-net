@@ -62,8 +62,7 @@ public abstract class BaseStrMainEntity
 
     [SugarColumn(ColumnDescription = "备注", IsNullable = true, Length = 255)]
     public virtual string notes { get; set; }
-
-
+    
     // public virtual void Create()
     // {
     //     var userId = App.User.FindFirst(ClaimConst.CLAINM_USERID)?.Value;

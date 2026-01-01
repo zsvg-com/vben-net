@@ -446,97 +446,10 @@
             否
             </summary>
         </member>
-        <member name="T:Vben.Common.Core.Filter.ActionPermissionFilter">
-            <summary>
-            API授权判断
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.Filter.ActionPermissionFilter.Permission">
-            <summary>
-            权限字符串，多个用逗号隔开，例如 system:user:view,system:user:add
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.Filter.ActionPermissionFilter.RolePermi">
-            <summary>
-            角色字符串，例如 common,admin
-            </summary>
-        </member>
-        <member name="M:Vben.Common.Core.Filter.ActionPermissionFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
-            <summary>
-            执行Action前校验是否有权限访问
-            </summary>
-            <param name="context"></param>
-            <param name="next"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Vben.Common.Core.Filter.AppServiceAttribute">
-            <summary>
-            参考地址：https://www.cnblogs.com/kelelipeng/p/10643556.html
-            标记服务
-            如何使用？
-            1、如果服务是本身 直接在类上使用[AppService]
-            2、如果服务是接口 在类上使用 [AppService(ServiceType = typeof(实现接口))]
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.Filter.AppServiceAttribute.ServiceLifetime">
-            <summary>
-            服务声明周期
-            不给默认值的话注册的是AddSingleton
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.Filter.AppServiceAttribute.ServiceType">
-            <summary>
-            指定服务类型
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.Filter.AppServiceAttribute.InterfaceServiceType">
-            <summary>
-            是否可以从第一个接口获取服务类型
-            </summary>
-        </member>
-        <member name="T:Vben.Common.Core.Filter.AppServiceExtensions">
-            <summary>
-            App服务注册
-            </summary>
-        </member>
-        <member name="M:Vben.Common.Core.Filter.AppServiceExtensions.AddAppService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            注册引用程序域中所有有AppService标记的类的服务
-            </summary>
-            <param name="services"></param>
-        </member>
         <member name="T:Vben.Common.Core.Filter.DisableOpLogAttribute">
             <summary>
             禁用操作日志
             </summary>
-        </member>
-        <member name="T:Vben.Common.Core.Filter.MyUnitOfWorkAttribute">
-            <summary>
-            SqlSugar 工作单元配置特性
-            </summary>
-        </member>
-        <member name="M:Vben.Common.Core.Filter.MyUnitOfWorkAttribute.#ctor">
-            <summary>
-            构造函数
-            </summary>
-        </member>
-        <member name="M:Vben.Common.Core.Filter.MyUnitOfWorkAttribute.#ctor(System.Data.IsolationLevel)">
-            <summary>
-            构造函数
-            </summary>
-            <remarks>
-            <para>支持传入事务隔离级别 <see cref="P:Vben.Common.Core.Filter.MyUnitOfWorkAttribute.IsolationLevel"/> 参数值</para>
-            </remarks>
-            <param name="isolationLevel">事务隔离级别</param>
-        </member>
-        <member name="P:Vben.Common.Core.Filter.MyUnitOfWorkAttribute.IsolationLevel">
-            <summary>
-            事务隔离级别
-            </summary>
-            <remarks>
-            <para>默认：<see cref="F:System.Data.IsolationLevel.ReadCommitted"/>，参见：<see cref="P:Vben.Common.Core.Filter.MyUnitOfWorkAttribute.IsolationLevel"/></para>
-            <para>说明：当事务A更新某条数据的时候，不容许其他事务来更新该数据，但可以进行读取操作</para>
-            </remarks>
         </member>
         <member name="T:Vben.Common.Core.Filter.OplogAttribute">
             <summary>
@@ -548,10 +461,28 @@
             构造函数
             </summary>
         </member>
-        <member name="T:Vben.Common.Core.Manager.UserManager">
+        <member name="T:Vben.Common.Core.Filter.SaCheckPermission">
             <summary>
-            用户管理
+            API授权判断
             </summary>
+        </member>
+        <member name="P:Vben.Common.Core.Filter.SaCheckPermission.Value">
+            <summary>
+            权限字符串，多个用逗号隔开，例如 system:user:view,system:user:add
+            </summary>
+        </member>
+        <member name="P:Vben.Common.Core.Filter.SaCheckPermission.RolePermi">
+            <summary>
+            角色字符串，例如 common,admin
+            </summary>
+        </member>
+        <member name="M:Vben.Common.Core.Filter.SaCheckPermission.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            执行Action前校验是否有权限访问
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
         </member>
         <member name="M:Vben.Common.Core.Npoi.NpoiExcelExportHelper.CreateRow(NPOI.SS.UserModel.ISheet,System.Int32,System.Single)">
             <summary>
@@ -600,6 +531,36 @@
             jwt认证中间件
             </summary>
         </member>
+        <member name="P:Vben.Common.Core.Token.JwtSettings.Issuer">
+            <summary>
+            token是谁颁发的
+            </summary>
+        </member>
+        <member name="P:Vben.Common.Core.Token.JwtSettings.Audience">
+            <summary>
+            token可以给那些客户端使用
+            </summary>
+        </member>
+        <member name="P:Vben.Common.Core.Token.JwtSettings.SecretKey">
+            <summary>
+            加密的key（SecretKey必须大于16个,是大于，不是大于等于）
+            </summary>
+        </member>
+        <member name="P:Vben.Common.Core.Token.JwtSettings.Expire">
+            <summary>
+            token时间（分）
+            </summary>
+        </member>
+        <member name="P:Vben.Common.Core.Token.JwtSettings.RefreshTokenTime">
+            <summary>
+            刷新token时长
+            </summary>
+        </member>
+        <member name="P:Vben.Common.Core.Token.JwtSettings.TokenType">
+            <summary>
+            token类型
+            </summary>
+        </member>
         <member name="T:Vben.Common.Core.Token.JwtUtil">
             <summary>
             2023-8-29已从WebApi移至此
@@ -645,6 +606,11 @@
              </summary>
              <param name="user"></param>
              <returns></returns>
+        </member>
+        <member name="P:Vben.Common.Core.Token.LoginHelper.User">
+            <summary>
+            获取请求上下文用户
+            </summary>
         </member>
         <member name="P:Vben.Common.Core.Token.TokenModel.UserId">
             <summary>
@@ -923,36 +889,6 @@
             添加模型验证过滤器（配合使用）
             </summary>
         </member>
-        <member name="M:Vben.Common.Core.AppSettings.App(System.String[])">
-            <summary>
-            封装要操作的字符
-            </summary>
-            <param name="sections">节点配置</param>
-            <returns></returns>
-        </member>
-        <member name="M:Vben.Common.Core.AppSettings.App``1(System.String[])">
-            <summary>
-            递归获取配置信息数组
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="sections"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Vben.Common.Core.AppSettings.GetConfig(System.String)">
-            <summary>
-            获取配置文件 
-            </summary>
-            <param name="key">eg: WeChat:Token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Vben.Common.Core.AppSettings.Get``1(System.String)">
-            <summary>
-            获取配置节点并转换成指定类型
-            </summary>
-            <typeparam name="T">节点类型</typeparam>
-            <param name="key">节点路径</param>
-            <returns>节点类型实例</returns>
-        </member>
         <member name="M:Vben.Common.Core.Extensions.ParseToLong(System.Object)">
             <summary>
             将object转换为long，若转换失败，则返回0。不抛出异常。  
@@ -1091,141 +1027,6 @@
             <typeparam name="TResult"></typeparam>
             <param name="source"></param>
             <returns></returns>
-        </member>
-        <member name="T:Vben.Common.Core.OptionsSetting">
-            <summary>
-            获取配置文件POCO实体类
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.SingleLogin">
-            <summary>
-            是否单设备登录
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.DemoMode">
-            <summary>
-            是否演示模式
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.InitDb">
-            <summary>
-            初始化db
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.MailOptions">
-            <summary>
-            邮箱配置
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.Upload">
-            <summary>
-            上传配置
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.ALIYUN_OSS">
-            <summary>
-            阿里云oss
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.CodeGen">
-            <summary>
-            代码生成配置
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.CodeGenDbConfig">
-            <summary>
-            代码生成数据库配置
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.OptionsSetting.RedisServer">
-            <summary>
-            Reids配置
-            </summary>
-        </member>
-        <member name="T:Vben.Common.Core.MailOptions">
-            <summary>
-            发送邮件数据配置
-            </summary>
-        </member>
-        <member name="T:Vben.Common.Core.Upload">
-            <summary>
-            上传
-            </summary>
-        </member>
-        <member name="T:Vben.Common.Core.ALIYUN_OSS">
-            <summary>
-            阿里云存储
-            </summary>
-        </member>
-        <member name="T:Vben.Common.Core.JwtSettings">
-            <summary>
-            Jwt
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.JwtSettings.Issuer">
-            <summary>
-            token是谁颁发的
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.JwtSettings.Audience">
-            <summary>
-            token可以给那些客户端使用
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.JwtSettings.SecretKey">
-            <summary>
-            加密的key（SecretKey必须大于16个,是大于，不是大于等于）
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.JwtSettings.Expire">
-            <summary>
-            token时间（分）
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.JwtSettings.RefreshTokenTime">
-            <summary>
-            刷新token时长
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.JwtSettings.TokenType">
-            <summary>
-            token类型
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.CodeGen.ShowApp">
-            <summary>
-            是否显示移动端代码生成
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.CodeGen.AutoPre">
-            <summary>
-            是否自动去除前缀
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.CodeGen.VuePath">
-            <summary>
-            vue前端生成路径
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.CodeGen.Author">
-            <summary>
-            作者
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.CodeGen.ModuleName">
-            <summary>
-            模块名，默认值：business
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.CodeGen.UniappVersion">
-            <summary>
-            unipap vue版本号可选值2/3
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.CodeGen.UniappPath">
-            <summary>
-            unipap前端存储路径
-            </summary>
         </member>
     </members>
 </doc>

@@ -1,8 +1,5 @@
 using Admin.NET.Core;
-using Admin.NET.Core.Service;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.SignalR;
-using Vben.Base.Mon.online.user;
 using Vben.Base.Sys.Notice;
 
 namespace Vben.Base.Mon.Online.User;
@@ -10,32 +7,26 @@ namespace Vben.Base.Mon.Online.User;
 /// <summary>
 /// 系统在线用户服务 🧩
 /// </summary>
-[ApiDescriptionSettings(Order = 300)]
-public class MonOnlineUserApi : IDynamicApiController, ITransient
+[Route("mon/online/user")]
+[ApiDescriptionSettings("Mon", Tag = "在线用户")]
+public class MonOnlineUserApi( 
+    IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext,
+    SqlSugarRepository<MonOnlineUser> sysOnlineUerRep)
+    : ControllerBase
 {
     // private readonly UserManager _userManager;
     // private readonly SysConfigService _sysConfigService;
-    private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _onlineUserHubContext;
-    private readonly SqlSugarRepository<MonOnlineUser> _sysOnlineUerRep;
 
-    public MonOnlineUserApi(
-        // SysConfigService sysConfigService,
-        IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext,
-        SqlSugarRepository<MonOnlineUser> sysOnlineUerRep
-        // UserManager userManager
-        )
-    {
-        // _userManager = userManager;
-        // _sysConfigService = sysConfigService;
-        _onlineUserHubContext = onlineUserHubContext;
-        _sysOnlineUerRep = sysOnlineUerRep;
-    }
+    // UserManager userManager
+    // _userManager = userManager;
+    // _sysConfigService = sysConfigService;
 
     /// <summary>
     /// 获取在线用户分页列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取在线用户分页列表")]
+    [HttpGet("list")]
     public async Task<dynamic> GetList()
     {  
         // var pp = XreqUtil.GetPp();
@@ -43,7 +34,7 @@ public class MonOnlineUserApi : IDynamicApiController, ITransient
         //     .ToPageListAsync(pp.page, pp.pageSize, pp.total);
         // return RestPageResult.Build(pp.total.Value, items);
         
-        var items = await _sysOnlineUerRep.GetListAsync();
+        var items = await sysOnlineUerRep.GetListAsync();
         
         return items;
     }
@@ -70,10 +61,12 @@ public class MonOnlineUserApi : IDynamicApiController, ITransient
     /// <returns></returns>
     [NonValidation]
     [DisplayName("强制下线")]
+    // [HttpGet("kick")]
+    [NonAction]
     public async Task ForceOffline(MonOnlineUser user)
     {
-        await _onlineUserHubContext.Clients.Client(user.conid ?? "").ForceOffline("强制下线");
-        await _sysOnlineUerRep.DeleteAsync(user);
+        await onlineUserHubContext.Clients.Client(user.conid ?? "").ForceOffline("强制下线");
+        await sysOnlineUerRep.DeleteAsync(user);
     }
 
     /// <summary>
@@ -85,49 +78,49 @@ public class MonOnlineUserApi : IDynamicApiController, ITransient
     [NonAction]
     public async Task PublicNotice(SysNotice notice, List<string> userIds)
     {
-        var userList = await _sysOnlineUerRep.GetListAsync(u => userIds.Contains(u.useid));
+        var userList = await sysOnlineUerRep.GetListAsync(u => userIds.Contains(u.useid));
         if (userList.Count == 0) return;
 
         foreach (var item in userList)
         {
-            await _onlineUserHubContext.Clients.Client(item.conid ?? "").PublicNotice(notice);
+            await onlineUserHubContext.Clients.Client(item.conid ?? "").PublicNotice(notice);
         }
     }
 
-    /// <summary>
-    /// 单用户登录
-    /// </summary>
-    /// <returns></returns>
-    [NonAction]
-    public async Task SingleLogin(string userId)
-    {
-        // if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
-        // {
-        //     var users = await _sysOnlineUerRep.GetListAsync(u => u.UserId == userId);
-        //     foreach (var user in users)
-        //     {
-        //         await ForceOffline(user);
-        //     }
-        // }
-        var users = await _sysOnlineUerRep.GetListAsync(u => u.useid == userId);
-        foreach (var user in users)
-        {
-            await ForceOffline(user);
-        }
-    }
-
-    /// <summary>
-    /// 通过用户ID踢掉在线用户
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <returns></returns>
-    [NonAction]
-    public async Task ForceOffline(string userId)
-    {
-        var users = await _sysOnlineUerRep.GetListAsync(u => u.useid == userId);
-        foreach (var user in users)
-        {
-            await ForceOffline(user);
-        }
-    }
+    // /// <summary>
+    // /// 单用户登录
+    // /// </summary>
+    // /// <returns></returns>
+    // [NonAction]
+    // public async Task SingleLogin(string userId)
+    // {
+    //     // if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
+    //     // {
+    //     //     var users = await _sysOnlineUerRep.GetListAsync(u => u.UserId == userId);
+    //     //     foreach (var user in users)
+    //     //     {
+    //     //         await ForceOffline(user);
+    //     //     }
+    //     // }
+    //     var users = await sysOnlineUerRep.GetListAsync(u => u.useid == userId);
+    //     foreach (var user in users)
+    //     {
+    //         await ForceOffline(user);
+    //     }
+    // }
+    //
+    // /// <summary>
+    // /// 通过用户ID踢掉在线用户
+    // /// </summary>
+    // /// <param name="userId"></param>
+    // /// <returns></returns>
+    // [NonAction]
+    // public async Task ForceOffline(string userId)
+    // {
+    //     var users = await sysOnlineUerRep.GetListAsync(u => u.useid == userId);
+    //     foreach (var user in users)
+    //     {
+    //         await ForceOffline(user);
+    //     }
+    // }
 }

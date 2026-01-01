@@ -12,7 +12,7 @@ public class SysNotice
     public string name { get; set; }
     
     [SugarColumn(ColumnDescription = "公告内容", IsNullable = true, Length = 2000)]
-    public string content { get; set; }
+    public string cont { get; set; }
     
     [SugarColumn(ColumnDescription = "公告类型（1通知 2公告）", IsNullable = true)]
     public int type { get; set; }

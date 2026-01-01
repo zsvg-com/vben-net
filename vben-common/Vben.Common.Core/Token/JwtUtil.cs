@@ -11,6 +11,7 @@ namespace Vben.Common.Core.Token;
 /// </summary>
 public class JwtUtil
 {
+    
     /// <summary>
     /// 获取用户身份信息
     /// </summary>
@@ -33,25 +34,23 @@ public class JwtUtil
     /// <returns></returns>
     public static string GenerateJwtToken(List<Claim> claims)
     {
-        JwtSettings jwtSettings = new();
-        AppSettings.Bind("JwtSettings", jwtSettings);
 
         var authTime = DateTime.Now;
-        var expiresAt = authTime.AddMinutes(jwtSettings.Expire);
+        var expiresAt = authTime.AddMinutes(JwtSettings.Expire);
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
-        claims.Add(new Claim("Audience", jwtSettings.Audience));
-        claims.Add(new Claim("Issuer", jwtSettings.Issuer));
+        var key = Encoding.ASCII.GetBytes(JwtSettings.SecretKey);
+        claims.Add(new Claim("Audience", JwtSettings.Audience));
+        claims.Add(new Claim("Issuer", JwtSettings.Issuer));
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Issuer = jwtSettings.Issuer,
-            Audience = jwtSettings.Audience,
+            Issuer = JwtSettings.Issuer,
+            Audience = JwtSettings.Audience,
             IssuedAt = authTime, //token生成时间
             Expires = expiresAt,
             //NotBefore = authTime,
-            TokenType = jwtSettings.TokenType,
+            TokenType = JwtSettings.TokenType,
             //对称秘钥，签名证书
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -66,23 +65,16 @@ public class JwtUtil
     /// <returns></returns>
     public static TokenValidationParameters ValidParameters()
     {
-        JwtSettings jwtSettings = new();
-        AppSettings.Bind("JwtSettings", jwtSettings);
 
-        if (jwtSettings == null || jwtSettings.SecretKey.IsEmpty())
-        {
-            throw new Exception("JwtSettings获取失败");
-        }
-
-        var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
+        var key = Encoding.ASCII.GetBytes(JwtSettings.SecretKey);
 
         var tokenDescriptor = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
+            ValidIssuer = JwtSettings.Issuer,
+            ValidAudience = JwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(key),
             ValidateLifetime = true, //是否验证Token有效期，使用当前时间与Token的Claims中的NotBefore和Expires对比
             ClockSkew = TimeSpan.FromSeconds(30)

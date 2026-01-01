@@ -5,6 +5,7 @@
 public class ToolFormApi(ToolFormService service) : ControllerBase
 {
     [HttpGet]
+    [SaCheckPermission("tool:form:query")]
     public async Task<dynamic> Get(string name)
     {
         var pp = XreqUtil.GetPp();
@@ -22,6 +23,7 @@ public class ToolFormApi(ToolFormService service) : ControllerBase
     }
 
     [HttpGet("info/{id}")]
+    [SaCheckPermission("tool:form:query")]
     public async Task<ToolForm> GetInfo(long id)
     {
         var main = await service.Repo.Context.Queryable<ToolForm>()
@@ -30,6 +32,7 @@ public class ToolFormApi(ToolFormService service) : ControllerBase
     }
 
     [HttpPost]
+    [SaCheckPermission("tool:form:edit")]
     public async Task<long> Post([FromBody] ToolForm main)
     {
         DateTime now = DateTime.Now;
@@ -38,12 +41,14 @@ public class ToolFormApi(ToolFormService service) : ControllerBase
     }
 
     [HttpPut]
+    [SaCheckPermission("tool:form:edit")]
     public async Task<long> Put([FromBody] ToolForm main)
     {
         return await service.Update(main);
     }
 
     [HttpDelete]
+    [SaCheckPermission("tool:form:delete")]
     public async Task<int> Delete(string ids)
     {
         return await service.Delete(ids);

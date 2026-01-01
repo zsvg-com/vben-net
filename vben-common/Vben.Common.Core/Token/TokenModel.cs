@@ -5,12 +5,12 @@ public class TokenModel
     /// <summary>
     /// 用户id
     /// </summary>
-    public long UserId { get; set; }
+    public string UserId { get; set; }
 
     /// <summary>
     /// 部门id
     /// </summary>
-    public long DeptId { get; set; }
+    public string DeptId { get; set; }
 
     /// <summary>
     /// 登录用户名
@@ -73,7 +73,7 @@ public class TokenModel
     /// <returns></returns>
     public bool IsAdmin()
     {
-        return RoleKeys.Contains("admin") || UserId == 1;
+        return RoleKeys.Contains("admin") || UserId == "u1";
     }
 }
 

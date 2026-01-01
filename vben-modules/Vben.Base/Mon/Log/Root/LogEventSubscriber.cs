@@ -1,7 +1,8 @@
-﻿using Vben.Base.Mon.Log.Error;
+﻿using Furion.EventBus;
+using Vben.Base.Mon.Log.Error;
 using Vben.Base.Mon.Log.Login;
 using Vben.Base.Mon.Oper.Log;
-using Vben.Base.Sys.Org.User;
+using Vben.Base.Sys.User;
 
 namespace Vben.Base.Mon.Log.Root;
 
@@ -45,8 +46,8 @@ public class LogEventSubscriber : IEventSubscriber
     public async Task UpdateUserLoginInfo(EventHandlerExecutingContext context)
     {
         using var scope = Services.CreateScope();
-        var repository = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysOrgUser>>();
-        var log = (SysOrgUser)context.Source.Payload;
+        var repository = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysUser>>();
+        var log = (SysUser)context.Source.Payload;
         await repository.Context.Updateable(log).UpdateColumns(m => new { m.lotim, m.loip })
             .ExecuteCommandAsync();
     }

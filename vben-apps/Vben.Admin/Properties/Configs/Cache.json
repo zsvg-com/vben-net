@@ -3,11 +3,11 @@
 
   // 缓存配置
   "Cache": {
-    "Prefix": "vben_", // 全局缓存前缀
+    "Prefix": "vben:", // 全局缓存前缀
     "CacheType": "Redis", // Memory、Redis
     "Redis": {
       "Configuration": "server=127.0.0.1:6379;password=;db=5;", // Redis连接字符串
-      "Prefix": "vben_", // Redis前缀（目前没用）
+      "Prefix": "vben:", // Redis前缀
       "MaxMessageSize": "1048576", // 最大消息大小 默认1024 * 1024
       "AutoDetect": false // 自动检测集群节点 阿里云的Redis分布式集群使用代理模式，需要设置为false关闭自动检测；如果不用代理地址，就配置多个节点地址并打开自动检测
     }

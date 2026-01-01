@@ -45,7 +45,7 @@ public class SysUserVo
     /**
      * 用户性别（0男 1女 2未知）
      */
-    public string sex { get; set; }
+    public string gender { get; set; }
 
     /**
      * 头像地址

@@ -5,12 +5,14 @@
 public class SysNoticeApi(SqlSugarRepository<SysNotice> repo) : ControllerBase
 {
     [HttpGet("list")]
+    [SaCheckPermission("sys:notice:query")]
     public async Task<dynamic> GetList()
     {
         return await repo.GetListAsync();
     }
 
     [HttpGet]
+    [SaCheckPermission("sys:notice:query")]
     public async Task<dynamic> Get(string name)
     {
         var pp = XreqUtil.GetPp();
@@ -22,6 +24,7 @@ public class SysNoticeApi(SqlSugarRepository<SysNotice> repo) : ControllerBase
     }
 
     [HttpGet("info/{id}")]
+    [SaCheckPermission("sys:notice:query")]
     public async Task<SysNotice> GetInfo(long id)
     {
         var main = await repo.Context.Queryable<SysNotice>()
@@ -30,6 +33,7 @@ public class SysNoticeApi(SqlSugarRepository<SysNotice> repo) : ControllerBase
     }
 
     [HttpPost]
+    [SaCheckPermission("sys:notice:edit")]
     public async Task<long> Post([FromBody] SysNotice main)
     {
         main.id = YitIdHelper.NextId() ;
@@ -38,6 +42,7 @@ public class SysNoticeApi(SqlSugarRepository<SysNotice> repo) : ControllerBase
     }
 
     [HttpPut]
+    [SaCheckPermission("sys:notice:edit")]
     public async Task<long> Put([FromBody] SysNotice main)
     {
         main.uptim = DateTime.Now;
@@ -46,6 +51,7 @@ public class SysNoticeApi(SqlSugarRepository<SysNotice> repo) : ControllerBase
     }
     
     [HttpDelete("{ids}")]
+    [SaCheckPermission("sys:notice:delete")]
     public async Task Delete(string ids)
     {
         var idArr = ids.Split(",");

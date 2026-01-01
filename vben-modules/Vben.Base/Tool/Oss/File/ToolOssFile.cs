@@ -10,7 +10,7 @@ public class ToolOssFile
     public string md5 { get; set; }
 
     [SugarColumn(ColumnDescription = "文件大小", IsNullable = true)]
-    public long zsize { get; set; }
+    public long fsize { get; set; }
 
     [SugarColumn(ColumnDescription = "存储地址", IsNullable = true, Length = 255)]
     public string path { get; set; }

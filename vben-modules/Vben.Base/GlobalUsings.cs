@@ -17,8 +17,8 @@ global using Yitter.IdGenerator;
 global using Vben.Common.Core;
 global using Vben.Common.Core.Utils;
 global using Vben.Common.Core.Attribute;
-global using Vben.Common.Core.Manager;
 global using Vben.Common.Core.Config;
+global using Vben.Common.Core.Filter;
 global using Vben.Common.Sqlsugar.Config;
 global using Vben.Common.Sqlsugar.Mvc.Pojo;
 global using Vben.Common.Sqlsugar.Mvc.Dao;
@@ -27,8 +27,9 @@ global using Vben.Common.Sqlsugar.Mvc.Api;
 global using Vben.Common.Sqlsugar.Mvc.Service;
 global using Newtonsoft.Json;
 
-global using Furion;
-global using Furion.DependencyInjection;
-global using Furion.EventBus;
-global using Furion.FriendlyException;
-global using Furion.JsonSerialization;
+
+// global using Furion;
+// global using Furion.DependencyInjection;
+// global using Furion.EventBus;
+// global using Furion.FriendlyException;
+// global using Furion.JsonSerialization;

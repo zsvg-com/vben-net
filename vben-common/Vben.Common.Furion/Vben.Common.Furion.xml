@@ -24,16 +24,6 @@
             获取请求上下文
             </summary>
         </member>
-        <member name="P:Vben.Common.Core.MyApp.User">
-            <summary>
-            获取请求上下文用户
-            </summary>
-        </member>
-        <member name="P:Vben.Common.Core.MyApp.UserName">
-            <summary>
-            获取用户名
-            </summary>
-        </member>
         <member name="M:Vben.Common.Core.MyApp.GetService``1">
             <summary>
             获取请求生命周期的服务

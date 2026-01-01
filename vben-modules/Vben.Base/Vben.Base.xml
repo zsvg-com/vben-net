@@ -4,16 +4,6 @@
         <name>Vben.Base</name>
     </assembly>
     <members>
-        <member name="M:Vben.Base.Auth.Root.AuthzHandler.PipelineAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,Microsoft.AspNetCore.Http.DefaultHttpContext)">
-            <summary>
-            授权判断逻辑，授权通过返回 true，否则返回 false
-            </summary>
-        </member>
-        <member name="M:Vben.Base.Auth.Root.AuthzHandler.checkPerm(System.String,System.String,System.String)">
-            <summary>
-            权限校验核心逻辑
-            </summary>
-        </member>
         <member name="T:Vben.Base.Auth.Root.RestResultProvider">
             <summary>
             规范化RESTful风格返回值
@@ -113,7 +103,7 @@
         <member name="P:Vben.Base.Auth.User.SysUserVo.phonenumber">
             手机号码
         </member>
-        <member name="P:Vben.Base.Auth.User.SysUserVo.sex">
+        <member name="P:Vben.Base.Auth.User.SysUserVo.gender">
             用户性别（0男 1女 2未知）
         </member>
         <member name="P:Vben.Base.Auth.User.SysUserVo.avatar">
@@ -228,7 +218,7 @@
             登录日志表
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.usnam">
+        <member name="P:Vben.Base.Mon.Log.Login.MonLoginLog.username">
             <summary>
             用户账号
             </summary>
@@ -353,7 +343,7 @@
             用户姓名
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.usnam">
+        <member name="P:Vben.Base.Mon.Log.Error.MonLogError.username">
             <summary>
             用户账号
             </summary>
@@ -408,62 +398,67 @@
             请求日志拦截
             </summary>
         </member>
-        <member name="T:Vben.Base.Mon.online.user.MonOnlineUser">
+        <member name="T:Vben.Base.Mon.Online.User.MonOnlineUser">
             <summary>
             在线用户
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.id">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.id">
             <summary>
             雪花Id
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.tenid">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.tenid">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.conid">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.conid">
             <summary>
             连接Id
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.useid">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.useid">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.usena">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.usena">
             <summary>
             账号
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.nicna">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.nicna">
             <summary>
             真实姓名
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.cotim">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.cotim">
             <summary>
             连接时间
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.ip">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.ip">
             <summary>
             连接IP
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.browser">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.browser">
             <summary>
             浏览器
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.online.user.MonOnlineUser.os">
+        <member name="P:Vben.Base.Mon.Online.User.MonOnlineUser.os">
             <summary>
             操作系统
             </summary>
         </member>
         <member name="T:Vben.Base.Mon.Online.User.MonOnlineUserApi">
+            <summary>
+            系统在线用户服务 🧩
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{Admin.NET.Core.OnlineUserHub,Admin.NET.Core.IOnlineUserHub},Vben.Common.Sqlsugar.Config.SqlSugarRepository{Vben.Base.Mon.Online.User.MonOnlineUser})">
             <summary>
             系统在线用户服务 🧩
             </summary>
@@ -474,7 +469,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.ForceOffline(Vben.Base.Mon.online.user.MonOnlineUser)">
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.ForceOffline(Vben.Base.Mon.Online.User.MonOnlineUser)">
             <summary>
             强制下线 🔖
             </summary>
@@ -489,13 +484,7 @@
             <param name="userIds"></param>
             <returns></returns>
         </member>
-        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.SingleLogin(System.String)">
-            <summary>
-            单用户登录
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserApi.ForceOffline(System.String)">
+        <member name="M:Vben.Base.Mon.Online.User.MonOnlineUserService.ForceOffline(System.String)">
             <summary>
             通过用户ID踢掉在线用户
             </summary>
@@ -532,7 +521,7 @@
             用户姓名
             </summary>
         </member>
-        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.usnam">
+        <member name="P:Vben.Base.Mon.Oper.Log.MonOperLog.username">
             <summary>
             用户账号
             </summary>
@@ -725,227 +714,102 @@
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="P:Vben.Base.Sys.Org.Dept.SysOrgDept.type">
+        <member name="P:Vben.Base.Sys.Dept.SysDept.type">
             部门在整个组织架构sys_org表中类别为1，这个字段是进行部门细分的，比如分为集团、企业、机构、部门等
         </member>
-        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.GetTree(System.String)">
+        <member name="M:Vben.Base.Sys.Group.SysGroupcApi.GetTree(System.String)">
             <summary>
             获取分类treeTable数据
             </summary>
         </member>
-        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.GetInfo(System.String)">
+        <member name="M:Vben.Base.Sys.Group.SysGroupcApi.GetInfo(System.String)">
             <summary>
             获取单个分类详细信息
             </summary>
         </member>
-        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.Post(Vben.Base.Sys.Org.Group.SysOrgGroupCate)">
+        <member name="M:Vben.Base.Sys.Group.SysGroupcApi.Post(Vben.Base.Sys.Group.SysGroupCate)">
             <summary>
             新增分类
             </summary>
         </member>
-        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.Put(Vben.Base.Sys.Org.Group.SysOrgGroupCate)">
+        <member name="M:Vben.Base.Sys.Group.SysGroupcApi.Put(Vben.Base.Sys.Group.SysGroupCate)">
             <summary>
             更新分类
             </summary>
         </member>
-        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.Delete(System.String)">
+        <member name="M:Vben.Base.Sys.Group.SysGroupcApi.Delete(System.String)">
             <summary>
             删除分类
             </summary>
         </member>
-        <member name="M:Vben.Base.Sys.Org.Group.SysOrgGroupcApi.PostMove(Vben.Common.Sqlsugar.Mvc.Pojo.TreeMovePo)">
+        <member name="M:Vben.Base.Sys.Group.SysGroupcApi.PostMove(Vben.Common.Sqlsugar.Mvc.Pojo.TreeMovePo)">
             <summary>
             移动分类
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Org.Group.SysOrgGroupCate.children">
+        <member name="P:Vben.Base.Sys.Group.SysGroupCate.children">
             <summary>
             子分类集合
             </summary>
         </member>
-        <member name="M:Vben.Base.Sys.Org.User.AesHelper.Decrypt(System.String,System.String,System.String)">
-            <summary>
-            AES解密
-            </summary>
-            <param name="encryptedData">加密后的Base64字符串</param>
-            <param name="key">密钥</param>
-            <param name="iv">初始化向量</param>
-            <returns>解密后的明文</returns>
-        </member>
-        <member name="M:Vben.Base.Sys.Org.User.AesHelper.Encrypt(System.String,System.String,System.String)">
-            <summary>
-            AES加密（用于测试验证）
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.id">
-            <summary>
-            主键Id
-            </summary>
-            <example></example>
-        </member>
-        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.conds">
-            <summary>
-            组织架构集
-            </summary>
-            <example></example>
-        </member>
-        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.perms">
-            <summary>
-            后台所有权限集
-            </summary>
-            <example></example>
-        </member>
-        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.menus">
-            <summary>
-            前台菜单缓存
-            </summary>
-            <example></example>
-        </member>
-        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.btns">
-            <summary>
-            前台按钮缓存
-            </summary>
-            <example></example>
-        </member>
-        <member name="P:Vben.Base.Sys.Org.User.SysOrgUserCache.portals">
-            <summary>
-            前台门户缓存
-            </summary>
-            <example></example>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.id">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.name">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.avtag">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.avtag">
             <summary>
             是否可用，1可用，0不可用
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.crtim">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.crtim">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.uptim">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.uptim">
             <summary>
             更新时间
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.crman">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.crman">
             <summary>
             创建者
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.cruid">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.cruid">
             <summary>
             创建者Id
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.upman">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.upman">
             <summary>
             修改者
             </summary>
         </member>
-        <member name="P:Vben.Base.Sys.Perm.Menu.SysPermMenu.upuid">
+        <member name="P:Vben.Base.Sys.Menu.SysMenu.upuid">
             <summary>
             修改者Id
             </summary>
         </member>
-        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.isMenuFrame">
+        <member name="M:Vben.Base.Sys.Menu.SysMenu.isMenuFrame">
             是否为菜单内部跳转
         </member>
-        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.getRouteName">
+        <member name="M:Vben.Base.Sys.Menu.SysMenu.getRouteName">
             获取路由名称
         </member>
-        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.isInnerLink">
+        <member name="M:Vben.Base.Sys.Menu.SysMenu.isInnerLink">
             是否为内链组件
         </member>
-        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenu.innerLinkReplaceEach(System.String)">
+        <member name="M:Vben.Base.Sys.Menu.SysMenu.innerLinkReplaceEach(System.String)">
             内链域名特殊字符替换
         </member>
-        <member name="M:Vben.Base.Sys.Perm.Menu.SysPermMenuApi.GetTree(System.Int64)">
-            <summary>
-            获取分类treeTable数据
-            </summary>
-        </member>
-        <member name="T:Vben.Base.Sys.Perm.Role.SysPermRole">
-            <summary>
-            权限角色
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.notes">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.avtag">
-            <summary>
-            可用标记
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.ornum">
-            <summary>
-            排序号
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.type">
-            <summary>
-            角色类型
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.scope">
-            <summary>
-            数据权限
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.crtim">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.uptim">
-            <summary>
-            更新时间
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.crman">
-            <summary>
-            创建者
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.cruid">
-            <summary>
-            创建者Id
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.upman">
-            <summary>
-            修改者
-            </summary>
-        </member>
-        <member name="P:Vben.Base.Sys.Perm.Role.SysPermRole.upuid">
-            <summary>
-            修改者Id
-            </summary>
-        </member>
-        <member name="M:Vben.Base.Sys.Perm.Role.SysPermRoleApi.GetPerms">
+        <member name="M:Vben.Base.Sys.Menu.SysMenuApi.GetTree(System.Int64)">
             <summary>
             获取分类treeTable数据
             </summary>
@@ -974,7 +838,7 @@
         <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.phonenumber">
             手机号码
         </member>
-        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.sex">
+        <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.gender">
             用户性别（0男 1女 2未知）
         </member>
         <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.avatar">
@@ -989,11 +853,198 @@
         <member name="P:Vben.Base.Sys.Profile.ProfileUserVo.deptName">
             部门名
         </member>
+        <member name="T:Vben.Base.Sys.Role.SysRole">
+            <summary>
+            权限角色
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.notes">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.avtag">
+            <summary>
+            可用标记
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.ornum">
+            <summary>
+            排序号
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.type">
+            <summary>
+            角色类型
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.scope">
+            <summary>
+            数据权限
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.crtim">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.uptim">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.crman">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.cruid">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.upman">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.Role.SysRole.upuid">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.Role.SysRoleApi.GetPerms">
+            <summary>
+            获取分类treeTable数据
+            </summary>
+        </member>
         <member name="P:Vben.Base.Sys.Security.Pojo.LoginVo.username">
             <example>sa</example>
         </member>
         <member name="P:Vben.Base.Sys.Security.Pojo.LoginVo.password">
             <example>1</example>
+        </member>
+        <member name="M:Vben.Base.Sys.User.AesHelper.Decrypt(System.String,System.String,System.String)">
+            <summary>
+            AES解密
+            </summary>
+            <param name="encryptedData">加密后的Base64字符串</param>
+            <param name="key">密钥</param>
+            <param name="iv">初始化向量</param>
+            <returns>解密后的明文</returns>
+        </member>
+        <member name="M:Vben.Base.Sys.User.AesHelper.Encrypt(System.String,System.String,System.String)">
+            <summary>
+            AES加密（用于测试验证）
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Sys.User.bo.UserSearchBo">
+            <summary>
+            用户查询对象
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.User.bo.UserSearchBo.name">
+            <summary>
+            用户昵称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.User.bo.UserSearchBo.depid">
+            <summary>
+            部门ID
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.User.bo.UserSearchBo.username">
+            <summary>
+            用户账号名称
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.User.bo.UserSearchBo.email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.User.bo.UserSearchBo.monum">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.User.bo.UserSearchBo.notes">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.User.bo.UserSearchBo.IsAllNullWithoutDepit">
+            <summary>
+            判断是否除了部门ID其他查询字段都会空
+            </summary>
+        </member>
+        <member name="P:Vben.Base.Sys.User.SysUser.depna">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="T:Vben.Base.Sys.User.SysUserApi">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.User.SysUserApi.#ctor(Vben.Base.Sys.User.SysUserService)">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:Vben.Base.Sys.User.SysUserApi.Get(Vben.Base.Sys.User.bo.UserSearchBo)">
+            <summary>
+            用户分页查询
+            </summary>
+            <param name="bo">查询对象</param>
+            <returns></returns>
+        </member>
+        <member name="P:Vben.Base.Sys.User.SysUserCache.id">
+            <summary>
+            主键Id
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.User.SysUserCache.conds">
+            <summary>
+            组织架构集
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.User.SysUserCache.perms">
+            <summary>
+            后台所有权限集
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.User.SysUserCache.menus">
+            <summary>
+            前台菜单缓存
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.User.SysUserCache.btns">
+            <summary>
+            前台按钮缓存
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:Vben.Base.Sys.User.SysUserCache.portals">
+            <summary>
+            前台门户缓存
+            </summary>
+            <example></example>
         </member>
         <member name="P:Vben.Base.Tool.Code.Root.CodeGenerateOption.BaseNamespace">
             <summary>
@@ -1355,6 +1406,15 @@
             </summary>
             <param name="file">文件</param>
             <returns></returns>
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssUploadVo.url">
+            URL地址
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssUploadVo.fileName">
+            文件名
+        </member>
+        <member name="P:Vben.Base.Tool.Oss.Main.ToolOssUploadVo.ossId">
+            对象存储主键
         </member>
         <member name="M:Vben.Base.Tool.Oss.Root.AliyunOssUtil.PutObjectFromFile(System.IO.Stream,System.String,System.String)">
             <summary>

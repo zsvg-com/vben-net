@@ -1,16 +1,17 @@
-﻿using Vben.Base.Sys.Org.Dept;
-using Vben.Base.Sys.Org.Post;
-using Vben.Base.Sys.Org.Rece;
-using Vben.Base.Sys.Org.User;
+﻿using Vben.Base.Sys.Dept;
+using Vben.Base.Sys.Post;
+using Vben.Base.Sys.Rece;
+using Vben.Base.Sys.User;
+using Vben.Common.Core.Token;
 
 namespace Vben.Base.Pub.Org.Rece;
 
 [Route("pub/org/rece")]
 [ApiDescriptionSettings("Pub", Tag = "组织架构最近使用")]
-public class PubOrgReceApi(SysOrgReceService service) : ControllerBase
+public class PubOrgReceApi(SysReceService service) : ControllerBase
 {
     [HttpPost]
-    public async Task Post([FromBody] List<SysOrgRece> reces)
+    public async Task Post([FromBody] List<SysRece> reces)
     {
         if (reces != null && reces.Count > 0)
         {
@@ -21,12 +22,12 @@ public class PubOrgReceApi(SysOrgReceService service) : ControllerBase
     [HttpGet]
     public async Task<dynamic> Get(int type)
     {
-        string userId = XuserUtil.getUserId();
+        string userId = LoginHelper.UserId;
         List<dynamic> list = new List<dynamic>();
         
         if ( (type & 1) != 0)  //部门
         {
-            var deptList = await service._repo.Context.Queryable<SysOrgRece, SysOrgDept>((t, d)
+            var deptList = await service._repo.Context.Queryable<SysRece, SysDept>((t, d)
                     => new JoinQueryInfos(JoinType.Inner, d.id == t.oid))
                 .OrderBy(t => t.uptim, OrderByType.Desc)
                 .Where(t => t.useid == userId)
@@ -37,7 +38,7 @@ public class PubOrgReceApi(SysOrgReceService service) : ControllerBase
         
         if ((type & 2) != 0)//用户
         {
-            var userList = await service._repo.Context.Queryable<SysOrgRece, SysOrgUser, SysOrgDept>((t, u, d)
+            var userList = await service._repo.Context.Queryable<SysRece, SysUser, SysDept>((t, u, d)
                     => new JoinQueryInfos(JoinType.Inner, u.id == t.oid, JoinType.Inner, d.id == u.depid))
                 .OrderBy(t => t.uptim, OrderByType.Desc)
                 .Where(t => t.useid == userId)
@@ -48,7 +49,7 @@ public class PubOrgReceApi(SysOrgReceService service) : ControllerBase
 
         if ((type & 4) != 0) //岗位
         {
-            var postList = await service._repo.Context.Queryable<SysOrgRece, SysOrgPost, SysOrgDept>((t, u, d)
+            var postList = await service._repo.Context.Queryable<SysRece, SysPost, SysDept>((t, u, d)
                     => new JoinQueryInfos(JoinType.Inner, u.id == t.oid, JoinType.Inner, d.id == u.depid))
                 .OrderBy(t => t.uptim, OrderByType.Desc)
                 .Where(t => t.useid == userId)

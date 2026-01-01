@@ -1,4 +1,6 @@
 ﻿using Furion.DataValidation;
+using Furion.DependencyInjection;
+using Furion.FriendlyException;
 using Furion.UnifyResult;
 
 namespace Vben.Base.Auth.Root;

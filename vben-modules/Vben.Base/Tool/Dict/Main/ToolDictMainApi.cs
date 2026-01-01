@@ -7,12 +7,14 @@ namespace Vben.Base.Tool.Dict.Main;
 public class ToolDictMainApi(ToolDictMainService service) : ControllerBase
 {
     [HttpGet("list")]
+    [SaCheckPermission("tool:dict:query")]
     public async Task<dynamic> GetList()
     {
         return await service.repo.GetListAsync();
     }
 
     [HttpGet]
+    [SaCheckPermission("tool:dict:query")]
     public async Task<dynamic> Get(string name)
     {
         var pp = XreqUtil.GetPp();
@@ -26,30 +28,35 @@ public class ToolDictMainApi(ToolDictMainService service) : ControllerBase
     }
 
     [HttpGet("info/{id}")]
+    [SaCheckPermission("tool:dict:query")]
     public async Task<ToolDictMain> GetInfo(string id)
     {
         return await service.SingleAsync(id); ;
     }
     
     [HttpGet("data")]
+    [SaCheckPermission("tool:dict:query")]
     public async Task<List<ToolDictDataVo>> GetData(string code)
     {
         return await service.findData(code); 
     }
 
     [HttpPost]
+    [SaCheckPermission("tool:dict:edit")]
     public async Task Post([FromBody] ToolDictMain main)
     {
         await service.InsertAsync(main);
     }
 
     [HttpPut]
+    [SaCheckPermission("tool:dict:edit")]
     public async Task Put([FromBody] ToolDictMain main)
     {
         await service.UpdateAsync(main);
     }
 
     [HttpDelete("{ids}")]
+    [SaCheckPermission("tool:dict:delete")]
     public async Task Delete(string ids)
     {
         await service.DeleteAsync(ids);

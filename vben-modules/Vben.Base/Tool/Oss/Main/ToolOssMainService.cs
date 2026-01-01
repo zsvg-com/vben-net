@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Vben.Base.Tool.Oss.File;
 using Vben.Base.Tool.Oss.Root;
+using Vben.Common.Core.Token;
 
 namespace Vben.Base.Tool.Oss.Main;
 
@@ -61,7 +62,7 @@ public class ToolOssMainService
             await _repo.InsertAsync(main);
             zfile.id = main.id;
             zfile.name = main.name;
-            zfile.size = XfileUtil.GetFileSize(dbFile.zsize);
+            zfile.size = XfileUtil.GetFileSize(dbFile.fsize);
             zfile.path = dbFile.path;
             zfile.filid = dbFile.id;
         }
@@ -69,11 +70,11 @@ public class ToolOssMainService
         {
             ToolOssFile newFile = null;
             //上传到本地
-            if (_uploadOptions.Service == "local")
+            if (_appSettings.Upload.Service == "local")
             {
                 newFile = await LocalUpload(file, md5);
             }
-            else if (_uploadOptions.Service == "aliyun")
+            else if (_appSettings.Upload.Service == "aliyun")
             {
                 newFile = AliyunUpload(file, md5);
             }
@@ -88,11 +89,11 @@ public class ToolOssMainService
                 main.type = main.name.Substring(main.name.LastIndexOf(".") + 1);
             }
 
-            main.crmid = XuserUtil.getUserId();
+            main.crmid = LoginHelper.UserId;
             await _repo.InsertAsync(main);
             zfile.id = main.id;
             zfile.name = main.name;
-            zfile.size = XfileUtil.GetFileSize(newFile.zsize);
+            zfile.size = XfileUtil.GetFileSize(newFile.fsize);
             zfile.path = newFile.path;
             zfile.filid = newFile.id;
         }
@@ -103,7 +104,7 @@ public class ToolOssMainService
     public IActionResult DownloadFile(string table, string id)
     {
         string sql = "select t.path \"path\",t.name \"name\",f.service \"service\" from " + table + " t " +
-                     "inner join ass_oss_file f on f.id=t.filid " +
+                     "inner join tool_oss_file f on f.id=t.filid " +
                      "where t.id=@id";
         dynamic map = null;
         if (!string.IsNullOrEmpty(table))
@@ -112,8 +113,8 @@ public class ToolOssMainService
         }
         if (map == null)
         {
-            sql = "select f.path \"path\",t.name \"name\",f.service \"service\" from ass_oss_main t " +
-                  "inner join ass_oss_file f on f.id=t.filid " +
+            sql = "select f.path \"path\",t.name \"name\",f.service \"service\" from tool_oss_main t " +
+                  "inner join tool_oss_file f on f.id=t.filid " +
                   "where t.id=@id";
             map = _repo.Context.Ado.SqlQuerySingle<dynamic>(sql, new { id });
         }
@@ -129,7 +130,7 @@ public class ToolOssMainService
 
     private IActionResult LocalDownload(string name, string path)
     {
-        var downloadPath = Path.Combine(_uploadOptions.Path, path);
+        var downloadPath = Path.Combine(_appSettings.Upload.Path, path);
         // _httpContextAccessor.HttpContext.Response.Headers.Add("download-filename", HttpUtility.UrlEncode(name));
         return new FileStreamResult(new FileStream(downloadPath, FileMode.Open), "application/octet-stream")
         { FileDownloadName = name };
@@ -155,11 +156,11 @@ public class ToolOssMainService
             path = path.Replace(a.ToString(), str);
         });
 
-        // if (!_uploadOptions.ContentType.Contains(file.ContentType))
+        // if (!_appSettings.Upload.ContentType.Contains(file.ContentType))
         //     throw Oops.Oh(ErrorCodeEnum.D8001);
 
         var sizeKb = (long)(file.Length / 1024.0); // 大小KB
-        // if (sizeKb > _uploadOptions.MaxSize)
+        // if (sizeKb > _appSettings.Upload.MaxSize)
         //     throw Oops.Oh(ErrorCodeEnum.D8002);
 
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀
@@ -176,7 +177,7 @@ public class ToolOssMainService
             finalName = id;
         }
 
-        var filePath = Path.Combine(_uploadOptions.Path, path);
+        var filePath = Path.Combine(_appSettings.Upload.Path, path);
         if (!Directory.Exists(filePath))
             Directory.CreateDirectory(filePath);
         await using var fs = System.IO.File.Create(Path.Combine(filePath, finalName));
@@ -185,7 +186,7 @@ public class ToolOssMainService
         {
             id = id,
             md5 = md5,
-            zsize = file.Length,
+            fsize = file.Length,
             service = "local",
             path = path + "/" + finalName
         };
@@ -203,11 +204,11 @@ public class ToolOssMainService
             path = path.Replace(a.ToString(), str);
         });
 
-        // if (!_uploadOptions.ContentType.Contains(file.ContentType))
+        // if (!_appSettings.Upload.ContentType.Contains(file.ContentType))
         //     throw Oops.Oh(ErrorCodeEnum.D8001);
 
         var sizeKb = (long)(file.Length / 1024.0); // 大小KB
-        // if (sizeKb > _uploadOptions.MaxSize)
+        // if (sizeKb > _appSettings.Upload.MaxSize)
         //     throw Oops.Oh(ErrorCodeEnum.D8002);
 
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀
@@ -231,7 +232,7 @@ public class ToolOssMainService
             {
                 id = id,
                 md5 = md5,
-                zsize = file.Length,
+                fsize = file.Length,
                 service = "aliyun",
                 path = path + "/" + finalName
             };
@@ -257,16 +258,20 @@ public class ToolOssMainService
 
     // private readonly IHttpContextAccessor _httpContextAccessor;
 
-    private readonly UploadOptions _uploadOptions;
+    // private readonly UploadOptions _uploadOptions;
 
     public SqlSugarRepository<ToolOssMain> _repo { get; }
+    
+    private readonly AppSettings _appSettings;
 
     public ToolOssMainService(SqlSugarRepository<ToolOssMain> repo,
         // IHttpContextAccessor httpContextAccessor,
-        IOptions<UploadOptions> uploadOptions)
+        IOptions<UploadOptions> uploadOptions,
+        IOptions<AppSettings> appSettings)
     {
         _repo = repo;
-        _uploadOptions = uploadOptions.Value;
+        // _uploadOptions = uploadOptions.Value;
+        _appSettings = appSettings.Value;
         // _httpContextAccessor = httpContextAccessor;
     }
 

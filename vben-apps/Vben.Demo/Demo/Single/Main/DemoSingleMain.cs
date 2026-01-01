@@ -7,5 +7,5 @@
 [Description("单一主表")]
 public class DemoSingleMain : BaseMainEntity
 {
-
+    
 }

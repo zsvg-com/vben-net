@@ -1,4 +1,5 @@
-﻿using Furion.Schedule;
+﻿using Furion;
+using Furion.Schedule;
 using Vben.Common.Core.Enum;
 
 namespace Vben.Base.Mon.Job.Main;

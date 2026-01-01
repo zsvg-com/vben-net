@@ -48,7 +48,7 @@ public class MonOperLog
     /// </summary>
     [MaxLength(32)]
     [SugarColumn(ColumnDescription = "用户账号", IsNullable = true)]
-    public string usnam { get; set; }
+    public string username { get; set; }
 
     /// <summary>
     /// 类名

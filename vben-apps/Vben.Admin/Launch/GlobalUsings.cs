@@ -16,3 +16,5 @@ global using Vben.Common.Sqlsugar.Config;
 global using Microsoft.AspNetCore.Mvc;
 global using System.ComponentModel;
 global using Vben.Common.Core.Attribute;
+global using Vben.Common.Core.Filter;
+global using Vben.Common.Core.Token;

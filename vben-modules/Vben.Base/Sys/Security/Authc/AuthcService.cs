@@ -1,5 +1,4 @@
-﻿// using Vben.Base.Sys.Org.User;
-// using Vben.Base.Sys.Perm.Api;
+﻿// using Vben.Base.Sys.Api;
 // using Vben.Base.Sys.Security.Pojo;
 // using Vben.Common.Sqlsugar.Config;
 // using Vben.Core.Module.Sys;
@@ -8,11 +7,11 @@
 //
 // public class AuthcService : ITransient
 // {
-//     private readonly SqlSugarRepository<SysOrgUser> _repo;
+//     private readonly SqlSugarRepository<SysUser> _repo;
 //
 //     private readonly IJsonSerializerProvider _json;
 //
-//     public AuthcService(SqlSugarRepository<SysOrgUser> repo, IJsonSerializerProvider jsonSerializer)
+//     public AuthcService(SqlSugarRepository<SysUser> repo, IJsonSerializerProvider jsonSerializer)
 //     {
 //         _repo = repo;
 //         _json = jsonSerializer;
@@ -20,14 +19,14 @@
 //
 //     public async Task<UserDo> getDbUser(string username)
 //     {
-//         string sql = @"select t.id,t.name,t.usnam,t.monum,t.pacod,t.relog,t.catag,t.tier,t.type,t.depid,'org' label,d.name depna
-//  from sys_org_user t left join sys_org_dept d on d.id=t.depid 
-//  where t.usnam=@username and t.avtag="+Db.True;
+//         string sql = @"select t.id,t.name,t.username,t.monum,t.password,t.relog,t.catag,t.tier,t.type,t.depid,'org' label,d.name depna
+//  from sys_user t left join sys_dept d on d.id=t.depid 
+//  where t.username=@username and t.avtag="+Db.True;
 //         var dbUser = await _repo.Context.Ado.SqlQuerySingleAsync<UserDo>(sql, new { username });
 //         if (dbUser == null)
 //         {
-//             sql = @"select t.id,t.name,t.usnam,t.monum,t.pacod,t.relog,t.catag,t.tier,t.type,t.corid depid,c.catid label,c.name depna from sys_coop_user t 
-// left join sys_coop_corp c on c.id=t.corid where t.usnam=@username and t.avtag="+Db.True;
+//             sql = @"select t.id,t.name,t.username,t.monum,t.password,t.relog,t.catag,t.tier,t.type,t.corid depid,c.catid label,c.name depna from sys_coop_user t 
+// left join sys_coop_corp c on c.id=t.corid where t.username=@username and t.avtag="+Db.True;
 //             dbUser = await _repo.Context.Ado.SqlQuerySingleAsync<UserDo>(sql, new { username });
 //             if (dbUser == null)
 //             {
@@ -116,7 +115,7 @@
 //             dynamic cache = null;
 //             if (duser.label == "org")
 //             {
-//                 cache = _repo.Context.Queryable<SysOrgUserCache>().First(it => it.id == zuser.id);
+//                 cache = _repo.Context.Queryable<SysUserCache>().First(it => it.id == zuser.id);
 //             }
 //             else
 //             {
@@ -161,7 +160,7 @@
 //     public async Task SwitchPortal(Zuser zuser, Dictionary<String, Object> backDict, string porid)
 //     {
 //         //1.根据组织架构集conds查询前台菜单集:menus
-//         string sql = "select conds from sys_org_user_cache where id=@id";
+//         string sql = "select conds from sys_user_cache where id=@id";
 //         zuser.conds = await _repo.Context.Ado.SqlQuerySingleAsync<string>(sql, new { id = zuser.id });
 //         List<Zmenu> menuList;
 //         List<Zportal> portalList;
@@ -232,14 +231,14 @@
 //     //获取组织架构岗位id集合
 //     private List<string> FindPostList(string oid)
 //     {
-//         string sql = "select pid as id from sys_org_post_org where oid=@oid";
+//         string sql = "select pid as id from sys_post_org where oid=@oid";
 //         return _repo.Context.Ado.SqlQuery<string>(sql, new { oid });
 //     }
 //
 //     //获取组织架构群组id集合
 //     private List<string> FindGroupList(string conds)
 //     {
-//         string sql = "select DISTINCT gid as id from sys_org_group_org where oid in (" + conds + ")";
+//         string sql = "select DISTINCT gid as id from sys_group_org where oid in (" + conds + ")";
 //         return _repo.Context.Ado.SqlQuery<string>(sql);
 //     }
 //
@@ -639,7 +638,7 @@
 //             @"select distinct m.id url,m.pos,m.code from sys_api_main m inner join sys_api_role_api rm on rm.mid=m.id 
 //     inner join sys_api_role_org ru on ru.rid=rm.rid where  m.avtag="+Db.True+" and ru.oid in (" + zuser.conds + ") and code<>0";
 //         List<Yapi> apiList = _repo.Context.Ado.SqlQuery<Yapi>(sql);
-//         int posSum = SysPermApiCache.AUTHPOS + 1; //取出最大权限位
+//         int posSum = SysApiCache.AUTHPOS + 1; //取出最大权限位
 //         long[] permArr = new long[posSum];
 //         foreach (var api in apiList)
 //         {
@@ -675,7 +674,7 @@
 //             btns.Append(str).Append(";");
 //         }
 //
-//         SysOrgUserCache cache = new SysOrgUserCache();
+//         SysUserCache cache = new SysUserCache();
 //         cache.id = zuser.id;
 //         cache.conds = zuser.conds;
 //         cache.menus = menus;
@@ -683,7 +682,7 @@
 //         cache.perms = zuser.perms;
 //         cache.portals = portals;
 //
-//         var isExists = _repo.Context.Queryable<SysOrgUserCache>().Any(it => it.id == zuser.id);
+//         var isExists = _repo.Context.Queryable<SysUserCache>().Any(it => it.id == zuser.id);
 //         if (isExists)
 //         {
 //             _repo.Context.Updateable(cache).ExecuteCommand();
@@ -693,7 +692,7 @@
 //             _repo.Context.Insertable(cache).ExecuteCommand();
 //         }
 //
-//         _repo.Context.Updateable(new SysOrgUser() { id = zuser.id, catag = true })
+//         _repo.Context.Updateable(new SysUser() { id = zuser.id, catag = true })
 //             .UpdateColumns(it => new { it.catag }).ExecuteCommand();
 //     }
 //

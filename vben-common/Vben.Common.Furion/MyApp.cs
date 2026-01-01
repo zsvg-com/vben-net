@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
 namespace Vben.Common.Core;
@@ -27,16 +26,16 @@ public static class MyApp
     /// </summary>
     public static HttpContext HttpContext =>
         CatchOrDefault(() => ServiceProvider?.GetService<IHttpContextAccessor>()?.HttpContext);
-
-    /// <summary>
-    /// 获取请求上下文用户
-    /// </summary>
-    public static ClaimsPrincipal User => HttpContext?.User;
-
-    /// <summary>
-    /// 获取用户名
-    /// </summary>
-    public static string UserName => User?.Identity?.Name;
+    
+    // /// <summary>
+    // /// 获取请求上下文用户
+    // /// </summary>
+    // public static ClaimsPrincipal User => HttpContext?.User;
+    //
+    // /// <summary>
+    // /// 获取用户名
+    // /// </summary>
+    // public static string UserName => User?.Identity?.Name;
 
 
     /// <summary>
@@ -127,6 +126,12 @@ public static class MyApp
         {
             return defaultValue ?? null;
         }
+    }
+    
+    public static T Bind<T>(string key, T t)
+    {
+        Configuration.Bind(key, t);
+        return t;
     }
 
 }

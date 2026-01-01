@@ -13,7 +13,7 @@ public class DataInit(
     //首次启动，数据库生成后，初始化组织架构，菜单，权限角色,接口等信息
     public async Task Init()
     {
-        var sysOrg = sysOrgRepo.GetSingle(it => it.id == "u1");
+        var sysOrg = await sysOrgRepo.GetSingleAsync(it => it.id == "u1");
         if (sysOrg == null)
         {
             Console.WriteLine("首次启动系统，正在进行数据库初始化，请耐心等待。");

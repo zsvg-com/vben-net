@@ -7,7 +7,7 @@ public class Zuser
 
     public string name { get; set; }
 
-    public string usnam { get; set; }
+    public string username { get; set; }
 
     public string monum { get; set; }//手机号
 
@@ -26,7 +26,7 @@ public class Zuser
     {
         get
         {
-            if ("sa" == usnam || "admin" == usnam || "vben" == usnam)
+            if ("sa" == username || "admin" == username || "vben" == username)
             {
                 return true;
             }
@@ -47,18 +47,18 @@ public class Zuser
     {
     }
 
-    public Zuser(string id, string name, string usnam)
+    public Zuser(string id, string name, string username)
     {
         this.id = id;
         this.name = name;
-        this.usnam = usnam;
+        this.username = username;
     }
 
     public Zuser(UserDo userDo)
     {
         this.id = userDo.id;
         this.name = userDo.name;
-        this.usnam = userDo.usnam;
+        this.username = userDo.username;
         this.monum = userDo.monum;
         this.label = userDo.label;
         this.type = userDo.type;

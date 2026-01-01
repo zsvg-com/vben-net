@@ -11,7 +11,7 @@ public class ToolNum : BaseEntity
     public string numod { get; set; }
 
     [SugarColumn(ColumnDescription = "编号前缀", IsNullable = true, Length = 32)]
-    public string nupre { get; set; }
+    public string? nupre { get; set; }
 
     [SugarColumn(ColumnDescription = "判断标记", IsNullable = true)]
     public bool nflag { get; set; } = true;

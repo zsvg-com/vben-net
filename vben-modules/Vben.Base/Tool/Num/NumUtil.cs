@@ -26,7 +26,7 @@ public class NumUtil
         return curSerialNum;
     }
 
-    public static string getNum(string numNow, string hintType)
+    public static string getNum(string? numNow, string hintType)
     {
         string numNext = "";
         string todayYYYYMM = DateTime.Now.ToString("yyyyMM");

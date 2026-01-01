@@ -1,4 +1,6 @@
-﻿namespace Vben.Base.Tool.Code.Table;
+﻿using Vben.Common.Core.Token;
+
+namespace Vben.Base.Tool.Code.Table;
 
 [Service]
 public class ToolCodeTableService : BaseMainService<ToolCodeTable>
@@ -18,7 +20,7 @@ public class ToolCodeTableService : BaseMainService<ToolCodeTable>
     public async Task Insertx(ToolCodeTable table)
     {
         table.id = YitIdHelper.NextId() ;
-        table.cruid = XuserUtil.getUserId();
+        table.cruid = LoginHelper.UserId;
         table.crtim = DateTime.Now;
         table.avtag = true;
 
@@ -30,7 +32,7 @@ public class ToolCodeTableService : BaseMainService<ToolCodeTable>
     public async Task Updatex(ToolCodeTable table)
     {
         table.uptim = DateTime.Now;
-        table.upuid = XuserUtil.getUserId();
+        table.upuid =  LoginHelper.UserId;
         await Repo.Context.Updateable(table).ExecuteCommandAsync();
 
         //比对数据库中的option,插入页面上新增的，更新页面上修改的，删除页面上删除的

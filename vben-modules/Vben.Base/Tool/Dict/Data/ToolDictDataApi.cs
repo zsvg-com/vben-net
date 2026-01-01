@@ -5,6 +5,7 @@
 public class ToolDictDataApi(ToolDictDataService service) : ControllerBase
 {
     [HttpGet]
+    [SaCheckPermission("tool:dictd:query")]
     public async Task<dynamic> Get(string dicid, string name)
     {
         var pp = XreqUtil.GetPp();
@@ -19,6 +20,7 @@ public class ToolDictDataApi(ToolDictDataService service) : ControllerBase
     }
     
     [HttpGet("list")]
+    [SaCheckPermission("tool:dictd:query")]
     public async Task<dynamic> GetList(string dicid)
     {
         return await service.repo.Context.Queryable<ToolDictData>()
@@ -26,6 +28,7 @@ public class ToolDictDataApi(ToolDictDataService service) : ControllerBase
     }
     
     [HttpGet("info/{id}")]
+    [SaCheckPermission("tool:dictd:query")]
     public async Task<ToolDictData> GetInfo(string id)
     {
         var data = await service.repo.Context.Queryable<ToolDictData>()
@@ -34,18 +37,21 @@ public class ToolDictDataApi(ToolDictDataService service) : ControllerBase
     }
     
     [HttpPost]
+    [SaCheckPermission("tool:dictd:edit")]
     public async Task Post([FromBody] ToolDictData data)
     {
         await service.InsertAsync(data);
     }
     
     [HttpPut]
+    [SaCheckPermission("tool:dictd:edit")]
     public async Task Put([FromBody] ToolDictData data)
     {
         await service.UpdateAsync(data);
     }
     
     [HttpDelete("{ids}")]
+    [SaCheckPermission("tool:dictd:delete")]
     public async Task Delete(string ids)
     {
         await service.DeleteAsync(ids);

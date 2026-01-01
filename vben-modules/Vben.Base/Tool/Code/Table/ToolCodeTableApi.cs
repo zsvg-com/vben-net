@@ -7,28 +7,20 @@ namespace Vben.Base.Tool.Code.Table;
 
 [Route("tool/code/table")]
 [ApiDescriptionSettings("Tool", Tag = "代码生成")]
-public class ToolCodeTableApi : ControllerBase
+public class ToolCodeTableApi(
+    ToolCodeTableService service,
+    IWebHostEnvironment webHostEnvironment,
+    IHttpContextAccessor httpContextAccessor)
+    : ControllerBase
 {
-    private readonly ToolCodeTableService _service;
-
-    private readonly IWebHostEnvironment _webHostEnvironment;
-
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public ToolCodeTableApi(ToolCodeTableService service,
-        IWebHostEnvironment webHostEnvironment,
-        IHttpContextAccessor httpContextAccessor)
-    {
-        _service = service;
-        _httpContextAccessor = httpContextAccessor;
-        _webHostEnvironment = webHostEnvironment;
-    }
+    private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;
 
     [HttpGet]
+    [SaCheckPermission("tool:code:query")]
     public async Task<dynamic> Get(string maiid, string name)
     {
         var pp = XreqUtil.GetPp();
-        var items = await _service.Repo.Context.Queryable<ToolCodeTable>()
+        var items = await service.Repo.Context.Queryable<ToolCodeTable>()
             .LeftJoin<SysOrg>((t, c) => c.id == t.cruid)
             .LeftJoin<SysOrg>((t, c, u) => u.id == t.upuid)
             .WhereIF(!string.IsNullOrWhiteSpace(name), t => t.name.Contains(name.Trim()))
@@ -42,16 +34,18 @@ public class ToolCodeTableApi : ControllerBase
     }
 
     [HttpGet("list")]
+    [SaCheckPermission("tool:code:query")]
     public async Task<dynamic> GetList(string maiid)
     {
-        return await _service.Repo.Context.Queryable<ToolCodeTable>().ToListAsync();
+        return await service.Repo.Context.Queryable<ToolCodeTable>().ToListAsync();
     }
 
     [HttpGet("zip")]
+    [SaCheckPermission("tool:code:download")]
     public async Task<IActionResult> GetZip(long id)
     {
         GenerateDto dto = new GenerateDto();
-        dto.GenTable = await _service.FindOne(id);
+        dto.GenTable = await service.FindOne(id);
         if (!string.IsNullOrEmpty(dto.GenTable.baent))
         {
             dto.GenTable.baser = dto.GenTable.baent.Replace("Entity", "Service");
@@ -71,19 +65,20 @@ public class ToolCodeTableApi : ControllerBase
         // Console.WriteLine("path=" + dto.ZipPath);
         // Console.WriteLine("filename=" + zipReturnFileName);
         string zipFileFullName = Path.Combine(dto.ZipPath, zipReturnFileName);
-        _httpContextAccessor.HttpContext.Response.Headers.Add("Content-Disposition", 
+        httpContextAccessor.HttpContext.Response.Headers.Add("Content-Disposition", 
         $"attachment; download-filename={zipReturnFileName}");
         // _httpContextAccessor.HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "download-filename");
-        _httpContextAccessor.HttpContext.Response.Headers.Add("download-filename", zipReturnFileName);
+        httpContextAccessor.HttpContext.Response.Headers.Add("download-filename", zipReturnFileName);
         return new FileStreamResult(new FileStream(zipFileFullName, FileMode.Open), "application/octet-stream")
             {FileDownloadName = zipReturnFileName};
     }
     
     [HttpGet("show")]
+    [SaCheckPermission("tool:code:show")]
     public async Task<List<GenCode>> GetShow(long id)
     {
         GenerateDto dto = new GenerateDto();
-        dto.GenTable = await _service.FindOne(id);
+        dto.GenTable = await service.FindOne(id);
         if (!string.IsNullOrEmpty(dto.GenTable.baent))
         {
             dto.GenTable.baser = dto.GenTable.baent.Replace("Entity", "Service");
@@ -98,27 +93,31 @@ public class ToolCodeTableApi : ControllerBase
     }
 
     [HttpGet("info/{id}")]
+    [SaCheckPermission("tool:code:query")]
     public async Task<ToolCodeTable> GetInfo(long id)
     {
-        return await _service.FindOne(id);
+        return await service.FindOne(id);
     }
 
     [HttpPost]
+    [SaCheckPermission("tool:code:edit")]
     public async Task Post([FromBody] ToolCodeTable data)
     {
-        await _service.Insertx(data);
+        await service.Insertx(data);
     }
 
     [HttpPut]
-    [MyUnitOfWork]
+    [Transactional]
+    [SaCheckPermission("tool:code:edit")]
     public async Task Put([FromBody] ToolCodeTable data)
     {
-        await _service.Updatex(data);
+        await service.Updatex(data);
     }
 
     [HttpDelete("{ids}")]
+    [SaCheckPermission("tool:code:delete")]
     public async Task Delete(string ids)
     {
-        await _service.Delete(ids);
+        await service.Delete(ids);
     }
 }

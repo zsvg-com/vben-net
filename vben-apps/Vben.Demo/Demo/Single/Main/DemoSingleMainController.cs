@@ -13,7 +13,7 @@ public class DemoEasyMainConroller(DemoSingleMainService service) : ControllerBa
     /// 单一主表-分页查询
     /// </summary>
     [HttpGet]
-    [ActionPermissionFilter(Permission = "system:user:query")]
+    [SaCheckPermission("single:main:query")]
     public async Task<dynamic> Get(string name)
     {
         var pp = XreqUtil.GetPp();
@@ -34,6 +34,7 @@ public class DemoEasyMainConroller(DemoSingleMainService service) : ControllerBa
     /// 单一主表-详情查询
     /// </summary>
     [HttpGet("info/{id}")]
+    [SaCheckPermission("single:main:query")]
     public async Task<DemoSingleMain> GetInfo(long id)
     {
         // var main= await repo.Context.Queryable<TEntity>().IncludesAllFirstLayer().SingleAsync(t => t.id == id);
@@ -48,6 +49,7 @@ public class DemoEasyMainConroller(DemoSingleMainService service) : ControllerBa
     /// </summary>
     [HttpPost]
     [Oplog(title="单一主表案例",type = 1)]
+    [SaCheckPermission("single:main:edit")]
     public async Task<long> Post([FromBody] DemoSingleMain main)
     {
         return await service.Insert(main);
@@ -58,6 +60,7 @@ public class DemoEasyMainConroller(DemoSingleMainService service) : ControllerBa
     /// </summary>
     [HttpPut]
     [Oplog(title="单一主表案例",type = 2)]
+    [SaCheckPermission("single:main:edit")]
     public async Task<long> Put([FromBody] DemoSingleMain main)
     {
         return await service.Update(main);
@@ -68,6 +71,7 @@ public class DemoEasyMainConroller(DemoSingleMainService service) : ControllerBa
     /// </summary>
     [HttpDelete("{ids}")]
     [Oplog(title="单一主表案例",type = 3)]
+    [SaCheckPermission("single:main:delete")]
     public async Task<int> Delete(string ids)
     {
         return await service.Delete(ids);

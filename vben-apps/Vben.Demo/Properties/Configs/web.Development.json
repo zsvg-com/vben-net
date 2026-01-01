@@ -66,6 +66,14 @@
     "AccessKeySecret": "",
     "Endpoint": "",
     "Bucket": ""
+  },
+  "JwtSettings": {
+    "Issuer": "vben", //即token的签发者。
+    "Audience": "vben", //指该token是服务于哪个群体的（群体范围）
+    "SecretKey": "SecretKey-vben-20260101-thanks-zradmin",
+    "Expire": 1440, //jwt登录过期时间（分）
+    "RefreshTokenTime": 30, //分钟
+    "TokenType": "Bearer"
   }
 }
 

@@ -1,4 +1,5 @@
-﻿using Vben.Common.Core.Utils;
+﻿using Vben.Common.Core.Token;
+using Vben.Common.Core.Utils;
 using Vben.Common.Sqlsugar.Config;
 using Vben.Common.Sqlsugar.Mvc.Entity;
 
@@ -36,7 +37,7 @@ public class BaseStrCateService<TEntity> where TEntity : BaseStrCateEntity, new(
             entity.id = YitIdHelper.NextId() + "";
         }
 
-        entity.crmid = XuserUtil.getUserId();
+        entity.crmid = LoginHelper.UserId;
         entity.crtim = DateTime.Now;
         entity.avtag = true;
         await repo.InsertAsync(entity);
@@ -47,7 +48,7 @@ public class BaseStrCateService<TEntity> where TEntity : BaseStrCateEntity, new(
     public async Task<string> UpdateAsync(TEntity entity)
     {
         entity.uptim = DateTime.Now;
-        entity.upmid = XuserUtil.getUserId();
+        entity.upmid = LoginHelper.UserId;
         await repo.UpdateAsync(entity);
         return entity.id;
     }

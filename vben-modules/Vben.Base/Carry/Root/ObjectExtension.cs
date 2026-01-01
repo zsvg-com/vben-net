@@ -8,6 +8,8 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Furion.DataValidation;
+using Furion.DependencyInjection;
+using Furion.JsonSerialization;
 using Newtonsoft.Json;
 
 namespace Admin.NET.Core;
@@ -428,7 +430,7 @@ public static partial class ObjectExtension
     /// <param name="target">目标数据对象</param>
     /// <param name="changeProperties">属性集，键为原属性，值为目标属性</param>
     /// <param name="unChangeProperties">属性集，目标不修改的属性</param>
-    public static void CopyTo(object src, object target, Dictionary<string, string> changeProperties = null, string[] unChangeProperties = null)
+    public static void CopyTo(object src, object target, Dictionary<string, string>? changeProperties = null, string[]? unChangeProperties = null)
     {
         if (src == null || target == null)
             throw new ArgumentException("src == null || target == null ");

@@ -1,5 +1,4 @@
-﻿// using Vben.Base.Sys.Org.User;
-// using Vben.Base.Sys.Security.Pojo;
+﻿// using Vben.Base.Sys.Security.Pojo;
 // using Vben.Core.Module.Sys;
 //
 // namespace Vben.Base.Sys.Security.Authc;
@@ -39,7 +38,7 @@
 //         //1.登录验证
 //         var duser = await _authcService.getDbUser(loginVo.username);
 //         var password = SecureUtils.PasswordEncrypt(loginVo.password);
-//         if (password != duser.pacod)
+//         if (password != duser.password)
 //         {
 //             throw Oops.Oh(ErrorCode.D1000);
 //         }
@@ -59,7 +58,7 @@
 //         {
 //             {ClaimConst.CLAINM_USERID, duser.id},
 //             {ClaimConst.TENANT_ID, "1"},
-//             {ClaimConst.CLAINM_ACCOUNT, duser.usnam},
+//             {ClaimConst.CLAINM_ACCOUNT, duser.username},
 //             {ClaimConst.CLAINM_NAME, duser.name},
 //             {ClaimConst.CLAINM_SUPERADMIN, zuser.IsAdmin ? 1 : 3},
 //             {ClaimConst.CLAINM_PERMS, zuser.perms},
@@ -78,7 +77,7 @@
 //         //记录用户最后一次登录的ip与地点
 //         var httpContext = App.HttpContext;
 //         await _eventPublisher.PublishAsync(new ChannelEventSource("Update:UserLoginInfo",
-//             new SysOrgUser { id = duser.id, laloi = httpContext.GetLocalIpAddressToIPv4(), lalot = DateTime.Now }));
+//             new SysUser { id = duser.id, laloi = httpContext.GetLocalIpAddressToIPv4(), lalot = DateTime.Now }));
 //
 //         // 异步方式记录登录日志
 //         //var ip = httpContext.GetRemoteIpAddressToIPv4();
@@ -90,7 +89,7 @@
 //         //    new MonLogLogin
 //         //    {
 //         //        id = YitIdHelper.NextId() + "", name = zuser.name, ip = ip,
-//         //        agbro = agbro, ageos = ageos, crtim = crtim, usnam = zuser.usnam
+//         //        agbro = agbro, ageos = ageos, crtim = crtim, username = zuser.username
 //         //    }));
 //
 //         return backDict;
@@ -106,7 +105,7 @@
 //         //1.登录验证
 //         var duser = await _authcService.getDbUser(loginVo.username);
 //         var password = SecureUtils.PasswordEncrypt(loginVo.password);
-//         if (password != duser.pacod)
+//         if (password != duser.password)
 //         {
 //             throw Oops.Oh(ErrorCode.D1000);
 //         }
@@ -126,7 +125,7 @@
 //         {
 //             {ClaimConst.CLAINM_USERID, duser.id},
 //             {ClaimConst.TENANT_ID, "1"},
-//             {ClaimConst.CLAINM_ACCOUNT, duser.usnam},
+//             {ClaimConst.CLAINM_ACCOUNT, duser.username},
 //             {ClaimConst.CLAINM_NAME, duser.name},
 //             {ClaimConst.CLAINM_SUPERADMIN, zuser.IsAdmin ? 1 : 3},
 //             {ClaimConst.CLAINM_PERMS, zuser.perms},
@@ -166,9 +165,9 @@
 //         {
 //             id = _userManager.UserId,
 //             name = _userManager.Name,
-//             usnam = _userManager.Account
+//             username = _userManager.Account
 //         };
-//         var duser = await _authcService.getDbUser(zuser.usnam);
+//         var duser = await _authcService.getDbUser(zuser.username);
 //         _authcService.InitUser(zuser, duser, backDict);
 //
 //         return zuser;
@@ -191,12 +190,12 @@
 //         {
 //             id = _userManager.UserId,
 //             name = _userManager.Name,
-//             usnam = _userManager.Account,
+//             username = _userManager.Account,
 //         };
 //
 //         if (string.IsNullOrEmpty(porid))
 //         {
-//             var duser = await _authcService.getDbUser(zuser.usnam);
+//             var duser = await _authcService.getDbUser(zuser.username);
 //             _authcService.InitUser(zuser, duser, backDict);
 //         }
 //         else

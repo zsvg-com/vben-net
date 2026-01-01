@@ -29,7 +29,7 @@ namespace Vben.Common.Core.Token
             var path = context.Request.Path.Value;
             
             // 如果请求是带扩展名的（即包含 .）
-            if (path.Contains('.'))
+            if (path.Contains('.')||path=="/")
             {
                 await _next(context);
                 return;

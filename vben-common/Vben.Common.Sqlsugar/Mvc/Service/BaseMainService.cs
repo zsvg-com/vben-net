@@ -1,4 +1,5 @@
-﻿using Vben.Common.Core.Utils;
+﻿using Vben.Common.Core.Token;
+using Vben.Common.Core.Utils;
 using Vben.Common.Sqlsugar.Config;
 using Vben.Common.Sqlsugar.Mvc.Entity;
 
@@ -53,7 +54,7 @@ public class BaseMainService<TEntity> where TEntity : BaseMainEntity, new()
     public async Task<long> InsertWithNav(TEntity entity)
     {
         entity.id = YitIdHelper.NextId(); 
-        entity.cruid = XuserUtil.getUserId();
+        entity.cruid = LoginHelper.UserId;
         entity.crtim = DateTime.Now;
         entity.avtag = true;
         entity.uptim = entity.crtim;
@@ -72,7 +73,7 @@ public class BaseMainService<TEntity> where TEntity : BaseMainEntity, new()
             return await InsertWithNav(entity);
         }
         entity.id = YitIdHelper.NextId(); 
-        entity.cruid = XuserUtil.getUserId();
+        entity.cruid = LoginHelper.UserId;
         entity.crtim = DateTime.Now;
         entity.avtag = true;
         entity.uptim = entity.crtim;
@@ -85,7 +86,7 @@ public class BaseMainService<TEntity> where TEntity : BaseMainEntity, new()
     public async Task<long> UpdateWithNav(TEntity entity)
     {
         entity.uptim = DateTime.Now;
-        entity.upuid = XuserUtil.getUserId();
+        entity.upuid = LoginHelper.UserId;
         await Repo.Context.UpdateNav(entity).IncludesAllFirstLayer().ExecuteCommandAsync();
         return entity.id;
     }
@@ -97,7 +98,7 @@ public class BaseMainService<TEntity> where TEntity : BaseMainEntity, new()
             return await UpdateWithNav(entity);
         }
         entity.uptim = DateTime.Now;
-        entity.upuid = XuserUtil.getUserId();
+        entity.upuid = LoginHelper.UserId;
         await Repo.UpdateAsync(entity);
         return entity.id;
     }

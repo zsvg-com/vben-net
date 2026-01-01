@@ -20,11 +20,11 @@ public class ToolNumService : BaseService<ToolNum>
 
             //生成客户编码
             //编码前缀+"-"+利用日期位格式生成当前的日期[yyyyMMdd ]+"-"+0001  c-20220914-0001
-            string back = (num.nupre == null ? "" : num.nupre) + curDate + firstSerialNum;
+            string back = (num.nupre ?? "") + curDate + firstSerialNum;
             //修改代码规则表
             //下一个流水号="0002"
             num.nunex = nextSerialNum;
-            //当前日期  20140907
+            //当前日期  20250907
             num.cudat = curDate;
             //是否被修改过='N'
             num.nflag = false;

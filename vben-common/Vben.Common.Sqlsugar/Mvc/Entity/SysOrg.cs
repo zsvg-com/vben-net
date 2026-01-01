@@ -1,7 +1,7 @@
 ﻿namespace Vben.Common.Sqlsugar.Mvc.Entity;
 
-[SugarTable("sys_org", TableDescription = "组织架构表")]
-[Description("组织架构表")]
+[SugarTable("sys_org", TableDescription = "组织架构综合元素")]
+[Description("组织架构综合元素")]
 public class SysOrg
 {
     [SugarColumn(ColumnDescription = "ID", IsPrimaryKey = true, Length = 36)]

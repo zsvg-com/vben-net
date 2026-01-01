@@ -1,4 +1,5 @@
-﻿using Vben.Common.Core.Utils;
+﻿using Vben.Common.Core.Token;
+using Vben.Common.Core.Utils;
 using Vben.Common.Sqlsugar.Config;
 using Vben.Common.Sqlsugar.Mvc.Dao;
 using Vben.Common.Sqlsugar.Mvc.Entity;
@@ -52,7 +53,7 @@ public class BaseCateService<TEntity> where TEntity : BaseCateEntity, new()
             cate.id = YitIdHelper.NextId();
         }
         cate.crtim = DateTime.Now;
-        cate.cruid = XuserUtil.getUserId();
+        cate.cruid = LoginHelper.UserId;
         cate.uptim = cate.crtim;
         cate.upuid = cate.cruid;
         // cate.avtag = true;
@@ -73,7 +74,7 @@ public class BaseCateService<TEntity> where TEntity : BaseCateEntity, new()
     public async Task<long> Update(TEntity cate)
     {
         cate.uptim = DateTime.Now;
-        cate.upuid = XuserUtil.getUserId();
+        cate.upuid = LoginHelper.UserId;
         await Repo.UpdateAsync(cate);
         return cate.id;
     }
@@ -82,7 +83,7 @@ public class BaseCateService<TEntity> where TEntity : BaseCateEntity, new()
     public async Task<long> Update(TEntity cate, string table) {
        
         cate.uptim = DateTime.Now;
-        cate.upuid = XuserUtil.getUserId();
+        cate.upuid = LoginHelper.UserId;
         string ptSql="select pid,tier from "+table+" where id=@id";
         LpidTier oldCate = await Repo.Context.Ado.SqlQuerySingleAsync<LpidTier>(ptSql,new { cate.id });
         string oldTier = oldCate.tier;

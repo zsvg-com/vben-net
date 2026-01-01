@@ -6,6 +6,7 @@
 
 using System.Text.RegularExpressions;
 using System.Web;
+using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Microsoft.Extensions.Options;
 using NewLife.Caching;

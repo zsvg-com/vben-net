@@ -1,19 +1,19 @@
-﻿using Vben.Base.Sys.Perm.Api;
-using Vben.Base.Sys.Perm.Menu;
-using Vben.Base.Sys.Perm.Role;
+﻿using Vben.Base.Sys.Api;
+using Vben.Base.Sys.Menu;
+using Vben.Base.Sys.Role;
 
 namespace Vben.Admin.Launch.Init;
 
 public class SysPermInit : ITransient
 {
-    private readonly SqlSugarRepository<SysPermMenu> _menuRepo;
-    private readonly SqlSugarRepository<SysPermApi> _apiRepo;
-    private readonly SqlSugarRepository<SysPermRole> _roleRepo;
+    private readonly SqlSugarRepository<SysMenu> _menuRepo;
+    private readonly SqlSugarRepository<SysApi> _apiRepo;
+    private readonly SqlSugarRepository<SysRole> _roleRepo;
 
     public SysPermInit(
-        SqlSugarRepository<SysPermMenu> menuRepo,
-        SqlSugarRepository<SysPermApi> apiRepo,
-        SqlSugarRepository<SysPermRole> roleRepo
+        SqlSugarRepository<SysMenu> menuRepo,
+        SqlSugarRepository<SysApi> apiRepo,
+        SqlSugarRepository<SysRole> roleRepo
         )
     {
         _menuRepo = menuRepo;
@@ -27,15 +27,16 @@ public class SysPermInit : ITransient
         await initBpmMenu();
         await initBaseApi();
         await initBpmApi();
+        await initDemo();
         await initRole();
     }
 
 
     private async Task initBaseMenu()
     {
-        List<SysPermMenu> list = new List<SysPermMenu>();
+        List<SysMenu> list = new List<SysMenu>();
         
-        SysPermMenu m1000 = new SysPermMenu();
+        SysMenu m1000 = new SysMenu();
         m1000.id=1000L;
         m1000.icon="tdesign:system-setting";
         m1000.name="系统管理";
@@ -49,124 +50,124 @@ public class SysPermInit : ITransient
         m1000.outag=false;
         list.Add(m1000);
         
-        SysPermMenu m1010 = new SysPermMenu();
+        SysMenu m1010 = new SysMenu();
         m1010.id=1010L;
-        m1010.comp="sys/org/dept/index";
+        m1010.comp="sys/dept/index";
         m1010.icon="mingcute:department-line";
         m1010.name="部门管理";
         m1010.ornum=1010;
-        m1010.path="org/dept";
+        m1010.path="dept";
         m1010.pid=1000L;
         m1010.catag=false;
         m1010.shtag=true;
         m1010.outag=false;
         list.Add(m1010);
         
-        SysPermMenu m1020 = new SysPermMenu();
+        SysMenu m1020 = new SysMenu();
         m1020.id=1020L;
-        m1020.comp="sys/org/user/index";
+        m1020.comp="sys/user/index";
         m1020.icon="ant-design:user-outlined";
         m1020.name="用户管理";
         m1020.ornum=1020;
-        m1020.path="org/user";
+        m1020.path="user";
         m1020.pid=1000L;
         m1020.catag=false;
         m1020.shtag=true;
         m1020.outag=false;
         list.Add(m1020);
         
-        SysPermMenu m1021 = new SysPermMenu();
+        SysMenu m1021 = new SysMenu();
         m1021.id=1021L;
-        m1021.comp="sys/org/user/tedit";
+        m1021.comp="sys/user/tedit";
         m1021.icon="mingcute:user-edit-line";
         m1021.name="用户编辑";
         m1021.ornum=1021;
-        m1021.path="org/user/edit";
+        m1021.path="user/edit";
         m1021.pid=1000L;
         m1021.catag=true;
         m1021.shtag=false;
         m1021.outag=false;
         list.Add(m1021);
         
-        SysPermMenu m1030 = new SysPermMenu();
+        SysMenu m1030 = new SysMenu();
         m1030.id=1030L;
-        m1030.comp="sys/org/post/index";
+        m1030.comp="sys/post/index";
         m1030.icon="icon-park-outline:appointment";
         m1030.name="岗位管理";
         m1030.ornum=1030;
-        m1030.path="org/post";
+        m1030.path="post";
         m1030.pid=1000L;
         m1030.catag=false;
         m1030.shtag=true;
         m1030.outag=false;
         list.Add(m1030);
         
-        SysPermMenu m1040 = new SysPermMenu();
+        SysMenu m1040 = new SysMenu();
         m1040.id=1040L;
-        m1040.comp="sys/org/group/index";
+        m1040.comp="sys/group/index";
         m1040.icon="material-symbols:group-outline-rounded";
         m1040.name="群组管理";
         m1040.ornum=1040;
-        m1040.path="org/group";
+        m1040.path="group";
         m1040.pid=1000L;
         m1040.catag=false;
         m1040.shtag=true;
         m1040.outag=false;
         list.Add(m1040);
         
-        SysPermMenu m1050 = new SysPermMenu();
+        SysMenu m1050 = new SysMenu();
         m1050.id=1050L;
-        m1050.comp="sys/perm/menu/index";
+        m1050.comp="sys/menu/index";
         m1050.icon="ri:menu-fold-2-fill";
         m1050.name="菜单管理";
         m1050.ornum=1050;
-        m1050.path="perm/menu";
+        m1050.path="menu";
         m1050.pid=1000L;
         m1050.catag=false;
         m1050.shtag=true;
         m1050.outag=false;
         list.Add(m1050);
         
-        SysPermMenu m1060 = new SysPermMenu();
+        SysMenu m1060 = new SysMenu();
         m1060.id=1060L;
-        m1060.comp="sys/perm/api/index";
+        m1060.comp="sys/api/index";
         m1060.icon="ant-design:api-outlined";
         m1060.name="接口管理";
         m1060.ornum=1060;
-        m1060.path="perm/api";
+        m1060.path="api";
         m1060.pid=1000L;
         m1060.catag=false;
         m1060.shtag=true;
         m1060.outag=false;
         list.Add(m1060);
         
-        SysPermMenu m1070 = new SysPermMenu();
+        SysMenu m1070 = new SysMenu();
         m1070.id=1070L;
-        m1070.comp="sys/perm/role/index";
+        m1070.comp="sys/role/index";
         m1070.icon="eos-icons:role-binding-outlined";
         m1070.name="角色管理";
         m1070.ornum=1070;
-        m1070.path="perm/role";
+        m1070.path="role";
         m1070.pid=1000L;
         m1070.catag=false;
         m1070.shtag=true;
         m1070.outag=false;
         list.Add(m1070);
         
-        SysPermMenu m1071 = new SysPermMenu();
+        SysMenu m1071 = new SysMenu();
         m1071.id=1071L;
-        m1071.comp="sys/perm/role/edit";
+        m1071.comp="sys/role/edit";
         m1071.icon="oui:app-users-roles";
         m1071.name="角色编辑";
         m1071.ornum=1071;
-        m1071.path="perm/role/edit";
+        m1071.path="role/edit";
         m1071.pid=1000L;
         m1071.catag=true;
         m1071.shtag=false;
         m1071.outag=false;
         list.Add(m1071);
         
-        SysPermMenu m1080 = new SysPermMenu();
+        SysMenu m1080 = new SysMenu();
         m1080.id=1080L;
         m1080.comp="sys/config/index";
         m1080.icon="ant-design:setting-outlined";
@@ -179,7 +180,7 @@ public class SysPermInit : ITransient
         m1080.outag=false;
         list.Add(m1080);
         
-        SysPermMenu m1090 = new SysPermMenu();
+        SysMenu m1090 = new SysMenu();
         m1090.id=1090L;
         m1090.comp="sys/notice/index";
         m1090.icon="fe:notice-push";
@@ -192,7 +193,7 @@ public class SysPermInit : ITransient
         m1090.outag=false;
         list.Add(m1090);
         
-        SysPermMenu m2000 = new SysPermMenu();
+        SysMenu m2000 = new SysMenu();
         m2000.id=2000L;
         m2000.comp="Layout";
         m2000.icon="eos-icons:monitoring";
@@ -206,7 +207,7 @@ public class SysPermInit : ITransient
         m2000.outag=false;
         list.Add(m2000);
         
-        SysPermMenu m2010 = new SysPermMenu();
+        SysMenu m2010 = new SysMenu();
         m2010.id=2010L;
         m2010.comp="mon/online/user/index";
         m2010.icon="oui:online";
@@ -219,7 +220,7 @@ public class SysPermInit : ITransient
         m2010.outag=false;
         list.Add(m2010);
         
-        SysPermMenu m2020 = new SysPermMenu();
+        SysMenu m2020 = new SysMenu();
         m2020.id=2020L;
         m2020.comp="mon/login/log/index";
         m2020.icon="uiw:login";
@@ -232,7 +233,7 @@ public class SysPermInit : ITransient
         m2020.outag=false;
         list.Add(m2020);
         
-        SysPermMenu m2030 = new SysPermMenu();
+        SysMenu m2030 = new SysMenu();
         m2030.id=2030L;
         m2030.comp="mon/oper/log/index";
         m2030.icon="icon-park-outline:reverse-operation-in";
@@ -245,7 +246,7 @@ public class SysPermInit : ITransient
         m2030.outag=false;
         list.Add(m2030);
         
-        SysPermMenu m2040 = new SysPermMenu();
+        SysMenu m2040 = new SysMenu();
         m2040.id=2040L;
         m2040.comp="mon/server/net";
         m2040.icon="mdi:server-outline";
@@ -258,7 +259,7 @@ public class SysPermInit : ITransient
         m2040.outag=false;
         list.Add(m2040);
         
-        SysPermMenu m2050 = new SysPermMenu();
+        SysMenu m2050 = new SysMenu();
         m2050.id=2050L;
         m2050.comp="mon/cache/index";
         m2050.icon="octicon:cache-24";
@@ -271,7 +272,7 @@ public class SysPermInit : ITransient
         m2050.outag=false;
         list.Add(m2050);
         
-        SysPermMenu m2060 = new SysPermMenu();
+        SysMenu m2060 = new SysMenu();
         m2060.id=2060L;
         m2060.comp="mon/job/main/index";
         m2060.icon="streamline:task-list";
@@ -284,7 +285,7 @@ public class SysPermInit : ITransient
         m2060.outag=false;
         list.Add(m2060);
         
-        SysPermMenu m2061 = new SysPermMenu();
+        SysMenu m2061 = new SysMenu();
         m2061.id=2061L;
         m2061.comp="mon/job/log/index";
         m2061.icon="ix:log";
@@ -297,7 +298,7 @@ public class SysPermInit : ITransient
         m2061.outag=false;
         list.Add(m2061);
         
-        SysPermMenu m3000 = new SysPermMenu();
+        SysMenu m3000 = new SysMenu();
         m3000.id=3000L;
         m3000.comp="Layout";
         m3000.icon="ant-design:tool-outlined";
@@ -311,7 +312,7 @@ public class SysPermInit : ITransient
         m3000.outag=false;
         list.Add(m3000);
         
-        SysPermMenu m3010 = new SysPermMenu();
+        SysMenu m3010 = new SysMenu();
         m3010.id=3010L;
         m3010.comp="tool/dict/index";
         m3010.icon="fluent-mdl2:dictionary";
@@ -324,7 +325,7 @@ public class SysPermInit : ITransient
         m3010.outag=false;
         list.Add(m3010);
         
-        SysPermMenu m3020 = new SysPermMenu();
+        SysMenu m3020 = new SysMenu();
         m3020.id=3020L;
         m3020.comp="tool/num/index";
         m3020.icon="streamline-sharp:steps-number";
@@ -337,7 +338,7 @@ public class SysPermInit : ITransient
         m3020.outag=false;
         list.Add(m3020);
         
-        SysPermMenu m3030 = new SysPermMenu();
+        SysMenu m3030 = new SysMenu();
         m3030.id=3030L;
         m3030.comp="tool/oss/main/index";
         m3030.icon="mdi:file-outline";
@@ -350,7 +351,7 @@ public class SysPermInit : ITransient
         m3030.outag=false;
         list.Add(m3030);
         
-        SysPermMenu m3040 = new SysPermMenu();
+        SysMenu m3040 = new SysMenu();
         m3040.id=3040L;
         m3040.comp="tool/form/index";
         m3040.icon="fluent:form-20-regular";
@@ -363,7 +364,7 @@ public class SysPermInit : ITransient
         m3040.outag=false;
         list.Add(m3040);
         
-        SysPermMenu m3041 = new SysPermMenu();
+        SysMenu m3041 = new SysMenu();
         m3041.id=3041L;
         m3041.comp="tool/form/edit";
         m3041.icon="fluent:form-20-regular";
@@ -376,7 +377,7 @@ public class SysPermInit : ITransient
         m3041.outag=false;
         list.Add(m3041);
         
-        SysPermMenu m3050 = new SysPermMenu();
+        SysMenu m3050 = new SysMenu();
         m3050.id=3050L;
         m3050.comp="tool/code/index";
         m3050.icon="humbleicons:code";
@@ -389,7 +390,7 @@ public class SysPermInit : ITransient
         m3050.outag=false;
         list.Add(m3050);
         
-        SysPermMenu m3051 = new SysPermMenu();
+        SysMenu m3051 = new SysMenu();
         m3051.id=3051L;
         m3051.comp="tool/code/edit";
         m3051.icon="humbleicons:code";
@@ -402,7 +403,7 @@ public class SysPermInit : ITransient
         m3051.outag=false;
         list.Add(m3051);
         
-        foreach (SysPermMenu item in list)
+        foreach (SysMenu item in list)
         {
             item.avtag=true;
             if(item.type==null){
@@ -415,9 +416,9 @@ public class SysPermInit : ITransient
 
     private async Task initBpmMenu()
     {
-        List<SysPermMenu> list = new List<SysPermMenu>();
+        List<SysMenu> list = new List<SysMenu>();
 
-        SysPermMenu m6000 = new SysPermMenu();
+        SysMenu m6000 = new SysMenu();
         m6000.id = 6000L;
         m6000.icon = "streamline-sharp:text-flow-rows";
         m6000.name = "流程管理";
@@ -431,7 +432,7 @@ public class SysPermInit : ITransient
         m6000.outag = false;
         list.Add(m6000);
 
-        SysPermMenu m6010 = new SysPermMenu();
+        SysMenu m6010 = new SysMenu();
         m6010.id = 6010L;
         m6010.comp = "bpm/bus/cate/index";
         m6010.icon = "tabler:category-plus";
@@ -444,7 +445,7 @@ public class SysPermInit : ITransient
         m6010.outag = false;
         list.Add(m6010);
         
-        SysPermMenu m6020 = new SysPermMenu();
+        SysMenu m6020 = new SysMenu();
         m6020.id = 6020L;
         m6020.comp = "bpm/bus/tmpl/index";
         m6020.icon = "carbon:prompt-template";
@@ -457,7 +458,7 @@ public class SysPermInit : ITransient
         m6020.outag = false;
         list.Add(m6020);
         
-        SysPermMenu m6021 = new SysPermMenu();
+        SysMenu m6021 = new SysMenu();
         m6021.id = 6021L;
         m6021.comp = "bpm/bus/tmpl/edit";
         m6021.icon = "carbon:prompt-template";
@@ -470,7 +471,7 @@ public class SysPermInit : ITransient
         m6021.outag = false;
         list.Add(m6021);
         
-        SysPermMenu m6030 = new SysPermMenu();
+        SysMenu m6030 = new SysMenu();
         m6030.id = 6030L;
         m6030.comp = "bpm/bus/main/index";
         m6030.icon = "ri:instance-line";
@@ -483,7 +484,7 @@ public class SysPermInit : ITransient
         m6030.outag = false;
         list.Add(m6030);
         
-        SysPermMenu m6031 = new SysPermMenu();
+        SysMenu m6031 = new SysMenu();
         m6031.id = 6031L;
         m6031.comp = "bpm/bus/main/edit";
         m6031.icon = "ri:instance-line";
@@ -496,7 +497,7 @@ public class SysPermInit : ITransient
         m6031.outag = false;
         list.Add(m6031);
         
-        SysPermMenu m6032 = new SysPermMenu();
+        SysMenu m6032 = new SysMenu();
         m6032.id = 6032L;
         m6032.comp = "bpm/bus/main/view";
         m6032.icon = "ri:instance-line";
@@ -509,7 +510,7 @@ public class SysPermInit : ITransient
         m6032.outag = false;
         list.Add(m6032);
         
-        SysPermMenu m6040 = new SysPermMenu();
+        SysMenu m6040 = new SysMenu();
         m6040.id = 6040L;
         m6040.comp = "bpm/todo/index";
         m6040.icon = "ri:todo-line";
@@ -522,7 +523,7 @@ public class SysPermInit : ITransient
         m6040.outag = false;
         list.Add(m6040);
         
-        SysPermMenu m6050 = new SysPermMenu();
+        SysMenu m6050 = new SysMenu();
         m6050.id = 6050L;
         m6050.comp = "bpm/org/tree/index";
         m6050.icon = "mdi:workflow-outline";
@@ -535,7 +536,7 @@ public class SysPermInit : ITransient
         m6050.outag = false;
         list.Add(m6050);
         
-        SysPermMenu m6051 = new SysPermMenu();
+        SysMenu m6051 = new SysMenu();
         m6051.id = 6051L;
         m6051.comp = "bpm/org/node/index";
         m6051.icon = "mdi:workflow-outline";
@@ -548,7 +549,7 @@ public class SysPermInit : ITransient
         m6051.outag = false;
         list.Add(m6051);
         
-        foreach (SysPermMenu item in list)
+        foreach (SysMenu item in list)
         {
             item.avtag=true;
             if(item.type==null){
@@ -559,219 +560,291 @@ public class SysPermInit : ITransient
         await _menuRepo.InsertRangeAsync(list);
     }
     
+     private async Task initDemo()
+    {
+        List<SysMenu> list = new List<SysMenu>();
+
+        SysMenu m8000 = new SysMenu();
+        m8000.id = 8000L;
+        m8000.icon = "hugeicons:star";
+        m8000.name = "使用案例";
+        m8000.ornum = 8000;
+        m8000.path = "demo";
+        m8000.pid = 0L;
+        m8000.type = "1";
+        m8000.comp = "Layout";
+        m8000.catag = false;
+        m8000.shtag = true;
+        m8000.outag = false;
+        list.Add(m8000);
+
+        SysMenu m8010 = new SysMenu();
+        m8010.id=8010L;
+        m8010.icon = "pajamas:work-item-requirement";
+        m8010.name = "单一主表案例";
+        m8010.ornum = 8010; 
+        m8010.comp = "demo/single/main/index";
+        m8010.path= "single/main";
+        m8010.pid=8000L;
+        m8010.catag = false;
+        m8010.shtag = true;
+        m8010.outag = false;
+        list.Add(m8010);
+        
+        SysMenu m8020 = new SysMenu();
+        m8020.id=8020L;
+        m8020.icon = "pajamas:work-item-requirement";
+        m8020.name = "单一树表案例";
+        m8020.ornum = 8020; 
+        m8020.comp = "demo/single/cate/index";
+        m8020.path= "single/cate";
+        m8020.pid=8000L;
+        m8020.catag = false;
+        m8020.shtag = true;
+        m8020.outag = false;
+        list.Add(m8020);
+        
+        SysMenu m8030 = new SysMenu();
+        m8030.id=8030L;
+        m8030.icon = "pajamas:work-item-requirement";
+        m8030.name = "关联主分子案例";
+        m8030.ornum = 8030; 
+        m8030.comp = "demo/link/index";
+        m8030.path= "link";
+        m8030.pid=8000L;
+        m8030.catag = false;
+        m8030.shtag = true;
+        m8030.outag = false;
+        list.Add(m8030);
+
+        foreach (SysMenu item in list)
+        {
+            item.avtag=true;
+            if(item.type==null){
+                item.type="2";
+            }
+            item.uptim=item.crtim;
+        }
+        await _menuRepo.InsertRangeAsync(list);
+        
+        
+        
+        
+    }
+
     private async Task initBaseApi()
     {
-        List<SysPermApi> list = new List<SysPermApi>();
+        List<SysApi> list = new List<SysApi>();
 
-        SysPermApi a101001 = new SysPermApi();
+        SysApi a101001 = new SysApi();
         a101001.id = 101001L;
         a101001.ornum = 101001;
         a101001.name = "部门查询";
         a101001.menid = 1010L;
-        a101001.perm = "sysorg:dept:query";
+        a101001.perm = "sys:dept:query";
         list.Add(a101001);
 
-        SysPermApi a101002 = new SysPermApi();
+        SysApi a101002 = new SysApi();
         a101002.id = 101002L;
         a101002.ornum = 101002;
         a101002.name = "部门编辑";
         a101002.menid = 1010L;
-        a101002.perm = "sysorg:dept:edit";
+        a101002.perm = "sys:dept:edit";
         list.Add(a101002);
         
-        SysPermApi a101003 = new SysPermApi();
+        SysApi a101003 = new SysApi();
         a101003.id = 101003L;
         a101003.ornum = 101003;
         a101003.name = "部门删除";
         a101003.menid = 1010L;
-        a101003.perm = "sysorg:dept:delete";
+        a101003.perm = "sys:dept:delete";
         list.Add(a101003);
         
-        SysPermApi a102001 = new SysPermApi();
+        SysApi a102001 = new SysApi();
         a102001.id = 102001L;
         a102001.ornum = 102001;
         a102001.name = "用户查询";
         a102001.menid = 1020L;
-        a102001.perm = "sysorg:user:query";
+        a102001.perm = "sys:user:query";
         list.Add(a102001);
         
-        SysPermApi a102002 = new SysPermApi();
+        SysApi a102002 = new SysApi();
         a102002.id = 102002L;
         a102002.ornum = 102002;
         a102002.name = "用户编辑";
         a102002.menid = 1020L;
-        a102002.perm = "sysorg:user:edit";
+        a102002.perm = "sys:user:edit";
         list.Add(a102002);
         
-        SysPermApi a102003 = new SysPermApi();
+        SysApi a102003 = new SysApi();
         a102003.id = 102003L;
         a102003.ornum = 102003;
         a102003.name = "用户删除";
         a102003.menid = 1020L;
-        a102003.perm = "sysorg:user:delete";
+        a102003.perm = "sys:user:delete";
         list.Add(a102003);
         
-        SysPermApi a102004 = new SysPermApi();
+        SysApi a102004 = new SysApi();
         a102004.id = 102004L;
         a102004.ornum = 102004;
         a102004.name = "用户启用禁用";
         a102004.menid = 1020L;
-        a102004.perm = "sysorg:user:avtag";
+        a102004.perm = "sys:user:avtag";
         list.Add(a102004);
         
-        SysPermApi a102005 = new SysPermApi();
+        SysApi a102005 = new SysApi();
         a102005.id = 102005L;
         a102005.ornum = 102005;
         a102005.name = "用户密码修改";
         a102005.menid = 1020L;
-        a102005.perm = "sysorg:user:pacod";
+        a102005.perm = "sys:user:password";
         list.Add(a102005);
         
-        SysPermApi a103001 = new SysPermApi();
+        SysApi a103001 = new SysApi();
         a103001.id = 103001L;
         a103001.ornum = 103001;
         a103001.name = "岗位查询";
         a103001.menid = 1030L;
-        a103001.perm = "sysorg:post:query";
+        a103001.perm = "sys:post:query";
         list.Add(a103001);
         
-        SysPermApi a103002 = new SysPermApi();
+        SysApi a103002 = new SysApi();
         a103002.id = 103002L;
         a103002.ornum = 103002;
         a103002.name = "岗位编辑";
         a103002.menid = 1030L;
-        a103002.perm = "sysorg:post:edit";
+        a103002.perm = "sys:post:edit";
         list.Add(a103002);
         
-        SysPermApi a103003 = new SysPermApi();
+        SysApi a103003 = new SysApi();
         a103003.id = 103003L;
         a103003.ornum = 103003;
         a103003.name = "岗位删除";
         a103003.menid = 1030L;
-        a103003.perm = "sysorg:post:delete";
+        a103003.perm = "sys:post:delete";
         list.Add(a103003);
         
-        SysPermApi a104001 = new SysPermApi();
+        SysApi a104001 = new SysApi();
         a104001.id = 104001L;
         a104001.ornum = 104001;
         a104001.name = "群组查询";
         a104001.menid = 1040L;
-        a104001.perm = "sysorg:group:query";
+        a104001.perm = "sys:group:query";
         list.Add(a104001);
         
-        SysPermApi a104002 = new SysPermApi();
+        SysApi a104002 = new SysApi();
         a104002.id = 104002L;
         a104002.ornum = 104002;
         a104002.name = "群组编辑";
         a104002.menid = 1040L;
-        a104002.perm = "sysorg:group:edit";
+        a104002.perm = "sys:group:edit";
         list.Add(a104002);
         
-        SysPermApi a104003 = new SysPermApi();
+        SysApi a104003 = new SysApi();
         a104003.id = 104003L;
         a104003.ornum = 104003;
         a104003.name = "群组删除";
         a104003.menid = 1040L;
-        a104003.perm = "sysorg:group:delete";
+        a104003.perm = "sys:group:delete";
         list.Add(a104003);
         
-        SysPermApi a104004 = new SysPermApi();
+        SysApi a104004 = new SysApi();
         a104004.id = 104004L;
         a104004.ornum = 104004;
         a104004.name = "群组分类查询";
         a104004.menid = 1040L;
-        a104004.perm = "sysorg:groupc:query";
+        a104004.perm = "sys:groupc:query";
         list.Add(a104004);
         
-        SysPermApi a104005 = new SysPermApi();
+        SysApi a104005 = new SysApi();
         a104005.id = 104005L;
         a104005.ornum = 104005;
         a104005.name = "群组分类编辑";
         a104005.menid = 1040L;
-        a104005.perm = "sysorg:groupc:edit";
+        a104005.perm = "sys:groupc:edit";
         list.Add(a104005);
         
-        SysPermApi a104006 = new SysPermApi();
+        SysApi a104006 = new SysApi();
         a104006.id = 104006L;
         a104006.ornum = 104006;
         a104006.name = "群组分类删除";
         a104006.menid = 1040L;
-        a104006.perm = "sysorg:groupc:delete";
+        a104006.perm = "sys:groupc:delete";
         list.Add(a104006);
         
-        SysPermApi a105001 = new SysPermApi();
+        SysApi a105001 = new SysApi();
         a105001.id = 105001L;
         a105001.ornum = 105001;
         a105001.name = "菜单查询";
         a105001.menid = 1050L;
-        a105001.perm = "sysperm:menu:query";
+        a105001.perm = "sys:menu:query";
         list.Add(a105001);
         
-        SysPermApi a105002 = new SysPermApi();
+        SysApi a105002 = new SysApi();
         a105002.id = 105002L;
         a105002.ornum = 105002;
         a105002.name = "菜单编辑";
         a105002.menid = 1050L;
-        a105002.perm = "sysperm:menu:edit";
+        a105002.perm = "sys:menu:edit";
         list.Add(a105002);
         
-        SysPermApi a105003 = new SysPermApi();
+        SysApi a105003 = new SysApi();
         a105003.id = 105003L;
         a105003.ornum = 105003;
         a105003.name = "菜单删除";
         a105003.menid = 1050L;
-        a105003.perm = "sysperm:menu:delete";
+        a105003.perm = "sys:menu:delete";
         list.Add(a105003);
         
-        SysPermApi a106001 = new SysPermApi();
+        SysApi a106001 = new SysApi();
         a106001.id = 106001L;
         a106001.ornum = 106001;
         a106001.name = "接口查询";
         a106001.menid = 1060L;
-        a106001.perm = "sysperm:api:query";
+        a106001.perm = "sys:api:query";
         list.Add(a106001);
         
-        SysPermApi a106002 = new SysPermApi();
+        SysApi a106002 = new SysApi();
         a106002.id = 106002L;
         a106002.ornum = 106002;
         a106002.name = "接口编辑";
         a106002.menid = 1060L;
-        a106002.perm = "sysperm:api:edit";
+        a106002.perm = "sys:api:edit";
         list.Add(a106002);
         
-        SysPermApi a106003 = new SysPermApi();
+        SysApi a106003 = new SysApi();
         a106003.id = 106003L;
         a106003.ornum = 106003;
         a106003.name = "接口删除";
         a106003.menid = 1060L;
-        a106003.perm = "sysperm:api:delete";
+        a106003.perm = "sys:api:delete";
         list.Add(a106003);
         
-        SysPermApi a107001 = new SysPermApi();
+        SysApi a107001 = new SysApi();
         a107001.id = 107001L;
         a107001.ornum = 107001;
         a107001.name = "角色查询";
         a107001.menid = 1070L;
-        a107001.perm = "sysperm:role:query";
+        a107001.perm = "sys:role:query";
         list.Add(a107001);
         
-        SysPermApi a107002 = new SysPermApi();
+        SysApi a107002 = new SysApi();
         a107002.id = 107002L;
         a107002.ornum = 107002;
         a107002.name = "角色编辑";
         a107002.menid = 1070L;
-        a107002.perm = "sysperm:role:edit";
+        a107002.perm = "sys:role:edit";
         list.Add(a107002);
         
-        SysPermApi a107003 = new SysPermApi();
+        SysApi a107003 = new SysApi();
         a107003.id = 107003L;
         a107003.ornum = 107003;
         a107003.name = "角色删除";
         a107003.menid = 1070L;
-        a107003.perm = "sysperm:role:delete";
+        a107003.perm = "sys:role:delete";
         list.Add(a107003);
         
-        SysPermApi a108001 = new SysPermApi();
+        SysApi a108001 = new SysApi();
         a108001.id = 108001L;
         a108001.ornum = 108001;
         a108001.name = "参数查询";
@@ -779,7 +852,7 @@ public class SysPermInit : ITransient
         a108001.perm = "sys:config:query";
         list.Add(a108001);
         
-        SysPermApi a108002 = new SysPermApi();
+        SysApi a108002 = new SysApi();
         a108002.id = 108002L;
         a108002.ornum = 108002;
         a108002.name = "参数编辑";
@@ -787,7 +860,7 @@ public class SysPermInit : ITransient
         a108002.perm = "sys:config:edit";
         list.Add(a108002);
         
-        SysPermApi a108003 = new SysPermApi();
+        SysApi a108003 = new SysApi();
         a108003.id = 108003L;
         a108003.ornum = 108003;
         a108003.name = "参数删除";
@@ -795,7 +868,7 @@ public class SysPermInit : ITransient
         a108003.perm = "sys:config:delete";
         list.Add(a108003);
         
-        SysPermApi a109001 = new SysPermApi();
+        SysApi a109001 = new SysApi();
         a109001.id = 109001L;
         a109001.ornum = 109001;
         a109001.name = "通知查询";
@@ -803,7 +876,7 @@ public class SysPermInit : ITransient
         a109001.perm = "sys:notice:query";
         list.Add(a109001);
         
-        SysPermApi a109002 = new SysPermApi();
+        SysApi a109002 = new SysApi();
         a109002.id = 109002L;
         a109002.ornum = 109002;
         a109002.name = "通知编辑";
@@ -811,7 +884,7 @@ public class SysPermInit : ITransient
         a109002.perm = "sys:notice:edit";
         list.Add(a109002);
         
-        SysPermApi a109003 = new SysPermApi();
+        SysApi a109003 = new SysApi();
         a109003.id = 109003L;
         a109003.ornum = 109003;
         a109003.name = "通知删除";
@@ -819,7 +892,7 @@ public class SysPermInit : ITransient
         a109003.perm = "sys:notice:delete";
         list.Add(a109003);
         
-        SysPermApi a201001 = new SysPermApi();
+        SysApi a201001 = new SysApi();
         a201001.id = 201001L;
         a201001.ornum = 201001;
         a201001.name = "在线用户查询";
@@ -827,7 +900,7 @@ public class SysPermInit : ITransient
         a201001.perm = "mon:online:query";
         list.Add(a201001);
         
-        SysPermApi a201002 = new SysPermApi();
+        SysApi a201002 = new SysApi();
         a201002.id = 201002L;
         a201002.ornum = 201002;
         a201002.name = "在线用户强退";
@@ -835,7 +908,7 @@ public class SysPermInit : ITransient
         a201002.perm = "mon:online:delete";
         list.Add(a201002);
         
-        SysPermApi a202001 = new SysPermApi();
+        SysApi a202001 = new SysApi();
         a202001.id = 202001L;
         a202001.ornum = 202001;
         a202001.name = "登录日志查询";
@@ -843,7 +916,7 @@ public class SysPermInit : ITransient
         a202001.perm = "mon:login:query";
         list.Add(a202001);
         
-        SysPermApi a202002 = new SysPermApi();
+        SysApi a202002 = new SysApi();
         a202002.id = 202002L;
         a202002.ornum = 202002;
         a202002.name = "登录日志删除";
@@ -851,7 +924,7 @@ public class SysPermInit : ITransient
         a202002.perm = "mon:login:delete";
         list.Add(a202002);
         
-        SysPermApi a203001 = new SysPermApi();
+        SysApi a203001 = new SysApi();
         a203001.id = 203001L;
         a203001.ornum = 203001;
         a203001.name = "操作日志查询";
@@ -859,7 +932,7 @@ public class SysPermInit : ITransient
         a203001.perm = "mon:oper:query";
         list.Add(a203001);
         
-        SysPermApi a203002 = new SysPermApi();
+        SysApi a203002 = new SysApi();
         a203002.id = 203002L;
         a203002.ornum = 203002;
         a203002.name = "操作日志删除";
@@ -867,7 +940,7 @@ public class SysPermInit : ITransient
         a203002.perm = "mon:oper:delete";
         list.Add(a203002);
         
-        SysPermApi a204001 = new SysPermApi();
+        SysApi a204001 = new SysApi();
         a204001.id = 204001L;
         a204001.ornum = 204001;
         a204001.name = "服务器信息查询";
@@ -875,7 +948,7 @@ public class SysPermInit : ITransient
         a204001.perm = "mon:server:query";
         list.Add(a204001);
         
-        SysPermApi a205001 = new SysPermApi();
+        SysApi a205001 = new SysApi();
         a205001.id = 205001L;
         a205001.ornum = 205001;
         a205001.name = "缓存信息查询";
@@ -883,7 +956,7 @@ public class SysPermInit : ITransient
         a205001.perm = "mon:cache:query";
         list.Add(a205001);
         
-        SysPermApi a206001 = new SysPermApi();
+        SysApi a206001 = new SysApi();
         a206001.id = 206001L;
         a206001.ornum = 206001;
         a206001.name = "定时任务查询";
@@ -891,7 +964,7 @@ public class SysPermInit : ITransient
         a206001.perm = "monjob:main:query";
         list.Add(a206001);
         
-        SysPermApi a206002 = new SysPermApi();
+        SysApi a206002 = new SysApi();
         a206002.id = 206002L;
         a206002.ornum = 206002;
         a206002.name = "定时任务修改";
@@ -899,7 +972,7 @@ public class SysPermInit : ITransient
         a206002.perm = "monjob:main:edit";
         list.Add(a206002);
         
-        SysPermApi a206003 = new SysPermApi();
+        SysApi a206003 = new SysApi();
         a206003.id = 206003L;
         a206003.ornum = 206003;
         a206003.name = "定时任务执行";
@@ -907,7 +980,7 @@ public class SysPermInit : ITransient
         a206003.perm = "monjob:main:run";
         list.Add(a206003);
         
-        SysPermApi a206101 = new SysPermApi();
+        SysApi a206101 = new SysApi();
         a206101.id = 206101L;
         a206101.ornum = 206101;
         a206101.name = "定时任务日志查询";
@@ -915,7 +988,7 @@ public class SysPermInit : ITransient
         a206101.perm = "monjob:log:query";
         list.Add(a206101);
         
-        SysPermApi a206102 = new SysPermApi();
+        SysApi a206102 = new SysApi();
         a206102.id = 206102L;
         a206102.ornum = 206102;
         a206102.name = "定时任务日志删除";
@@ -923,7 +996,7 @@ public class SysPermInit : ITransient
         a206102.perm = "monjob:log:delete";
         list.Add(a206102);
         
-        SysPermApi a301001 = new SysPermApi();
+        SysApi a301001 = new SysApi();
         a301001.id = 301001L;
         a301001.ornum = 301001;
         a301001.name = "字典查询";
@@ -931,7 +1004,7 @@ public class SysPermInit : ITransient
         a301001.perm = "tooldict:main:query";
         list.Add(a301001);
         
-        SysPermApi a301002 = new SysPermApi();
+        SysApi a301002 = new SysApi();
         a301002.id = 301002L;
         a301002.ornum = 301002;
         a301002.name = "字典修改";
@@ -939,7 +1012,7 @@ public class SysPermInit : ITransient
         a301002.perm = "tooldict:main:edit";
         list.Add(a301002);
         
-        SysPermApi a301003 = new SysPermApi();
+        SysApi a301003 = new SysApi();
         a301003.id = 301003L;
         a301003.ornum = 301003;
         a301003.name = "字典删除";
@@ -947,7 +1020,7 @@ public class SysPermInit : ITransient
         a301003.perm = "tooldict:main:delete";
         list.Add(a301003);
         
-        SysPermApi a301004 = new SysPermApi();
+        SysApi a301004 = new SysApi();
         a301004.id = 301004L;
         a301004.ornum = 301004;
         a301004.name = "字典数据查询";
@@ -955,7 +1028,7 @@ public class SysPermInit : ITransient
         a301004.perm = "tooldict:data:query";
         list.Add(a301004);
         
-        SysPermApi a301005 = new SysPermApi();
+        SysApi a301005 = new SysApi();
         a301005.id = 301005L;
         a301005.ornum = 301005;
         a301005.name = "字典数据编辑";
@@ -963,7 +1036,7 @@ public class SysPermInit : ITransient
         a301005.perm = "tooldict:data:edit";
         list.Add(a301005);
         
-        SysPermApi a301006 = new SysPermApi();
+        SysApi a301006 = new SysApi();
         a301006.id = 301006L;
         a301006.ornum = 301006;
         a301006.name = "字典数据编辑";
@@ -971,7 +1044,7 @@ public class SysPermInit : ITransient
         a301006.perm = "tooldict:data:delete";
         list.Add(a301006);
         
-        SysPermApi a302001 = new SysPermApi();
+        SysApi a302001 = new SysApi();
         a302001.id = 302001L;
         a302001.ornum = 302001;
         a302001.name = "编号查询";
@@ -979,7 +1052,7 @@ public class SysPermInit : ITransient
         a302001.perm = "tool:num:query";
         list.Add(a302001);
         
-        SysPermApi a302002 = new SysPermApi();
+        SysApi a302002 = new SysApi();
         a302002.id = 302002L;
         a302002.ornum = 302002;
         a302002.name = "编号编辑";
@@ -987,7 +1060,7 @@ public class SysPermInit : ITransient
         a302002.perm = "tool:num:edit";
         list.Add(a302002);
         
-        SysPermApi a302003 = new SysPermApi();
+        SysApi a302003 = new SysApi();
         a302003.id = 302003L;
         a302003.ornum = 302003;
         a302003.name = "编号删除";
@@ -995,7 +1068,7 @@ public class SysPermInit : ITransient
         a302003.perm = "tool:num:delete";
         list.Add(a302003);
         
-        foreach (SysPermApi item in list)
+        foreach (SysApi item in list)
         {
             item.avtag=true;
             item.uptim=item.crtim;
@@ -1004,9 +1077,9 @@ public class SysPermInit : ITransient
         
         
         
-        List<SysPermApi> list2 = new List<SysPermApi>();
+        List<SysApi> list2 = new List<SysApi>();
 
-        SysPermApi a801001 = new SysPermApi();
+        SysApi a801001 = new SysApi();
         a801001.id = 801001L;
         a801001.ornum = 801001;
         a801001.name = "单一主表-查询";
@@ -1014,7 +1087,7 @@ public class SysPermInit : ITransient
         a801001.perm = "single:main:query";
         list2.Add(a801001);
 
-        SysPermApi a801002 = new SysPermApi();
+        SysApi a801002 = new SysApi();
         a801002.id = 801002L;
         a801002.ornum = 801002;
         a801002.name = "单一主表-新增";
@@ -1022,7 +1095,7 @@ public class SysPermInit : ITransient
         a801002.perm = "single:main:add";
         list2.Add(a801002);
         
-        SysPermApi a801003 = new SysPermApi();
+        SysApi a801003 = new SysApi();
         a801003.id = 801003L;
         a801003.ornum = 801003;
         a801003.name = "单一主表-修改";
@@ -1030,7 +1103,7 @@ public class SysPermInit : ITransient
         a801003.perm = "single:main:edit";
         list2.Add(a801003);
         
-        SysPermApi a801004 = new SysPermApi();
+        SysApi a801004 = new SysApi();
         a801004.id = 801004L;
         a801004.ornum = 801004;
         a801004.name = "单一主表-删除";
@@ -1038,7 +1111,7 @@ public class SysPermInit : ITransient
         a801004.perm = "single:main:remove";
         list2.Add(a801004);
         
-        SysPermApi a802001 = new SysPermApi();
+        SysApi a802001 = new SysApi();
         a802001.id = 802001L;
         a802001.ornum = 802001;
         a802001.name = "单一树表-查询";
@@ -1046,7 +1119,7 @@ public class SysPermInit : ITransient
         a802001.perm = "single:cate:query";
         list2.Add(a802001);
         
-        SysPermApi a802002 = new SysPermApi();
+        SysApi a802002 = new SysApi();
         a802002.id = 802002L;
         a802002.ornum = 802002;
         a802002.name = "单一树表-新增";
@@ -1054,7 +1127,7 @@ public class SysPermInit : ITransient
         a802002.perm = "single:cate:add";
         list2.Add(a802002);
         
-        SysPermApi a802003 = new SysPermApi();
+        SysApi a802003 = new SysApi();
         a802003.id = 802003L;
         a802003.ornum = 802003;
         a802003.name = "单一树表-修改";
@@ -1062,7 +1135,7 @@ public class SysPermInit : ITransient
         a802003.perm = "single:cate:edit";
         list2.Add(a802003);
         
-        SysPermApi a802004 = new SysPermApi();
+        SysApi a802004 = new SysApi();
         a802004.id = 802004L;
         a802004.ornum = 802004;
         a802004.name = "单一树表-删除";
@@ -1070,7 +1143,7 @@ public class SysPermInit : ITransient
         a802004.perm = "single:cate:remove";
         list2.Add(a802004);
         
-        SysPermApi a803001 = new SysPermApi();
+        SysApi a803001 = new SysApi();
         a803001.id = 803001L;
         a803001.ornum = 803001;
         a803001.name = "关联主表-查询";
@@ -1078,7 +1151,7 @@ public class SysPermInit : ITransient
         a803001.perm = "link:main:query";
         list2.Add(a803001);
         
-        SysPermApi a803002 = new SysPermApi();
+        SysApi a803002 = new SysApi();
         a803002.id = 803002L;
         a803002.ornum = 803002;
         a803002.name = "关联主表-新增";
@@ -1086,7 +1159,7 @@ public class SysPermInit : ITransient
         a803002.perm = "link:main:add";
         list2.Add(a803002);
         
-        SysPermApi a803003 = new SysPermApi();
+        SysApi a803003 = new SysApi();
         a803003.id = 803003L;
         a803003.ornum = 803003;
         a803003.name = "关联主表-修改";
@@ -1094,7 +1167,7 @@ public class SysPermInit : ITransient
         a803003.perm = "link:main:edit";
         list2.Add(a803003);
         
-        SysPermApi a803004 = new SysPermApi();
+        SysApi a803004 = new SysApi();
         a803004.id = 803004L;
         a803004.ornum = 803004;
         a803004.name = "关联主表-删除";
@@ -1102,7 +1175,7 @@ public class SysPermInit : ITransient
         a803004.perm = "link:main:remove";
         list2.Add(a803004);
         
-        SysPermApi a803011 = new SysPermApi();
+        SysApi a803011 = new SysApi();
         a803011.id = 803011L;
         a803011.ornum = 803011;
         a803011.name = "关联树表-查询";
@@ -1110,7 +1183,7 @@ public class SysPermInit : ITransient
         a803011.perm = "link:cate:query";
         list2.Add(a803011);
         
-        SysPermApi a803012 = new SysPermApi();
+        SysApi a803012 = new SysApi();
         a803012.id = 803012L;
         a803012.ornum = 803012;
         a803012.name = "关联树表-新增";
@@ -1118,7 +1191,7 @@ public class SysPermInit : ITransient
         a803012.perm = "link:cate:add";
         list2.Add(a803012);
         
-        SysPermApi a803013 = new SysPermApi();
+        SysApi a803013 = new SysApi();
         a803013.id = 803013L;
         a803013.ornum = 803013;
         a803013.name = "关联树表-修改";
@@ -1126,7 +1199,7 @@ public class SysPermInit : ITransient
         a803013.perm = "link:cate:edit";
         list2.Add(a803013);
         
-        SysPermApi a803014 = new SysPermApi();
+        SysApi a803014 = new SysApi();
         a803014.id = 803014L;
         a803014.ornum = 803014;
         a803014.name = "关联树表-删除";
@@ -1134,7 +1207,7 @@ public class SysPermInit : ITransient
         a803014.perm = "link:cate:remove";
         list2.Add(a803014);
         
-        foreach (SysPermApi item in list2)
+        foreach (SysApi item in list2)
         {
             item.avtag=true;
             item.uptim=item.crtim;
@@ -1144,9 +1217,9 @@ public class SysPermInit : ITransient
     
     private async Task initBpmApi()
     {
-        List<SysPermApi> list = new List<SysPermApi>();
+        List<SysApi> list = new List<SysApi>();
 
-        SysPermApi a603001 = new SysPermApi();
+        SysApi a603001 = new SysApi();
         a603001.id = 603001L;
         a603001.ornum = 603001;
         a603001.name = "流程查询";
@@ -1154,7 +1227,7 @@ public class SysPermInit : ITransient
         a603001.perm = "bpmbus:main:query";
         list.Add(a603001);
         
-        SysPermApi a603002 = new SysPermApi();
+        SysApi a603002 = new SysApi();
         a603002.id = 603002L;
         a603002.ornum = 603002;
         a603002.name = "流程新增";
@@ -1162,7 +1235,7 @@ public class SysPermInit : ITransient
         a603002.perm = "bpmbus:main:add";
         list.Add(a603002);
         
-        SysPermApi a603003 = new SysPermApi();
+        SysApi a603003 = new SysApi();
         a603003.id = 603003L;
         a603003.ornum = 603003;
         a603003.name = "流程编辑";
@@ -1170,7 +1243,7 @@ public class SysPermInit : ITransient
         a603003.perm = "bpmbus:main:edit";
         list.Add(a603003);
         
-        foreach (SysPermApi item in list)
+        foreach (SysApi item in list)
         {
             item.avtag=true;
             item.uptim=item.crtim;
@@ -1180,7 +1253,7 @@ public class SysPermInit : ITransient
     
     private async Task initRole()
     {
-        SysPermRole role = new SysPermRole();
+        SysRole role = new SysRole();
         role.id = 1L;
         role.name = "管理员";
         role.notes = "拥有所有权限";

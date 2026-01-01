@@ -13,6 +13,7 @@ public class DemoLinkCateConroller(DemoLinkCateService service) : ControllerBase
     /// 关联分类表-列表查询
     /// </summary>
     [HttpGet("list")]
+    [SaCheckPermission("link:cate:query")]
     public async Task<dynamic> GetList(string name)
     {
         var list = await service.Repo.Context
@@ -27,6 +28,7 @@ public class DemoLinkCateConroller(DemoLinkCateService service) : ControllerBase
     /// 关联分类表-树状查询
     /// </summary>
     [HttpGet("tree")]
+    [SaCheckPermission("link:cate:query")]
     public async Task<List<Ltree>> GetTree(long id)
     {
         Sqler sqler=new Sqler(TABLE);
@@ -37,6 +39,7 @@ public class DemoLinkCateConroller(DemoLinkCateService service) : ControllerBase
     /// 关联分类表-详情查询
     /// </summary>
     [HttpGet("info/{id}")]
+    [SaCheckPermission("link:cate:query")]
     public async Task<DemoLinkCate> GetInfo(long id)
     {
         return await service.Select(id);
@@ -46,6 +49,7 @@ public class DemoLinkCateConroller(DemoLinkCateService service) : ControllerBase
     /// 关联分类表-新增
     /// </summary>
     [HttpPost]
+    [SaCheckPermission("link:cate:edit")]
     public async Task<long> Post([FromBody] DemoLinkCate cate)
     {
         return await service.Insert(cate);
@@ -55,6 +59,7 @@ public class DemoLinkCateConroller(DemoLinkCateService service) : ControllerBase
     /// 关联分类表-修改
     /// </summary>
     [HttpPut]
+    [SaCheckPermission("link:cate:edit")]
     public async Task<long> Put([FromBody] DemoLinkCate cate)
     {
         return await service.Update(cate,TABLE);
@@ -64,6 +69,7 @@ public class DemoLinkCateConroller(DemoLinkCateService service) : ControllerBase
     /// 关联分类表-删除
     /// </summary>
     [HttpDelete("{ids}")]
+    [SaCheckPermission("link:cate:delete")]
     public async Task<int> Delete(string ids)
     {
         return await service.Delete(ids);
@@ -73,6 +79,7 @@ public class DemoLinkCateConroller(DemoLinkCateService service) : ControllerBase
     /// 关联分类表-移动
     /// </summary>
     [HttpPost("move")]
+    [SaCheckPermission("link:cate:edit")]
     public async Task PostMove([FromBody] Lmove po)
     {
         await service.Move(po,TABLE);

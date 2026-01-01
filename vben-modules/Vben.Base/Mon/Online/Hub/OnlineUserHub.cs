@@ -8,8 +8,9 @@ using Admin.NET.Core.Service;
 using Furion.InstantMessaging;
 using Microsoft.AspNetCore.SignalR;
 using NewLife;
-using Vben.Base.Mon.online.user;
+using Vben.Base.Mon.Online.User;
 using Vben.Common.Core.Const;
+using Vben.Common.Core.Token;
 
 namespace Admin.NET.Core;
 
@@ -48,8 +49,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
     public override async Task OnConnectedAsync()
     {
         var httpContext = Context.GetHttpContext();
-        XuserUtil.getUserId();
-        var userxx=MyApp.GetHttpService<IUserManager>().UserId;
+        var userxx=LoginHelper.UserId;
         
         var userId = httpContext.User.FindFirst(ClaimConst.CLAINM_USERID)?.Value;
         var account = httpContext.User.FindFirst(ClaimConst.CLAINM_ACCOUNT)?.Value;

@@ -13,6 +13,7 @@ using Vben.Base.Mon.Log.Root;
 using Vben.Common.Core.Attribute;
 using Vben.Common.Core.Cache;
 using Vben.Common.Core.Filter;
+using Vben.Common.Core.Token;
 using Vben.Common.Sqlsugar.Config;
 
 namespace Vben.Admin.Launch;
@@ -40,26 +41,26 @@ public class Startup : AppStartup
         // services.AddJwt<AuthzHandler>(enableGlobalAuthorize: true);
         
         // JWT
-        services.AddJwt<AuthzHandler>(enableGlobalAuthorize: true, jwtBearerConfigure: options =>
-        {
-            // 实现 JWT 身份验证过程控制
-            options.Events = new JwtBearerEvents
-            {
-                OnMessageReceived = context =>
-                {
-                    var httpContext = context.HttpContext;
-                    // 若请求 Url 包含 token 参数，则设置 Token 值
-                    if (httpContext.Request.Query.ContainsKey("token"))
-                        context.Token = httpContext.Request.Query["token"];
-                    // if (httpContext.Request.Query.ContainsKey("Authorization"))
-                    // {
-                    //     context.Token = httpContext.Request.Query["Authorization"];
-                    //     context.Token=context.Token.Substring(7);
-                    // }
-                    return Task.CompletedTask;
-                }
-            };
-        });
+        // services.AddJwt<AuthzHandler>(enableGlobalAuthorize: true, jwtBearerConfigure: options =>
+        // {
+        //     // 实现 JWT 身份验证过程控制
+        //     options.Events = new JwtBearerEvents
+        //     {
+        //         OnMessageReceived = context =>
+        //         {
+        //             var httpContext = context.HttpContext;
+        //             // 若请求 Url 包含 token 参数，则设置 Token 值
+        //             if (httpContext.Request.Query.ContainsKey("token"))
+        //                 context.Token = httpContext.Request.Query["token"];
+        //             // if (httpContext.Request.Query.ContainsKey("Authorization"))
+        //             // {
+        //             //     context.Token = httpContext.Request.Query["Authorization"];
+        //             //     context.Token=context.Token.Substring(7);
+        //             // }
+        //             return Task.CompletedTask;
+        //         }
+        //     };
+        // });
         //     .AddSignatureAuthentication(options =>  // 添加 Signature 身份验证
         // {
         //     options.Events = SysOpenAccessService.GetSignatureAuthenticationEventImpl();
@@ -71,7 +72,6 @@ public class Startup : AppStartup
         services.AddCorsAccessor();
         
         //app服务注册
-        services.AddAppService();
         services.AddService();
       
         // Json序列化设置
@@ -119,7 +119,7 @@ public class Startup : AppStartup
         
         services.AddControllers()
             .AddMvcFilter<RequestActionFilter>()
-            .AddMvcFilter<MyUnitOfWorkFilter>()
+            .AddMvcFilter<TransactionalFilter>()
             .AddInjectWithUnifyResult<RestResultProvider>()
             // .AddNewtonsoftJson(options => SetNewtonsoftJsonSetting(options.SerializerSettings))
             .AddJsonOptions(options =>
@@ -181,6 +181,9 @@ public class Startup : AppStartup
         app.UseCorsAccessor();
 
         app.UseAuthentication();
+        
+        app.UseMiddleware<JwtAuthMiddleware>();
+
         app.UseAuthorization();
 
         app.UseInject(string.Empty);
